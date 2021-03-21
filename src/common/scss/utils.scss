@@ -1,0 +1,129 @@
+@import "variables";
+
+.scroll-container, .scroll-container-x {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &.ps {
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.scroll-container-x {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: mat-color($app-foreground, link);
+
+  &.hover-underline:hover {
+    text-decoration: underline;
+  }
+}
+
+h1,h2,h3,h4,h5 {
+  font-weight: 500;
+}
+
+.unstyled-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+strong, .strong {
+  font-weight: 500;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0 0 5px 0;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+.visually-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.error {
+  color: mat-color($app-warn);
+
+  &.margin-bottom {
+    margin-bottom: 20px;
+  }
+
+  &.margin-top {
+    margin-top: 20px;
+  }
+}
+
+//fix file dropzone firing "dragleave" event when hovering its child
+.file-over-dropzone * {
+  pointer-events: none !important;
+}
+
+.material-panel {
+  border: $admin-card-border;
+  box-shadow: $admin-card-box-shadow;
+  border-radius: 4px;
+  background-color: mat-color($app-background, card);
+  padding: 20px;
+}
+
+// focusable input in mat menu
+input.mat-menu-item {
+  cursor: initial;
+
+  &:focus {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
+
+  &:hover:not([disabled]), &.cdk-focused:not([disabled]) {
+    background: transparent;
+  }
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.compact-scrollbar {
+  scrollbar-color: mat-color($app-foreground, divider) transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: mat-color($app-foreground, divider);
+    border-radius: 3px;
+  }
+}

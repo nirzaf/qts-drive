@@ -1,0 +1,80 @@
+@import "variables";
+
+$close-button-size: 24px;
+
+.be-modal {
+  // width: $modal-default-width;
+  
+  .dialog-loading-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .mat-dialog-container {
+    position: relative;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0 0 35px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    opacity: 0.8;
+    flex: 1 1 auto;
+    margin: 0;
+    line-height: 30px;
+  }
+
+  .mat-dialog-content {
+    position: relative;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .mat-dialog-actions {
+    justify-content: flex-end;
+    padding-bottom: 16px;
+  }
+
+  .close-button {
+    flex: 0 0 $close-button-size;
+    width: $close-button-size;
+    height: $close-button-size;
+    line-height: $close-button-size;
+    color: mat-color($app-foreground, icon);
+    transition: transform ease 0.2s;
+    z-index: 999;
+
+    &:hover {
+      transform: rotate(90deg);
+    }
+
+    .mat-icon {
+      width: $close-button-size;
+      height: $close-button-size;
+    }
+  }
+
+  .errors {
+    color: mat-color($app-warn);
+
+    .error {
+      padding: 10px 0;
+
+      &:last-of-type {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .no-input-error {
+    padding: 10px 0;
+    color: mat-color($app-warn);
+  }
+}

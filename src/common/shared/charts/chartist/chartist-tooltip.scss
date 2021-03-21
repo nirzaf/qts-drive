@@ -1,0 +1,43 @@
+@import "variables";
+
+$chart-tooltip-bg: mat-color($app-foreground, tooltip);
+
+.chartist-tooltip {
+  position: absolute;
+  display: inline-block;
+  opacity: 0;
+  min-width: 5em;
+  padding: .5em;
+  background: $chart-tooltip-bg;
+  color: #fff;
+  text-align: center;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity .2s linear;
+  border-radius: 4px;
+  font-size: 1.3rem;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -15px;
+    border: 15px solid transparent;
+    border-top-color: $chart-tooltip-bg;
+  }
+
+  &.tooltip-show {
+    opacity: 1;
+  }
+
+  .chartist-tooltip-value {
+    font-weight: 500;
+  }
+}
+
+.ct-area, .ct-line {
+  pointer-events: none;
+}

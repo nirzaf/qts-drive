@@ -1,0 +1,39 @@
+@import "variables";
+
+authentication-settings {
+  .twitter .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background: lighten($twitter-color, 10%);
+  }
+
+  .twitter .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background: $twitter-color;
+  }
+
+  .facebook .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background: lighten($facebook-color, 10%);
+  }
+
+  .facebook .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background: $facebook-color;
+  }
+
+  .facebook .pretty-checkbox:checked + label:before {
+    background: $facebook-color;
+  }
+
+  .google .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background: lighten($google-color, 10%);
+  }
+
+  .google .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background: $google-color;
+  }
+
+  .envato .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background: lighten($envato-color, 10%);
+  }
+
+  .envato .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background: $envato-color;
+  }
+}

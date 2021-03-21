@@ -1,0 +1,19 @@
+<div class="datatable responsive-table">
+    <datatable-header pluralResourceName="domains">
+        <ng-container leftContent>
+            <button mat-raised-button color="accent" (click)="showCrupdateDomainModal()" [disabled]="!currentUser.hasPermission('custom_domains.create')" trans>Add Domain</button>
+        </ng-container>
+        <button rightContent mat-raised-button color="accent" (click)="maybeDeleteSelectedDomains()" trans>Delete Selected</button>
+    </datatable-header>
+   <custom-domain-table [domains]="datatable.data$ | async" [showOwnerColumn]="showUserColumn()" [showGlobalColumn]="true">
+       <ng-template #editButton let-domain="domain">
+           <button mat-icon-button (click)="showCrupdateDomainModal(domain)" [matTooltip]="'Edit domain' | trans">
+               <mat-icon svgIcon="edit"></mat-icon>
+           </button>
+       </ng-template>
+   </custom-domain-table>
+    <no-results-message svgImage="custom-domain.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text trans>No custom domains have been added yet</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>

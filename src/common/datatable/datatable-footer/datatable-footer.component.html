@@ -1,0 +1,23 @@
+<div class="page-size" *ngIf="!hidePerPage">
+    <div class="page-size-label" trans>Items per page</div>
+    <div class="input-container">
+        <select class="page-size-input" [formControl]="perPageControl">
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="15">15</option>
+            <option [ngValue]="20">20</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+        </select>
+    </div>
+</div>
+<div class="range-actions">
+    <div class="range-label" *ngIf="from && to && totalRecords">
+        {{from}} - {{to}} {{'of' | trans}} {{totalRecords}}
+    </div>
+    <button type="button" [disabled]="!havePrevious || (datable.paginator.loading$ | async)" class="range-button" (click)="previousPage()" mat-icon-button>
+        <mat-icon svgIcon="chevron-left"></mat-icon>
+    </button>
+    <button type="button" [disabled]="!haveNext || (datable.paginator.loading$ | async)" class="range-button" (click)="nextPage()" mat-icon-button>
+        <mat-icon svgIcon="chevron-right"></mat-icon>
+    </button>
+</div>

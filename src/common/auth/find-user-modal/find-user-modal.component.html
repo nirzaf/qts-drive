@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Find User</h2>
+    <button type="button" (click)="close()" class="no-style close-button" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <div class="input-container search-input-container">
+        <input type="text" placeholder="Search for user by name or email..." [formControl]="searchFormControl">
+        <loading-indicator [isVisible]="loading$ | async" class="small"></loading-indicator>
+    </div>
+
+    <div class="users">
+        <div class="user" *ngFor="let user of users$ | async" (click)="close(user)">
+            <img [src]="user.avatar">
+            <div class="meta overflow-hidden">
+                <div class="name overflow-hidden">{{user.display_name}}</div>
+                <div class="email overflow-hidden">{{user.email}}</div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

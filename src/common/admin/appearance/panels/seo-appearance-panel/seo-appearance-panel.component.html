@@ -1,0 +1,10 @@
+<appearance-panel-meta [path]="['Seo Settings']" (back)="editor.closeActivePanel()"></appearance-panel-meta>
+
+<div [formGroup]="form" class="appearance-panel-content many-inputs">
+    <ng-container *ngFor="let field of seoFields">
+        <div class="input-container">
+            <label [for]="field.key" trans>{{field.name}}</label>
+            <textarea type="text" [id]="field.key" [formControlName]="field.key" [placeholder]="field.defaultValue" rows="2"></textarea>
+        </div>
+    </ng-container>
+</div>

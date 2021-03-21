@@ -1,0 +1,64 @@
+@import "variables";
+
+:host {
+  background-color: mat-color($app-background, background);
+  @include mat-elevation(3);
+  overflow: hidden;
+  width: 300px;
+  border-radius: 4px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: mat-color($app-background, dialog);
+  padding: 15px;
+  font-size: 1.7rem;
+  font-weight: 300;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  margin-bottom: 10px;
+
+  .mat-icon {
+    cursor: pointer;
+    color: mat-color($app-foreground, icon);
+    margin-left: auto;
+  }
+}
+
+.new-item-tabs {
+  padding: 10px;
+}
+
+.items-list {
+  overflow: auto;
+  max-height: 300px;
+
+  .item {
+    color: mat-color($app-foreground, link);
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.mat-expansion-panel {
+  border: 1px solid mat-color($app-foreground, divider);
+  margin-bottom: 10px;
+}
+
+.mat-expansion-panel-header {
+  min-height: 57px;
+
+  &.mat-expanded {
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+  }
+}
+
+.expansion-panel-content {
+  padding-top: 25px;
+}

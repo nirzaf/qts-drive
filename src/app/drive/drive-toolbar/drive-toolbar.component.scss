@@ -1,0 +1,12 @@
+@import "variables";
+
+drive-toolbar {
+  display: block;
+  padding: ($file-list-gutter / 2) $file-list-gutter;
+  width: 100%;
+  overflow: hidden;
+
+  entry-breadcrumbs {
+    margin: 0 -8px;
+  }
+}

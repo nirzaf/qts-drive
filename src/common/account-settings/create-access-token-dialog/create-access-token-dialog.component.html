@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Create new token</h2>
+    <button type="button" mat-icon-button (click)="close()" class="close-button" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form ngNativeValidate (ngSubmit)="confirm()" [formGroup]="form">
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container" *ngIf="!(plainTextToken$ | async)">
+            <input type="text" formControlName="name" placeholder="Enter a name..." trans-placeholder required min="3">
+            <div class="error" *ngIf="(errors$ | async)?.tokenName">{{(errors$ | async)?.tokenName}}</div>
+        </div>
+
+        <div *ngIf="plainTextToken$ | async">
+            <div class="input-container plaintext-token-input-container">
+                <input id="access-token-name" type="text" (click)="focusInput()" (change)="focusInput()"  readonly [value]="plainTextToken$ | async">
+                <button mat-flat-button color="accent" (click)="copyLinkToClipboard()" trans>Copy</button>
+            </div>
+            <p>
+                <mat-icon class="warning-icon" svgIcon="warning"></mat-icon>
+                <span trans>Make sure to store this token in a safe place. After this dialog is closed, token will not be viewable anymore.</span>
+            </p>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <ng-container *ngIf="!(plainTextToken$ | async)">
+            <button (click)="close()" type="button" mat-button class="cancel-button" trans>Cancel</button>
+            <button type="submit" mat-raised-button color="accent" class="submit-button" [disabled]="loading$ | async" trans>create</button>
+        </ng-container>
+        <button (click)="close(token)" *ngIf="token$ | async as token" type="button" mat-button class="cancel-button" trans>Close</button>
+    </mat-dialog-actions>
+</form>

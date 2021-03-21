@@ -1,0 +1,23 @@
+:host {
+  display: block;
+
+  &.input-container {
+    input {
+      flex: 1 1 auto;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
+    }
+
+    select {
+      width: 80px;
+      flex: 0 0 80px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+}

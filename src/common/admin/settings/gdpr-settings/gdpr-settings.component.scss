@@ -1,0 +1,51 @@
+@import "variables";
+
+.error-group h2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.add-policy-button {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.inline-inputs {
+  display: flex;
+}
+
+.input-container .policy-type-select {
+  max-width: 100px;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.policy-action-input {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.policy-list-item:not(:last-of-type) {
+  border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+  margin-bottom: 20px;
+}
+
+.policies-group p {
+  color: mat-color($app-foreground, secondary-text);
+  margin: 0 0 20px;
+}
+
+.policy-name-label {
+  display: flex;
+  align-items: center;
+
+  .mat-icon-button {
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+}

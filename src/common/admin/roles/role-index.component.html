@@ -1,0 +1,85 @@
+<section class="admin-pill-nav">
+    <div class="new-role">
+        <button mat-flat-button color="accent" class="new-role-button" (click)="showCrupdateRoleModal()" *ngIf="currentUser.hasPermission('roles.create')" trans>New Role</button>
+    </div>
+
+    <ng-container *ngIf="breakpoints.isMobile$ | async; else desktopNav">
+        <button [matMenuTriggerFor]="navMenu" class="no-style admin-pill-nav-mobile-selector">
+            <span class="name" trans>{{(selectedRole$ | async).name}}</span>
+            <mat-icon svgIcon="keyboard-arrow-down"></mat-icon>
+        </button>
+        <mat-menu #navMenu="matMenu" class="admin-pill-nav-menu">
+            <button mat-menu-item *ngFor="let role of roles$ | async" (click)="selectRole(role)" [class.selected]="(selectedRole$ | async).id === role.id">{{role.name}}</button>
+        </mat-menu>
+    </ng-container>
+
+    <ng-template #desktopNav>
+        <aside class="admin-pill-nav rounded">
+            <div class="nav-item" *ngFor="let role of roles$ | async" (click)="selectRole(role)" [class.selected]="(selectedRole$ | async).id === role.id">
+                <div class="name" trans>
+                    <div>{{role.name}}</div>
+                    <div class="role-type">{{role.type}}</div>
+                </div>
+
+                <div class="actions">
+                    <button mat-icon-button [matMenuTriggerFor]="actionsMenu" (click)="$event.stopPropagation()">
+                        <mat-icon svgIcon="settings"></mat-icon>
+                    </button>
+                    <mat-menu #actionsMenu>
+                        <div mat-menu-item (click)="showCrupdateRoleModal(role)" *ngIf="currentUser.hasPermission('roles.update')" trans>Edit</div>
+                        <div mat-menu-item (click)="maybeDeleteRole(role)" *ngIf="currentUser.hasPermission('roles.delete')" trans>Delete</div>
+                    </mat-menu>
+                </div>
+            </div>
+        </aside>
+    </ng-template>
+</section>
+
+<div class="datatable responsive-table">
+    <datatable-header pluralResourceName="roles" [showSelectedActions]="false">
+        <ng-container leftContent *ngIf="currentUser.hasPermission('roles.update')">
+            <button class="assign-users-button" mat-raised-button color="accent" (click)="showAssignUsersModal()" [disabled]="!canAssignUsers()" trans>Assign Users</button>
+            <button mat-raised-button color="accent" (click)="maybeDetachUsers()" [disabled]="!(datatable.selectedRows$ | async).length" trans>Unassign Users</button>
+        </ng-container>
+    </datatable-header>
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th table-header-checkbox></th>
+            <th table-sort-header="email" trans>User</th>
+            <th table-sort-header trans>First Name</th>
+            <th table-sort-header trans>Last Name</th>
+            <th table-sort-header="created_at" trans>Assigned At</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users$ | async">
+            <td [table-body-checkbox]="user.id"></td>
+            <td class="mobile-no-label">
+                <user-column [user]="user"></user-column>
+            </td>
+            <td data-label="First Name">{{user.first_name || '-'}}</td>
+            <td data-label="Last Name">{{user.last_name || '-'}}</td>
+            <td data-label="Assigned At">{{user.created_at | formattedDate}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+   <ng-container *ngIf="selectedRole$ | async as selectedRole; else noRoleSelected">
+       <no-results-message svgImage="people.svg" *ngIf="selectedRole.guests || selectedRole.type !== 'sitewide'; else regularRole">
+           <span primary-text trans>This role can't be assigned to users.</span>
+       </no-results-message>
+       <ng-template #regularRole>
+           <no-results-message svgImage="people.svg" *ngIf="(datatable.paginator.noResults$ | async) && !(datatable.paginator.loading$ | async)">
+               <span primary-text trans>No users are assigned this role yet.</span>
+           </no-results-message>
+       </ng-template>
+   </ng-container>
+    <ng-template #noRoleSelected>
+        <no-results-message svgImage="people.svg">
+            <span primary-text trans>No role selected.</span>
+        </no-results-message>
+    </ng-template>
+
+    <datatable-footer></datatable-footer>
+</div>

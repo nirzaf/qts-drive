@@ -1,0 +1,7 @@
+<button type="button" mat-icon-button (click)="togglePopover()" (mouseenter)="openPopover()" (mouseleave)="onMouseLeave($event)">
+    <mat-icon #infoIcon svgIcon="info" class="info-icon"></mat-icon>
+</button>
+
+<ng-template #popoverContent>
+    <ng-content></ng-content>
+</ng-template>

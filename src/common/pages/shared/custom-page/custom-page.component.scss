@@ -1,0 +1,101 @@
+@import "src/scss/variables";
+
+custom-page {
+  display: block;
+  min-height: 100vh;
+  flex: 1 1 auto;
+
+  .page-body {
+    padding: 25px;
+    word-break: break-all;
+    font-size: 1.6rem;
+    line-height: 24px;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: normal;
+
+    &:not(:first-of-type) {
+      border-top: 1px solid mat-color($app-foreground, divider);
+      margin-top: 45px;
+      padding-top: 30px;
+    }
+  }
+
+  h4 {
+    font-size: 1.6rem;
+    margin: 35px 0 10px;
+    font-weight: 500;
+  }
+
+  // TODO: refactor this so there's no need to duplicate these styles
+  ul, ol {
+    font-size: inherit;
+    font-weight: inherit;
+    margin-top: 10px;
+    padding-left: 40px;
+    position: relative;
+
+    li {
+      margin-bottom: 8px;
+    }
+  }
+
+  ul {
+    padding-left: 40px;
+    position: relative;
+
+    li {
+      list-style-type: disc;
+      margin-bottom: 7px;
+    }
+  }
+
+  ol {
+    counter-reset: custom-counter;
+    list-style: none;
+
+    li:before {
+      content: counter(custom-counter, decimal) '.';
+      counter-increment: custom-counter;
+      font-weight: 500;
+      position: absolute;
+      left: -10px;
+      width: 40px;
+      text-align: right;
+    }
+  }
+
+  p {
+    word-break: break-word;
+  }
+
+  .widget {
+    background-color: #f3fbf7;
+    max-width: 100%;
+    padding: 14px;
+    margin: 35px 0;
+    border-radius: 3px;
+    overflow-wrap: break-word;
+    border-left: 5px solid darken(#f3fbf7, 40%);
+    font-size: 1.7rem;
+
+    .title {
+      font-weight: 500;
+      color: #43484d;
+    }
+
+    &.widget-important {
+      background-color: #fef7ed;
+      border-left: 5px solid darken(#fef7ed, 40%);
+    }
+
+    &.widget-warning {
+      background-color: #f2564d;
+      border-left: 5px solid darken(#f2564d, 40%);
+    }
+  }
+
+}

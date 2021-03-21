@@ -1,0 +1,8 @@
+<button mat-raised-button color="accent" class="upload-button" [disabled]="!(canUpload$ | async)" [uploadButton]="uploadInputConfig" (filesSelected)="openUploadsPanel($event)">
+    <mat-icon svgIcon="cloud-upload"></mat-icon>
+    <span trans>Upload</span>
+</button>
+
+<button mat-raised-button color="accent" class="new-folder-button" [disabled]="!(canUpload$ | async)" (click)="openNewFolderDialog()">
+    <mat-icon svgIcon="create-new-folder"></mat-icon>
+</button>

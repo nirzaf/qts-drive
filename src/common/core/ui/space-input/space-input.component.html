@@ -1,0 +1,9 @@
+<label for="space-input-{{id}}" *ngIf="label" trans>{{label}}</label>
+<div class="wrapper">
+    <input type="number" min="0" id="space-input-{{id}}" [formControl]="form.get('amount')" placeholder="Optional..." trans-placeholder>
+    <select [formControl]="form.get('unit')">
+        <option [ngValue]="unit" *ngFor="let unit of spaceUnits" trans>{{unit}}</option>
+    </select>
+</div>
+<ng-content select=".description"></ng-content>
+<ng-content select=".error"></ng-content>

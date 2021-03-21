@@ -1,0 +1,70 @@
+<div class="header">
+    <div class="title" trans>GDPR</div>
+    <div class="subtitle" trans>Configure settings related to EU General Data Protection Regulation.</div>
+</div>
+
+<form class="body many-inputs" (ngSubmit)="saveSettings()" ngNativeValidate>
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="cookie_notice.enable" id="cookie_notice.enable" [(ngModel)]="state.client['cookie_notice.enable']" trans>Enable Cookie Notice</mat-slide-toggle>
+        <p trans>Whether cookie notice should be shown automatically to users from EU until it is accepted.</p>
+    </div>
+
+    <div class="error-group many-inputs" *ngIf="state.client['cookie_notice.enable']">
+        <div class="input-container" *ngIf="customPages$ | async as customPages">
+            <label for="cookie_notice.learn_more">Learn More Link</label>
+            <select id="cookie_notice.learn_more" name="cookie_notice.learn_more" [(ngModel)]="state.client['cookie_notice.learn_more']">
+                <option value="" trans>None (Hide learn more link)</option>
+                <option *ngFor="let item of customPages.items" [value]="item.action">{{item.label}}</option>
+            </select>
+        </div>
+
+        <div class="input-container">
+            <div class="input-container">
+                <label for="cookie-notice-position" trans>Cookie Notice Position</label>
+                <select id="cookie-notice-position" name="cookie-notice-position" [(ngModel)]="state.client['cookie_notice.position']">
+                    <option value="top" trans>Top</option>
+                    <option value="bottom" trans>Bottom</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="error-group no-border-top no-bottom-border policies-group">
+        <h2>
+            <span>Registration Page Policies</span>
+            <button type="button" mat-icon-button color="accent" class="add-policy-button" (click)="addRegisterPolicy()">
+                <mat-icon svgIcon="add"></mat-icon>
+            </button>
+        </h2>
+        <p trans>Here you can create policies that will be shown on registration page and user will be required to accept them by toggling a checkbox.</p>
+        <ul class="unstyled-list">
+            <li *ngFor="let policy of registerPolicies.controls; index as i" [formGroup]="policy" class="many-inputs policy-list-item">
+                <div class="input-container">
+                    <label for="policy-name-{{i}}" class="policy-name-label">
+                        <span trans>Name</span>
+                        <button mat-icon-button color="warn" [disableRipple]="true" (click)="removeRegisterPolicy(i)">
+                            <mat-icon svgIcon="remove"></mat-icon>
+                        </button>
+                    </label>
+                    <input type="text" id="policy-name-{{i}}" formControlName="label" required>
+                </div>
+                <div class="input-container">
+                    <label for="policy-action-{{i}}" trans>Link</label>
+                    <div class="inline-inputs">
+                        <select class="policy-type-select" id="policy-type-{{i}}" formControlName="type" (change)="onPolicyTypeChange(policy)">
+                            <option value="page" trans>Page</option>
+                            <option value="link" trans>Link</option>
+                        </select>
+                        <input type="url" class="policy-action-input" id="policy-action-{{i}}" *ngIf="policy.value.type === 'link'" formControlName="action" placeholder="Optional..." trans-placeholder>
+                        <select id="policy-action-{{i}}" class="policy-action-input" formControlName="action" *ngIf="policy.value.type === 'page'">
+                            <option *ngFor="let item of (customPages$ | async).items" [value]="item.action">{{item.label}}</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

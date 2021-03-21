@@ -1,0 +1,80 @@
+@import "variables";
+
+.mat-menu-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 100%;
+}
+
+.right {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.role-name {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.workspace-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: initial;
+  min-width: 280px - 32px; // - padding
+  line-height: initial;
+  height: 52px;
+
+  &.active {
+    color: mat-color($app-accent, default);
+
+    .member-count {
+      color: inherit;
+    }
+  }
+
+  .mat-icon {
+    flex-shrink: 0;
+    color: inherit;
+  }
+
+  .name {
+    margin-right: 10px;
+    flex: 1 1 auto;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+  }
+}
+
+.new-workspace-menu-item {
+  border-top: 1px solid mat-color($app-foreground, divider);
+  margin-top: 8px;
+  padding-top: 4px;
+  font-size: 1.5rem;
+}
+
+.member-count {
+  color: mat-color($app-foreground, secondary-text);
+  font-size: 1.3rem;
+}
+
+.settings-button {
+  margin-left: auto;
+  color: mat-color($app-foreground, icon);
+
+  &:hover {
+    color: mat-color($app-accent, default);
+  }
+
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+
+  .mat-icon {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    margin-right: 0;
+  }
+}

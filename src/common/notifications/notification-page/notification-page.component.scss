@@ -1,0 +1,16 @@
+@import "variables";
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: mat-color($app-background, background);
+}
+
+.be-container {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+pagination-widget {
+  margin-top: 35px;
+}

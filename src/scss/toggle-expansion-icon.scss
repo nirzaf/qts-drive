@@ -1,0 +1,10 @@
+.toggle-expansion-icon {
+  cursor: default;
+  transform: rotate(-90deg);
+  transition: transform 100ms ease-out;
+  flex: 0 0 24px;
+
+  &.expanded {
+    transform: none;
+  }
+}

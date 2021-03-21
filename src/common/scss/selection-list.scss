@@ -1,0 +1,48 @@
+@import "variables";
+
+.selection-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .list-item {
+    &:hover .list-item-header {
+      background-color: mat-color($app-accent, emphasis);
+    }
+  }
+
+  .list-item-header {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    .meta {
+      flex: 1 1 auto;
+      padding-right: 16px;
+    }
+
+    .mat-pseudo-checkbox {
+      flex-shrink: 0;
+      width: 16px;
+    }
+  }
+
+  .list-item-name {
+    font-size: 1.6rem;
+  }
+
+  .list-item-description {
+    margin: 0;
+  }
+
+  .list-item-restrictions {
+    padding: 10px 20px;
+    max-width: 400px;
+
+    label {
+      text-transform: capitalize;
+    }
+  }
+}

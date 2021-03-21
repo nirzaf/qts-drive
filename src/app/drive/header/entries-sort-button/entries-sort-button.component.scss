@@ -1,0 +1,70 @@
+@import "variables";
+
+entries-sort-button {
+  display: inline-block;
+
+  .label {
+    color: mat-color($app-foreground, secondary-text);
+    padding-right: 3px;
+  }
+
+  .arrow-icon {
+    width: 14px;
+    height: 14px;
+    position: relative;
+    top: 2px;
+  }
+
+  button:disabled {
+    color: mat-color($app-foreground, secondary-text);
+    cursor: default;
+
+    .mat-icon {
+      display: none;
+    }
+  }
+
+  .mobile-sort-button-content {
+    display: none;
+  }
+}
+
+
+.drive-sort-menu {
+  .mat-menu-item {
+    padding-left: 8px;
+    line-height: 35px;
+    height: 35px;
+    font-size: 1.5rem;
+
+    &.active {
+      color: mat-color($app-accent, default);
+
+      .mat-icon {
+        visibility: visible;
+        color: inherit;
+      }
+    }
+
+    .mat-icon {
+      visibility: hidden;
+      margin-right: 8px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .separator {
+    height: 1px;
+    background-color: mat-color($app-foreground, divider);
+    margin: 5px 0 20px;
+  }
+
+  .title {
+    text-transform: uppercase;
+    padding-left: 32px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+}

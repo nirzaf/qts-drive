@@ -1,0 +1,21 @@
+<div [formGroup]="form" class="many-inputs">
+    <div class="input-container" *ngIf="settings.get('billing.enable')">
+        <label for="user-subscribed-filter" trans>Subscribed</label>
+        <select id="user-subscribed-filter" formControlName="subscribed">
+            <option [ngValue]="null" trans>All</option>
+            <option [ngValue]="true" trans>Subscribed</option>
+            <option [ngValue]="false" trans>Not subscribed</option>
+        </select>
+    </div>
+
+    <div class="input-container">
+        <label for="user-status-filter" trans>Status</label>
+        <select id="user-status-filter" formControlName="email_verified_at">
+            <option [ngValue]="null" trans>All</option>
+            <option [ngValue]="true" trans>Email confirmed</option>
+            <option [ngValue]="false" trans>Email not confirmed</option>
+        </select>
+    </div>
+
+    <between-input formControlName="created_at" [setDefaultDate]="false" [showLabels]="false">Created Between</between-input>
+</div>

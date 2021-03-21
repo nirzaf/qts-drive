@@ -1,0 +1,8 @@
+<div class="stat" *ngFor="let item of data">
+    <mat-icon [svgIcon]="item.icon"></mat-icon>
+    <div class="details">
+        <div class="name" trans>{{item.name}}</div>
+        <div class="count" *ngIf="item.type === 'number'">{{item.value | number}}</div>
+        <div class="count" *ngIf="item.type === 'fileSize'">{{item.value | formattedFileSize}}</div>
+    </div>
+</div>

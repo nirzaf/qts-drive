@@ -1,0 +1,113 @@
+@import "variables";
+
+:host {
+  display: flex;
+}
+
+// won't be able to override with responsive table styles without ng-deep
+::ng-deep .localizations-datatable-header {
+  display: flex;
+  align-items: center;
+  height: 85px;
+  padding: 15px;
+  border-bottom: 1px solid transparent;
+  position: relative;
+}
+
+.search-input-container {
+  margin-left: auto;
+  max-width: 300px;
+  position: relative;
+
+  .mat-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  input {
+    margin-left: 1px;
+  }
+}
+
+.datatable {
+  flex: 1 1 auto;
+
+  .translation-input {
+    position: relative;
+    z-index: 1;
+    min-height: 40px;
+    border: none;
+    background-color: transparent;
+    padding: 0 10px;
+    margin-left: 1px;
+    color: inherit;
+    width: 98%;
+
+    &:hover, &:focus {
+      outline: mat-color($app-accent, default) auto 1px;
+    }
+  }
+
+  td:not(.edit-column) {
+    width: 50%;
+  }
+}
+
+.table-skeleton {
+  vertical-align: middle;
+  max-width: 99%;
+}
+
+.skeleton-nav-item {
+  pointer-events: none;
+}
+
+@media screen and (min-width: $medium) {
+  .update-translations {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid mat-color($app-foreground, divider);
+  }
+
+  .new-localization {
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: $medium) {
+  :host {
+    display: block;
+  }
+  
+  .admin-pill-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+    position: relative;
+  }
+
+  .source-column {
+    margin-left: 10px;
+  }
+
+  .new-localization {
+    margin-bottom: 5px;
+  }
+
+  .update-translations {
+    position: absolute;
+    top: -5px;
+    right: 0;
+  }
+
+  .datatable td {
+    width: auto !important;
+  }
+}

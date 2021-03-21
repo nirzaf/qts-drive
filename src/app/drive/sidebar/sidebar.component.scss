@@ -1,0 +1,112 @@
+@import "variables";
+
+.be-light-mode sidebar {
+  background-color: mat-color($app-background, background);
+}
+
+sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  color: mat-color($app-foreground, text);
+  position: relative;
+
+  .sidebar-body {
+    flex: 1 1 auto;
+  }
+
+  sidebar-action-buttons {
+    padding: $file-list-gutter 0;
+  }
+
+  .drag-over.can-drop {
+    background-color: mat-color($app-accent, emphasis);
+  }
+
+  .sidebar-menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    min-height: inherit;
+    line-height: inherit;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: inherit;
+    outline: none;
+    cursor: pointer;
+    -webkit-user-drag: none;
+
+    &.active {
+      color: mat-color($app-accent, default);
+      background-color: mat-color($app-accent, emphasis);
+
+      .mat-icon {
+        color: inherit;
+      }
+
+      .text {
+        font-weight: 500;
+      }
+    }
+
+    &:not(.active):not(.drag-over):hover {
+      background-color: mat-color($app-background, hover);
+    }
+
+    .mat-icon:not(.toggle-expansion-icon) {
+      margin-right: 15px;
+    }
+
+    .mat-icon {
+      color: mat-color($app-foreground, icon);
+    }
+
+    &:not(.active) .text {
+      opacity: 0.8;
+    }
+  }
+
+  .sidebar-menu .sidebar-menu-item {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .sidebar-footer:hover {
+    background-color: mat-color($app-background, hover);
+  }
+
+  workspace-selector {
+    display: block;
+    border-top: 1px solid mat-color($app-foreground, divider);
+    border-radius: 4px;
+    margin: 0 20px;
+    height: 80px;
+  }
+
+  .usage-container {
+    display: flex;
+    margin-top: 24px;
+    padding: 24px 0 0 24px;
+    border-top: 1px solid mat-color($app-foreground, divider);
+
+    .mat-icon {
+      margin-right: 15px;
+      margin-top: -4px;
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  //need to use "before" to start "base" indent to all folder tree items,
+  //using regular padding would override material tree indent levels
+  folders-tree .mat-tree-node {
+    &:before {
+      display: block;
+      content: " ";
+      width: 24px;
+      flex: 0 0 24px;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+<mat-sidenav-container>
+    <mat-sidenav [opened]="!leftColumnIsHidden" [mode]="(breakpoints.isMobile$ | async) ? 'over' : 'side'" class="sidebar">
+        <div class="header">
+            <div class="back-button" (click)="closeEditor()">
+                <mat-icon svgIcon="close"></mat-icon>
+            </div>
+            <div class="title" trans>Appearance Editor</div>
+            <button
+                    mat-raised-button
+                    color="accent"
+                    class="button primary save-button"
+                    (click)="editor.saveChanges()"
+                    [disabled]="!(editor.changes$ | async) || (editor.loading$ | async)"
+            >
+                <span *ngIf="editor.changes$ | async; else saved" trans>Save</span>
+                <ng-template #saved>
+                    <span trans>Saved</span>
+                </ng-template>
+            </button>
+        </div>
+
+        <ng-container *ngIf="editor.activePanel$ | async as activePanel; else navigation">
+            <ng-container [ngSwitch]="activePanel.name">
+                <general-appearance-panel *ngSwitchCase="'general'"></general-appearance-panel>
+                <themes-appearance-panel *ngSwitchCase="'themes'"></themes-appearance-panel>
+                <menus-appearance-panel *ngSwitchCase="'menus'"></menus-appearance-panel>
+                <seo-appearance-panel *ngSwitchCase="'seo-settings'"></seo-appearance-panel>
+                <custom-code-appearance-panel *ngSwitchCase="'custom-code'"></custom-code-appearance-panel>
+                <ng-container *ngSwitchDefault>
+                    <ng-template *ngIf="panelPortal$ | async as portal" [cdkPortalOutlet]="portal"></ng-template>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #navigation>
+            <div class="root-navigation">
+                <a class="nav-item" [routerLink]="[]" [queryParams]="{panel: slugify(section.name)}" *ngFor="let section of editor.config.sections">
+                    <span class="text" trans>{{viewName(section.name)}}</span>
+                    <mat-icon class="actions" svgIcon="keyboard-arrow-right"></mat-icon>
+                </a>
+            </div>
+        </ng-template>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="live-preview">
+            <iframe src="about:blank" #iframe></iframe>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<button mat-fab (click)="toggleLeftSidebar()" class="sidebar-toggle-button">
+    <mat-icon svgIcon="edit"></mat-icon>
+</button>

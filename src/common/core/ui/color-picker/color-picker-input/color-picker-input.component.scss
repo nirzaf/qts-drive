@@ -1,0 +1,38 @@
+@import "variables";
+
+.color-picker-btn {
+  display: flex;
+  align-items: center;
+  padding: 0 10px 0 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid mat-color($app-foreground, divider);
+  background-color: mat-color($app-background, card);
+  cursor: pointer;
+  height: 57px;
+  font-size: 1.5rem;
+  overflow: hidden;
+  width: 100%;
+
+  .color-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .name {
+    margin-left: 3px;
+    margin-top: 3px;
+    font-size: 1.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+    text-transform: capitalize;
+  }
+
+  .change {
+    color: mat-color($app-foreground, link);
+    font-size: 1.3rem;
+    margin-left: auto;
+  }
+}

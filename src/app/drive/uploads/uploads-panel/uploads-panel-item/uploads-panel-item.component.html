@@ -1,0 +1,24 @@
+<file-icon [mime]="upload.uploadedFile.mime"></file-icon>
+<div class="content">
+    <div class="meta">
+        <div class="name" [matTooltip]="upload.uploadedFile.name">{{upload.uploadedFile.name}}</div>
+        <div class="time-left" *ngIf="progress.percentage && progress.percentage < 100 && !upload.error$.value">
+            {{progress.eta}}
+            <span trans>left</span>
+        </div>
+        <div class="actions">
+            <mat-icon
+                    svgIcon="error"
+                    *ngIf="upload.error$ | async as error; else noError"
+                    class="error-icon"
+                    [matTooltip]="error | trans"
+                    matTooltipPosition="left"
+            ></mat-icon>
+            <ng-template #noError>
+                <mat-icon svgIcon="check-circle" *ngIf="upload.completed" class="completed-icon"></mat-icon>
+                <span class="cancel-button" *ngIf="!upload.completed" (click)="cancelUpload(upload)" trans>Cancel</span>
+            </ng-template>
+        </div>
+    </div>
+    <mat-progress-bar mode="determinate" [value]="progress.percentage" color="accent"></mat-progress-bar>
+</div>

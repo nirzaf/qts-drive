@@ -1,0 +1,60 @@
+@import "variables";
+
+main-searchbar {
+  display: block;
+  width: 100%;
+  position: relative;
+  border-radius: 3px;
+
+  .input-container input {
+    padding: 0 45px;
+    box-shadow: none !important;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    z-index: 5;
+  }
+
+  .cancel-icon {
+    position: absolute;
+    top: 3px;
+    right: 6px;
+    z-index: 1;
+  }
+}
+
+.file-types-autocomplete.mat-autocomplete-panel {
+  max-height: 350px;
+  color: mat-color($app-foreground, text);
+  background-color: mat-color($app-background, card);
+
+  .mat-option {
+    line-height: normal;
+    margin-bottom: 5px;
+    font-size: 1.4rem;
+  }
+
+  .mat-option-text {
+    display: flex;
+    align-items: center;
+
+    file-icon, .date {
+      align-self: start;
+    }
+
+    .owner {
+      color: mat-color($app-foreground, secondary-text);
+    }
+
+    file-icon {
+      margin-right: 10px;
+    }
+
+    .date {
+      margin-left: auto;
+    }
+  }
+}

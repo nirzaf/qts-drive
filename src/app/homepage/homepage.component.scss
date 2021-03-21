@@ -1,0 +1,249 @@
+@import "variables";
+
+:host, .header-overlay, .background-image, .hero-content {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.hero {
+  margin-bottom: 60px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+.background-image {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - #{$material-navbar-height});
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+
+  .title {
+    font-size: 4.5rem;
+    font-weight: 500;
+  }
+
+  .subtitle {
+    font-size: 2.1rem;
+    font-weight: 300;
+  }
+
+  .mat-raised-button {
+    min-height: 50px;
+    line-height: 50px;
+    margin-top: 30px;
+    min-width: 190px;
+    font-size: 1.6rem;
+    border-radius: 30px;
+  }
+
+  .pricing-button {
+    font-size: 1.6rem;
+    margin-left: 10px;
+  }
+}
+
+.down-button {
+  position: absolute;
+  bottom: 5px;
+  left: calc(50% - 33px);
+  width: 66px;
+  height: 66px;
+  line-height: 66px;
+  color: #fff;
+  z-index: 3;
+
+  .mat-icon {
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+  }
+}
+
+.inline-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: space-between;
+  text-align: center;
+
+  @media only screen and (max-width: $medium) {
+    display: block;
+
+    .inline-feature {
+      min-width: auto;
+    }
+  }
+}
+
+.inline-feature {
+  max-width: 360px;
+
+  img {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 30px;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 1.5rem;
+    color: mat-color($app-foreground, secondary-text);
+  }
+}
+
+.spacer {
+  border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.big-feature {
+  display: flex;
+  padding: 15px 0;
+
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+
+  img {
+    border-radius: 10px;
+    width: 580px;
+    max-width: 100%;
+    margin-right: auto;
+    box-shadow: 0 0 80px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .info {
+    margin-left: 30px;
+    margin-right: auto;
+    max-width: 350px;
+    padding-top: 30px;
+  }
+
+  small {
+    text-transform: uppercase;
+    margin: 0 0 15px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: mat-color($app-foreground, secondary-text);
+  }
+
+  h2 {
+    margin: 15px 0;
+    font-size: 3.1rem;
+    font-weight: 400;
+  }
+
+  .feature-border {
+    width: 50px;
+    height: 2px;
+    background-color: mat-color($app-primary, default);
+  }
+
+  p {
+    font-size: 1.5rem;
+    margin: 20px 0;
+  }
+
+  @media only screen and (max-width: $medium) {
+    display: block;
+    padding: 0 15px;
+
+    .info {
+      margin-left: 0;
+    }
+  }
+}
+
+.bottom-cta {
+  padding: 70px 0;
+  position: relative;
+  color: mat-color($app-primary, default-contrast);
+  background-repeat: no-repeat;
+  background-color: #2B2B2B;
+  background-attachment: fixed;
+  text-align: center;
+
+  .be-container {
+    position: relative;
+  }
+
+  h2 {
+    font-size: 3.4rem;
+    margin: 0 auto;
+    max-width: 600px;
+    font-weight: 400;
+  }
+
+  p {
+    font-size: 2.6rem;
+    margin: 8px auto 50px;
+    font-weight: 300;
+    max-width: 600px;
+  }
+
+  .mat-stroked-button {
+    min-width: 185px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.7rem;
+    font-weight: 500;
+    border-color: mat-color($app-primary, default-contrast);
+  }
+
+  @media only screen and (max-width: $medium) {
+    display: none;
+  }
+}
+
+footer {
+  padding: 50px 0;
+  font-size: 1.5rem;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  @media only screen and (max-width: $medium) {
+    padding: 25px 0;
+    text-align: center;
+  }
+}
+
+.ads-landing-top-host {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}

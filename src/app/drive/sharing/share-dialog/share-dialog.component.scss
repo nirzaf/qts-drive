@@ -1,0 +1,31 @@
+@import "variables";
+
+share-dialog {
+  display: block;
+  width: $modal-wide-width;
+  max-width: 100%;
+
+  .emails-container {
+    display: flex;
+    min-height: 54px;
+
+    chip-input {
+      flex: 1 1 auto;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    //don't scale action button height with chip container height
+    .mat-flat-button {
+      height: 54px;
+      border: 1px solid mat-color($app-foreground, divider);
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .mat-tab-body {
+    padding: 15px 0;
+  }
+}

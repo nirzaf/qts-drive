@@ -1,0 +1,91 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+.plans {
+  display: flex;
+  overflow-x: auto;
+  padding: 5px 0;
+
+  &.has-recommended {
+    .plan:not(.recommended) {
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
+  }
+
+  @media only screen and (max-width: 1205px) {
+    display: block;
+
+    .plan {
+      margin-bottom: 30px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  align-items: center;
+  @include mat-elevation(1);
+  background-color: mat-color($app-background, dialog);
+  min-height: 367px;
+  padding: 48px 16px;
+  border-radius: 4px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  max-width: 515px;
+  min-width: 280px;
+
+  &:not(.last) {
+    margin-right: 25px;
+  }
+
+  .first {
+    margin-left: auto;
+  }
+
+  .last {
+    margin-right: auto;
+  }
+
+  &.recommended {
+    border-top-color: mat-color($app-accent, default);
+
+    .name {
+      font-size: 3.4rem;
+      color: mat-color($app-accent, default);
+    }
+  }
+
+  .name {
+    font-size: 3.2rem;
+    font-weight: 500;
+    padding-top: 15px;
+    text-transform: capitalize;
+    color: mat-color($app-foreground, text);
+  }
+
+  .price-box {
+    padding: 0 0 15px;
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: mat-color($app-foreground, secondary-text);
+  }
+
+  .select-plan-button {
+    min-width: 125px;
+    line-height: 44px;
+    margin: 35px 0 20px;
+  }
+}
+
+.mat-stroked-button:not([disabled]) {
+  border-color: mat-color($app-accent, default);
+}

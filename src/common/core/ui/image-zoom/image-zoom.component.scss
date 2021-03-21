@@ -1,0 +1,13 @@
+:host {
+  display: inline-block;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  object-fit: cover;
+}

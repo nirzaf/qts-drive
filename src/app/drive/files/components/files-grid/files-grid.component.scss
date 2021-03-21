@@ -1,0 +1,12 @@
+@import "variables";
+
+files-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  margin: -$file-grid-item-gutter;
+
+  &:empty {
+    margin: 0;
+  }
+}

@@ -1,0 +1,71 @@
+@import "variables";
+
+:host {
+  display: block;
+  font-weight: normal;
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.menu-trigger {
+  display: flex;
+  align-items: center;
+  max-width: 250px;
+  overflow: hidden;
+}
+
+.email {
+  margin-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.avatar {
+  height: 40px;
+  width: 40px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.mobile-toggle {
+  display: none;
+
+  .mat-icon {
+    display: block;
+  }
+}
+
+// only show user avatar in navbar unless screen is wide enough for email as well
+@media only screen and (max-width: 1550px) {
+  .email {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: $navbar-breakpoint) {
+  .avatar, .email, .dropdown-icon {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+}
+
+.logout-item {
+  color: mat-color($app-warn);
+
+  .mat-icon {
+    color: inherit;
+  }
+}
+
+a {
+  text-transform: capitalize;
+}

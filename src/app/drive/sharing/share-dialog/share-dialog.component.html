@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Add people</h2>
+    <button type="button" mat-icon-button (click)="dialogRef.close()" class="close-button" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <div class="emails-container">
+        <chip-input [formControl]="shareModel.emails" [emailsInput]="true" [suggestFn]="settings.get('share.suggest_emails') ? suggestUserEmails : null" placeholder="Enter email addresses..." email required></chip-input>
+        <sharing-permissions-button [compact]="true" (change)="shareModel.permissions = $event"></sharing-permissions-button>
+    </div>
+
+    <div class="errors">
+        <div class="error" *ngFor="let error of errors | async | keyvalue">{{error.value}}</div>
+    </div>
+
+    <entries-access-table></entries-access-table>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button type="button" mat-button (click)="dialogRef.close()" [disabled]="loading$ | async" trans>Close</button>
+    <button type="submit" mat-raised-button color="accent" (click)="share()" [disabled]="(loading$ | async)" *ngIf="shareModel.emails.value?.length" trans>Share</button>
+</mat-dialog-actions>
+

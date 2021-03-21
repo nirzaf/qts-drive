@@ -1,0 +1,83 @@
+@import "variables";
+
+.be-dark-mode {
+  scrollbar-color: mat-color($app-foreground, divider) transparent;
+  scrollbar-width: thin;
+
+  * {
+    scrollbar-color: mat-color($app-foreground, divider) transparent;
+    scrollbar-width: thin;
+  }
+
+  // fix scrollbars on chrome
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: mat-color($app-foreground, divider);
+    border-radius: 3px;
+  }
+
+  // make material slide toggle thumb darker
+  .mat-slide-toggle-thumb {
+    background-color: #bdbdbd;
+  }
+
+  // fix native select dropdown color
+  select, option {
+    background-color: mat-color($app-background, card);
+    color: mat-color($app-foreground, text);
+  }
+
+  // invert material snackbar colors
+  .mat-snack-bar-container {
+    background-color: #fafafa;
+    color: rgba(0,0,0,0.87);
+  }
+
+  .mat-simple-snackbar-action {
+    color: inherit;
+  }
+
+  // fix mat checkbox and pseudo checkbox disabled colors
+  .mat-pseudo-checkbox-disabled {
+    color: #686868;
+  }
+
+  .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-disabled, .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-disabled {
+    background-color: #686868;
+  }
+
+  .mat-checkbox-disabled {
+    &.mat-checkbox-checked,
+    &.mat-checkbox-indeterminate {
+      .mat-checkbox-background {
+        background-color: #686868;
+      }
+    }
+
+    &:not(.mat-checkbox-checked) {
+      .mat-checkbox-frame {
+        border-color: #686868;
+      }
+    }
+  }
+
+  // fix material button toggle checked color on disabled toggle
+  .mat-button-toggle-disabled.mat-button-toggle-checked {
+    background-color: #424242;
+  }
+
+  // material navbar should be dark as well instead of using primary color
+  material-navbar:not(.transparent) {
+    &.primary, &.accent {
+      background-color: mat-color($app-background, card);
+      border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+
+      .route-nav-item.active {
+        background-color: mat-color($app-accent, default);
+      }
+    }
+  }
+}

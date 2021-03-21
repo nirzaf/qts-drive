@@ -1,0 +1,5 @@
+<button type="button" class="no-style color-picker-btn" (click)="openColorPicker($event)">
+    <mat-icon svgIcon="drop-custom" class="color-icon" [style.color]="color$ | async"></mat-icon>
+    <span class="name" trans><ng-content></ng-content></span>
+    <span class="change" trans>Change</span>
+</button>

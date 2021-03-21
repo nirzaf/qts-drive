@@ -1,0 +1,10 @@
+@import "variables";
+
+.files-select-box {
+  position: absolute;
+  z-index: 999;
+  background-color: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.1);
+  width: 0;
+  height: 0;
+}

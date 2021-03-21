@@ -1,0 +1,13 @@
+<fieldset [formGroup]="form">
+    <legend><ng-content></ng-content></legend>
+    <div class="inline-inputs-container">
+        <div class="input-container">
+            <label [for]="id + '-date'" class="hidden" trans>Date</label>
+            <input type="date" [id]="id + '-date'" class="date-input" formControlName="date" [placeholder]="currentDate">
+        </div>
+        <div class="input-container">
+            <label [for]="id + '-time'" class="hidden trans">Time</label>
+            <input type="time" [id]="id + '-time'" class="time-input" formControlName="time" [placeholder]="currentTime">
+        </div>
+    </div>
+</fieldset>

@@ -1,0 +1,12 @@
+<mat-tab-group [dynamicHeight]="true" color="accent" [selectedIndex]="selectedIndex$ | async">
+    <mat-tab [label]="'Bank Card' | trans" *ngIf="settings.get('billing.stripe.enable')">
+        <credit-card-form (created)="subscribeOnStripe()" [submitButtonText]="submitText" [showOrderSummary]="true"></credit-card-form>
+    </mat-tab>
+    <mat-tab label="Paypal" [disabled]="disablePaypalTab" *ngIf="settings.get('billing.paypal.enable')">
+        <div class="paypal-tab">
+            <p class="info" trans>After clicking the button below, you will be redirected to paypal.com to approve the subscription.</p>
+            <order-summary></order-summary>
+            <button mat-raised-button color="accent" (click)="subscribeOnPaypal()" [disabled]="loading$ | async">{{submitText | trans}}</button>
+        </div>
+    </mat-tab>
+</mat-tab-group>

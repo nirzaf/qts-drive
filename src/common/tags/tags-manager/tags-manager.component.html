@@ -1,0 +1,28 @@
+<form class="input-container" *ngIf="!readonly" ngNativeValidate (ngSubmit)="selectTagsFromString(formControl.value)">
+    <div class="input-with-action">
+        <input type="text" class="tags-string-input" [matAutocomplete]="auto" [formControl]="formControl" required>
+        <button type="submit" class="add-tags-button" mat-flat-button color="accent" trans>Add</button>
+    </div>
+</form>
+
+<p class="main-info" *ngIf="!readonly" [transValues]="{tagName: pluralName}" trans>Separate :tagName with comma.</p>
+
+<div class="selected-tags">
+    <mat-chip-list [selectable]="false">
+        <mat-chip (removed)="deselectTag(tag)" [removable]="!readonly" *ngFor="let tag of selectedTags$ | async">
+            <span>{{tag}}</span>
+            <mat-icon svgIcon="cancel" matChipRemove></mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+</div>
+
+<div class="existing-tags" *ngIf="!readonly">
+    <p [transValues]="{tagName: pluralName}" trans>Choose from existing :tagName:</p>
+    <div class="existing-tags-list">
+        <div class="existing-tag-name" *ngFor="let tag of existingTags$ | async" (click)="selectTags([tag.name])">{{tag.display_name}}</div>
+    </div>
+</div>
+
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectTags([$event.option.value])">
+    <mat-option *ngFor="let tag of suggestedTags$ | async" [value]="tag.name">{{tag.display_name}}</mat-option>
+</mat-autocomplete>

@@ -1,0 +1,51 @@
+@import "variables";
+
+:host {
+  display: block;
+  position: relative;
+  min-height: 33px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+}
+
+skeleton.text {
+  position: absolute;
+  max-width: 250px;
+  height: 1.8rem;
+  margin: auto 0;
+  top: 0;
+  bottom: 0;
+}
+
+.breadcrumb-item {
+  font-size: 1.8rem;
+  color: mat-color($app-foreground, text);
+  border-radius: 8px;
+  padding: 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  &:hover {
+    background-color: mat-color($app-background, hover);
+  }
+
+  &:first-of-type {
+    text-transform: capitalize;
+  }
+
+  .mat-icon {
+    vertical-align: middle;
+    color: mat-color($app-foreground, icon);
+  }
+}
+
+.separator {
+  color: mat-color($app-foreground, secondary-text);
+}

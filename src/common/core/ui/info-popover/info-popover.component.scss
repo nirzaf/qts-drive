@@ -1,0 +1,44 @@
+@import "variables";
+
+info-popover {
+  .mat-icon-button {
+    vertical-align: middle;
+    color: mat-color($app-foreground, icon);
+    cursor: help;
+  }
+}
+
+.info-popover-panel {
+  display: block;
+  background-color: mat-color($app-background, dialog);
+  @include mat-elevation(3);
+  border-radius: 4px;
+  padding: 15px;
+  max-width: 350px;
+
+  .title {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .description {
+    margin-bottom: 5px;
+    color: mat-color($app-foreground, secondary-text);
+  }
+
+  .link {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: mat-color($app-foreground, divider);
+
+    .mat-icon {
+      vertical-align: middle;
+      margin-right: 5px;
+      color: mat-color($app-foreground, link);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}

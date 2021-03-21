@@ -1,0 +1,48 @@
+<button mat-flat-button color="gray" [matMenuTriggerFor]="shareMenu" [disabled]="(loadingUsers$ | async).includes(user?.id)">
+    <ng-container *ngIf="overallPermission() === 'varies'">
+        <mat-icon class="button-icon" svgIcon="priority-high"></mat-icon>
+        <span class="button-text" trans>Varies</span>
+    </ng-container>
+
+    <ng-container *ngIf="overallPermission() === 'edit'">
+        <mat-icon class="button-icon" svgIcon="edit"></mat-icon>
+        <span class="button-text" trans>Can edit</span>
+    </ng-container>
+
+    <ng-container *ngIf="overallPermission() === 'view'">
+        <mat-icon class="button-icon" svgIcon="remove-red-eye"></mat-icon>
+        <span class="button-text" trans>Can View</span>
+    </ng-container>
+
+    <ng-container *ngIf="overallPermission() === 'download'">
+        <mat-icon class="button-icon" svgIcon="file-download"></mat-icon>
+        <span class="button-text" trans>Can Download</span>
+    </ng-container>
+
+    <mat-icon class="dropdown-icon" svgIcon="arrow-drop-down"></mat-icon>
+</button>
+
+<mat-menu #shareMenu="matMenu" classList="mat-menu-with-description">
+    <div mat-menu-item (click)="selectPermission('edit')">
+        <mat-icon class="mat-icon" svgIcon="check" [class.visually-hidden]="overallPermission() !== 'edit'"></mat-icon>
+        <div>
+            <div trans>Can edit</div>
+            <div class="description" trans>People can edit, delete and copy the item to their own drive.</div>
+        </div>
+    </div>
+    <div mat-menu-item (click)="selectPermission('download')">
+        <mat-icon class="mat-icon" svgIcon="check" [class.visually-hidden]="overallPermission() !== 'download'"></mat-icon>
+        <div>
+            <div trans>Can download</div>
+            <div class="description" trans>People can view and download the item.</div>
+        </div>
+    </div>
+
+    <div mat-menu-item (click)="selectPermission('view')">
+        <mat-icon class="mat-icon" svgIcon="check" [class.visually-hidden]="overallPermission() !== 'view'"></mat-icon>
+        <div>
+            <div trans>Can view</div>
+            <div class="description" trans>People can view the item.</div>
+        </div>
+    </div>
+</mat-menu>

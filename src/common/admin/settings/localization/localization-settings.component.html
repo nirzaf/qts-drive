@@ -1,0 +1,51 @@
+<div class="header">
+    <div class="title" trans>Localization</div>
+    <div class="subtitle" trans>Manage localization settings for the site.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()">
+
+    <div class="input-container">
+        <label for="app.timezone" trans>Timezone</label>
+        <select name="app.timezone" id="app.timezone" [(ngModel)]="state.server['app_timezone']">
+            <optgroup [label]="pair.key" *ngFor="let pair of selects.timezones | keyvalue">
+                <option [value]="timezone.value" *ngFor="let timezone of pair.value">{{timezone.text}}</option>
+            </optgroup>
+        </select>
+        <p trans>Choose either a city in the same timezone as you or a UTC timezone offset.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="app.locale" trans>Site Language</label>
+        <select name="app.locale" id="app.locale" [(ngModel)]="state.server['app_locale']">
+            <option [value]="localization.language" *ngFor="let localization of selects.localizations">{{localization.name}}</option>
+        </select>
+        <p trans>Which translation should be selected by default for new users.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="dates.format" trans>Date Format</label>
+        <select name="dates.format" id="dates.format" class="no-capitalize" [(ngModel)]="initialDateFormat" (ngModelChange)="updateDateFormat($event)" required>
+            <option [value]="format" *ngFor="let format of defaultDateFormats">{{getCurrentDate() | formattedDate:format}} ({{format}})</option>
+            <option value="custom" trans>Custom</option>
+        </select>
+        <p>
+            {{'Default format for dates on the site.' | trans}}
+            <br>
+            {{'Preview:' | trans}} <strong>{{ getCurrentDate() | formattedDate:selectedDateFormat() }}</strong>
+        </p>
+    </div>
+
+    <div class="input-container" [class.hidden]="initialDateFormat !== 'custom'">
+        <label for="dates.custom-format" trans>Custom Date Format</label>
+        <input type="text" id="dates.custom-format" name="dates.custom-format" [(ngModel)]="state.client['dates.format']" required>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle [(ngModel)]="state.client['i18n.enable']" name="translations" trans>Translations</mat-slide-toggle>
+        <p trans>Enable translations functionality for the site.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

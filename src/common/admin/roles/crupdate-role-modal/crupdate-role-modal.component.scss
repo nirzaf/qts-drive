@@ -1,0 +1,16 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: $modal-default-width;
+  max-width: 100%;
+}
+
+.setting-container {
+  margin-bottom: 25px;
+
+  p {
+    color: mat-color($app-foreground, secondary-text);
+    margin: 5px 0;
+  }
+}

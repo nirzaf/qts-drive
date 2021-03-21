@@ -1,0 +1,17 @@
+<div class="header-wrapper" #headerWrapper>
+    <ng-content select=".chart-header"></ng-content>
+</div>
+
+<div #chartPlaceholder class="ct-chart ct-perfect-fourth {{chartConfig?.type}}-chart chart-body">
+    <div *ngIf="chart && chart.isEmpty()" class="empty-msg">
+        <mat-icon svgIcon="warning"></mat-icon>
+        <span trans>No data available for this time period.</span>
+    </div>
+</div>
+
+<div class="legend-wrapper" #legendWrapper>
+    <ng-content select=".chart-legend"></ng-content>
+    <div class="chart-legend" *ngIf="chartConfig?.legend">
+        <div class="legend-item" *ngFor="let item of chartConfig.labels">{{item}}</div>
+    </div>
+</div>

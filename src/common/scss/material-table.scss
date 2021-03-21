@@ -1,0 +1,94 @@
+@import "variables";
+
+.material-table {
+  border-spacing: 0;
+  width: 100%;
+
+  th:first-of-type, td:first-of-type {
+    padding-left: 24px;
+  }
+
+  th:last-of-type, td:last-of-type {
+    padding-right: 24px;
+  }
+
+  th, td {
+    padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: mat-color($app-foreground, divider);
+  }
+
+  th {
+    color: mat-color($app-foreground, secondary-text);
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  tr {
+    background-color: inherit;
+  }
+
+  thead tr {
+    height: 56px;
+  }
+
+  tbody tr {
+    height: 48px;
+  }
+
+  .table-checkbox {
+    width: 50px;
+    padding-right: 25px;
+  }
+
+  .edit-column {
+    color: mat-color($app-foreground, secondary-text);
+    padding-left: 25px;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .column-with-image {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+      object-fit: cover;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .secondary {
+      color: mat-color($app-foreground, secondary-text);
+      font-size: 12px;
+    }
+  }
+
+  .link {
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.datatable {
+  position: relative;
+  border: $admin-card-border;
+  box-shadow: $admin-card-box-shadow;
+  background-color: mat-color($app-background, dialog);
+  border-radius: 4px;
+
+  no-results-message {
+    padding: 65px 0;
+  }
+}

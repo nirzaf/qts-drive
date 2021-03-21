@@ -1,0 +1,112 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Manage workspace members</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content style="overflow: hidden" #container>
+    <div class="invite-container" *ngIf="canInvite" @fadeIn>
+        <div class="input-container">
+            <label for="workspace-emails-input" trans>Invite by email</label>
+            <div class="input-with-action">
+                <chip-input id="workspace-emails-input" placeholder="Email addresses" [emailsInput]="true" [formControl]="peopleToInvite"></chip-input>
+                <button
+                    type="button"
+                    class="add-tags-button"
+                    mat-flat-button
+                    color="accent"
+                    (click)="invitePeople()"
+                    [disabled]="(inviting$ | async) || !(peopleToInvite.valueChanges | async)?.length"
+                    trans
+                >Invite
+                </button>
+            </div>
+        </div>
+        <mat-progress-bar mode="indeterminate" color="accent" *ngIf="inviting$ | async"></mat-progress-bar>
+    </div>
+
+    <div class="header">
+        <mat-icon svgIcon="people"></mat-icon>
+        <span class="text" [transValues]="{workspace: data.workspace.name}" trans>Members of :workspace</span>
+    </div>
+
+    <div class="animation-container">
+        <ul class="member-list unstyled-list" *ngIf="loadingMembers$ | async" @fadeOut>
+            <li class="member-list-item" *ngFor="let i of [1, 2, 3]">
+                <skeleton variant="avatar"></skeleton>
+                <div class="details">
+                    <skeleton></skeleton>
+                    <skeleton></skeleton>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="member-list unstyled-list">
+            <li *ngFor="let member of members$ | async" class="member-list-item" @fadeIn (@fadeIn.done)="container.style.overflow = 'auto'">
+                <img [src]="member.avatar" alt="">
+                <div class="details">
+                    <div class="email">
+                        <span>{{member.display_name}}</span>
+                        &ngsp;
+                        <span class="strong"
+                              *ngIf="currentUser.get('id') === member.id" trans>(You)</span>
+                        <span *ngIf="member.model_type === 'invite'">
+                        ·
+                        <span trans>Invited</span>
+                       <ng-container *ngIf="canInvite">
+                            ·
+                            <button type="button" class="no-style resend-invite-button"
+                                    [disabled]="inviting$ | async"
+                                    (click)="maybeResendInvite(member)" trans>Resend Invite</button>
+                       </ng-container>
+                    </span>
+                    </div>
+                    <div class="invited_at">{{member.email}}</div>
+                </div>
+                <div class="actions">
+                    <button type="button" mat-stroked-button class="role-trigger-button"
+                            [class.not-clickable]="member.is_owner || !canEdit"
+                            [matMenuTriggerFor]="selectRoleMenu"
+                            [matMenuTriggerData]="{member: member}">
+                        <span trans>{{member.role_name}}</span>
+                        <mat-icon svgIcon="keyboard-arrow-down"
+                                  class="dropdown-icon"></mat-icon>
+                    </button>
+                    <button type="button" class="delete-member-button"
+                            (click)="maybeDeleteMember(member)"
+                            *ngIf="member.is_owner || currentUser.get('id') !== member.id"
+                            [class.visually-hidden]="member.is_owner || !canDelete"
+                            mat-icon-button [disabled]="deleting$ | async">
+                        <mat-icon svgIcon="close"></mat-icon>
+                    </button>
+                    <button type="button" class="delete-member-button"
+                            [matTooltip]="'Leave workspace' | trans"
+                            (click)="maybeLeaveWorkspace(member)"
+                            *ngIf="!member.is_owner && currentUser.get('id') === member.id"
+                            mat-icon-button [disabled]="deleting$ | async">
+                        <mat-icon svgIcon="exit-to-app"></mat-icon>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</mat-dialog-content>
+
+<mat-menu #selectRoleMenu="matMenu">
+    <ng-template matMenuContent let-member="member">
+        <div class="multiline-mat-menu-item with-icon"
+             [class.active]="member.role_id === role.id" mat-menu-item
+             (click)="changeRole(member, role)"
+             *ngFor="let role of workspaceRoles$ | async" trans>
+            <mat-icon svgIcon="check"
+                      [class.visually-hidden]="member.role_id !== role.id"></mat-icon>
+            <div class="menu-item-content">
+                <div class="title" trans>{{role.name}}</div>
+                <div class="description" trans>{{role.description}}</div>
+            </div>
+        </div>
+    </ng-template>
+</mat-menu>
+
+

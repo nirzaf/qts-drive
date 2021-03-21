@@ -1,0 +1,28 @@
+<div class="header">
+    <div class="title" trans>Drive</div>
+    <div class="subtitle" trans>Configure how user drive should behave.</div>
+</div>
+
+<form class="body many-inputs" (ngSubmit)="saveSettings()" ngNativeValidate>
+    <div class="input-container">
+        <label for="drive.default_view" trans>Default View Mode</label>
+        <select name="drive.default_view" id="drive.default_view" [(ngModel)]="state.client['drive.default_view']">
+            <option value="grid">Grid</option>
+            <option value="list">List</option>
+        </select>
+        <p trans>Which view mode should user drive use by default.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="drive.send_share_notification" id="drive.send_share_notification" [(ngModel)]="state.client['drive.send_share_notification']" trans>Share Notification</mat-slide-toggle>
+        <p trans>Send a notification to user when a file or folder is shared with them.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="share.suggest_emails" id="share.suggest_emails" [(ngModel)]="state.client['share.suggest_emails']" trans>Suggest Emails</mat-slide-toggle>
+        <p trans>Suggest email address of existing users when sharing a file or folder.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

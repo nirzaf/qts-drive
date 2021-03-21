@@ -1,0 +1,71 @@
+@import "variables";
+
+:host {
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.mat-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.custom-menu-item {
+  white-space: nowrap;
+  border-radius: 4px;
+  outline: none;
+}
+
+:host-context(.vertical) {
+  .custom-menu-item {
+    display: block;
+    color: mat-color($app-foreground, secondary-text);
+    padding: 12px 16px;
+    border-left: 4px solid transparent;
+    margin-bottom: 8px;
+  }
+
+  .active {
+    background-color: mat-color($app-accent, emphasis);
+    border-color: mat-color($app-accent, default);
+    color: mat-color($app-foreground, text);
+  }
+
+  .text {
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+}
+
+:host-context(.horizontal) {
+  // might need to scroll sidebar in vertical menus
+  overflow: hidden;
+
+  .custom-menu-item {
+    display: inline-block;
+    padding: 5px 15px;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .router-link-active, .active {
+    color: mat-color($app-primary, default-contrast);
+    background-color: mat-color($app-primary, lighter);
+  }
+}
+
+:host-context(.color-accent) {
+  .router-link-active, .active {
+    color: mat-color($app-accent, default-contrast);
+    background-color: mat-color($app-accent, emphasis);
+  }
+}
+
+:host-context(.compact) {
+  .text {
+    display: none;
+  }
+}

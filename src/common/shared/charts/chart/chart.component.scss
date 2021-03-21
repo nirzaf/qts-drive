@@ -1,0 +1,99 @@
+@import "variables";
+
+$chart-header-height: 66px;
+$chart-legend-height: 40px;
+$chart-header-margin: 15px;
+
+.chart {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+
+  @media only screen and (max-width: $medium) {
+    width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .chart-body {
+    margin-top: $chart-header-margin;
+    position: relative;
+  }
+
+  .chart-header {
+    padding: 15px;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    height: $chart-header-height;
+
+    .title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: mat-color($app-foreground, text);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: mat-color($app-foreground, secondary-text);
+    }
+  }
+
+  .chart-legend {
+    display: flex;
+    width: 100%;
+    height: $chart-legend-height;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 15px;
+    font-size: 1.3rem;
+
+    .legend-item {
+      margin-right: 14px;
+      position: relative;
+      padding-left: 15px;
+      white-space: nowrap;
+      text-transform: capitalize;
+
+      &:before {
+        display: block;
+        content: " ";
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto 0;
+      }
+    }
+  }
+
+  .empty-msg {
+    padding: 15px;
+    border-radius: 4px;
+    background-color: mat-color($app-background, background);
+    border: 1px solid mat-color($app-foreground, divider);
+    text-align: center;
+    width: 80%;
+    height: 50px;
+    max-width: 340px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+
+    .mat-icon {
+      vertical-align: middle;
+      margin-right: 8px;
+      color: mat-color($app-foreground, icon);
+      margin-top: -2px;
+    }
+  }
+
+  .ct-bar {
+    stroke-width: 30px;
+  }
+}

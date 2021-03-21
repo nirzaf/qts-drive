@@ -1,0 +1,154 @@
+<material-navbar [menuPosition]="settings.get('vebto.navbar.defaultPosition')" *ngIf="!settings.get('vebto.accountSettings.hideNavbar')"></material-navbar>
+
+<div class="content container" *ngIf="userErrors$ | async as userErrors">
+    <h1 class="header">
+        <span class="header-text" trans>Account Settings</span>
+        <ng-container *ngIf="breakpoints.isMobile$ | async">
+            <button mat-icon-button [matMenuTriggerFor]="navSidebarMenu" class="mobile-toggle-button">
+                <mat-icon svgIcon="settings"></mat-icon>
+            </button>
+
+            <mat-menu #navSidebarMenu="matMenu">
+                <logged-in-user-menu></logged-in-user-menu>
+            </mat-menu>
+        </ng-container>
+    </h1>
+
+    <div class="panels">
+        <ng-template #extraPanelRef></ng-template>
+
+        <form class="panel account-settings-panel" (ngSubmit)="updateAccountSettings()" [formGroup]="userForm" ngNativeValidate>
+            <div class="panel-header" trans>Update Name or Profile Image</div>
+            <div class="panel-body">
+                <div class="input-container input-inline">
+                    <label for="first_name" trans>First Name</label>
+                    <input type="text" id="first_name" name="first_name" formControlName="first_name">
+                    <div class="error first-name-error" *ngIf="userErrors.first_name">{{userErrors.first_name}}</div>
+                </div>
+
+                <div class="input-container input-inline">
+                    <label for="last_name" trans>Last Name</label>
+                    <input type="text" id="last_name" name="last_name" formControlName="last_name">
+                    <div class="error last-name-error" *ngIf="userErrors.last_name">{{userErrors.last_name}}</div>
+                </div>
+
+                <div class="input-container input-inline avatar-input-container">
+                    <label for="last_name" trans>Profile image</label>
+                    <div class="avatar-input">
+                        <img [src]="avatar$ | async" alt="User avatar">
+                        <div class="avatar-actions-container">
+                            <div class="info" trans>For best results, upload a high resolution image.</div>
+                            <button type="button" mat-flat-button color="accent" class="button flat avatar-upload-button" (click)="openAvatarUploadDialog()" trans>Upload Image</button>
+                            <button type="button" mat-stroked-button color="warn" class="avatar-remove-button" (click)="deleteAvatar()" trans>Remove Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async" trans>Save Changes</button>
+            </div>
+        </form>
+
+        <div class="panel account-settings-panel social-login-panel" *ngIf="settings.anySocialLoginEnabled()">
+            <div class="panel-header" trans>Manage Social Login</div>
+            <div class="panel-body">
+                <div class="info" trans>Enable or disable connected social services</div>
+                <connect-social-accounts-panel [user]="initialUser$ | async"></connect-social-accounts-panel>
+            </div>
+        </div>
+
+        <form class="panel account-settings-panel change-password-panel" (ngSubmit)="changeUserPassword()" [formGroup]="passwordForm" *ngIf="passwordErrors$ | async as passwordErrors" ngNativeValidate>
+            <div class="panel-header" trans>Update Password</div>
+            <div class="panel-body">
+                <div class="input-container input-inline" *ngIf="currentUser.get('has_password')">
+                    <label for="current_password" trans>Current Password</label>
+                    <input type="password" id="current_password" name="current_password" formControlName="current_password" required>
+                    <div class="error current-password-error" *ngIf="passwordErrors.current_password">{{passwordErrors.current_password}}</div>
+                </div>
+
+                <div class="input-container input-inline">
+                    <label for="new_password" trans>New Password</label>
+                    <input type="password" id="new_password" name="new_password" formControlName="new_password" required>
+                    <div class="error new-password-error" *ngIf="passwordErrors.new_password">{{passwordErrors.new_password}}</div>
+                </div>
+
+                <div class="input-container input-inline">
+                    <label for="new_password_confirmation" trans>Confirm Password</label>
+                    <input type="password" id="new_password_confirmation" name="new_password_confirmation" formControlName="new_password_confirmation" required>
+                    <div class="error new-password-confirmation-error" *ngIf="passwordErrors.new_password_confirmation">{{passwordErrors.new_password_confirmation}}</div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async" trans>Update</button>
+            </div>
+        </form>
+
+        <form class="panel account-settings-panel preferences-panel" (ngSubmit)="updateAccountSettings()" [formGroup]="userForm" ngNativeValidate>
+            <div class="panel-header" trans>Update Account Preferences</div>
+            <div class="panel-body">
+                <div class="input-container input-inline">
+                    <label for="language" trans>Language</label>
+                    <select name="language" id="language" formControlName="language" (ngModelChange)="changeLanguage($event)">
+                        <option [value]="localization.language" *ngFor="let localization of selects.localizations">{{localization.name}}</option>
+                    </select>
+                    <div class="error language-error" *ngIf="userErrors.language">{{userErrors.language}}</div>
+                </div>
+
+                <div class="input-container input-inline">
+                    <label for="country" trans>Country</label>
+                    <select name="country" id="country" formControlName="country">
+                        <option value="{{country.code}}" *ngFor="let country of selects.countries">{{country.name}}</option>
+                    </select>
+                    <div class="error country-error" *ngIf="userErrors.country">{{userErrors.country}}</div>
+                </div>
+
+                <div class="input-container input-inline">
+                    <label for="timezone" trans>Timezone</label>
+                    <select name="timezone" id="timezone" formControlName="timezone">
+                        <optgroup [label]="pair.key" *ngFor="let pair of selects.timezones | keyvalue">
+                            <option [value]="timezone.value" *ngFor="let timezone of pair.value">{{timezone.text}}</option>
+                        </optgroup>
+                    </select>
+                    <div class="error timezone-error" *ngIf="userErrors.timezone">{{userErrors.timezone}}</div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async" trans>Save Changes</button>
+            </div>
+        </form>
+
+        <div class="panel account-settings-panel api-panel" *ngIf="apiEnabled()">
+            <div class="panel-header">
+                <div class="panel-header-title" trans>Manage API Access Tokens</div>
+                <a class="panel-header-action" routerLink="/api-docs" target="_blank" trans>Documentation</a>
+            </div>
+            <div class="panel-body">
+                <no-results-message svgImage="secure-data.svg" *ngIf="!(initialUser$ | async).tokens.length">
+                    <span primary-text trans>You have no personal access tokens yet</span>
+                </no-results-message>
+                <ul class="unstyled-list">
+                    <li *ngFor="let token of (initialUser$ | async).tokens">
+                        <dl>
+                            <dt trans>Name</dt>
+                            <dd>{{token.name}}</dd>
+                            <dt trans>Last Used</dt>
+                            <dd>{{token.last_used_at ? (token.last_used_at | formattedDate) : '-'}}</dd>
+                        </dl>
+                        <button type="button" mat-raised-button color="warn" (click)="maybeDeleteToken(token)" trans>Delete</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <button type="button" secondary-text mat-raised-button color="accent" (click)="openCreateTokenDialog()" trans>Create new token</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="logout-button-container">
+        <button mat-raised-button color="warn" class="logout-button" type="button" (click)="auth.logOut()">
+            <mat-icon svgIcon="exit-to-app"></mat-icon>
+            <span trans>Logout</span>
+        </button>
+    </div>
+</div>

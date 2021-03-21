@@ -1,0 +1,15 @@
+@import "variables";
+
+.menu-with-alt-text {
+  width: 320px;
+
+  .mat-menu-item {
+    display: flex;
+  }
+
+  .alt-text {
+    margin-left: auto;
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 13px;
+  }
+}

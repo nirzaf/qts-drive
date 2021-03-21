@@ -1,0 +1,84 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: $modal-default-width;
+  max-width: 100%;
+}
+
+.host-input {
+  font-size: 1.6rem;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 25px;
+  margin-top: 25px;
+  border-top: 1px solid mat-color($app-foreground, divider-lighter);
+}
+
+.modal-header {
+  border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+  margin-bottom: 20px;
+  padding-bottom: 25px;
+}
+
+.message-widget {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 4px;
+  background-color: rgb(236, 243, 255);
+  color: mat-color($app-accent, default);
+  font-size: 1.6rem;
+
+  strong {
+    user-select: none;
+  }
+
+  &.warning-color {
+    background-color: rgb(254, 240, 226);
+    color: rgb(247, 125, 5);
+  }
+
+  .icon {
+    flex-shrink: 0;
+    position: initial;
+    margin-right: 15px;
+  }
+}
+
+p {
+  font-size: 1.3rem;
+  color: mat-color($app-foreground, secondary-text);
+  margin: 8px 0;
+}
+
+.mat-button, .mat-raised-button {
+  min-width: 105px;
+  line-height: 40px;
+}
+
+.refresh-btn {
+  color: mat-color($app-accent, default);
+  text-decoration: underline;
+}
+
+.step-icon {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.global-toggle {
+  border-top: 1px solid mat-color($app-foreground, divider-lighter);
+  margin-top: 20px;
+  padding-top: 20px;
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: $medium) {
+  .cancel-button {
+    display: none;
+  }
+}

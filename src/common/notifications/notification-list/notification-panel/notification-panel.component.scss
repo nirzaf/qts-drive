@@ -1,0 +1,76 @@
+@import "variables";
+
+:host {
+  display: block;
+  background-color: mat-color($app-background, card);
+  padding: 0;
+  width: 460px;
+  min-height: 275px;
+  max-height: 90vh;
+  max-width: 95vw;
+  margin: auto;
+  position: relative;
+  overflow: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+}
+
+h2 {
+  font-weight: 400;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.mark-as-read-button {
+  display: block;
+  margin-left: auto;
+  color: mat-color($app-foreground, secondary-text);
+  font-size: 1.3rem;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  
+  &:empty {
+    display: none;
+  }
+
+  .view-all-button {
+    margin-right: auto;
+  }
+
+  .settings-button {
+    margin-left: auto;
+  }
+
+  a {
+    display: block;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .mat-icon {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 5px;
+  }
+}
+
+.mat-progress-bar {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 46px;
+}

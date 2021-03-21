@@ -1,0 +1,11 @@
+<ul class="page-numbers unstyled-list">
+    <li>
+        <button type="button" class="prev" [disabled]="disabled" (click)="prevPage()" mat-button trans>Previous</button>
+    </li>
+    <li *ngFor="let page of iterator">
+        <button type="button" class="page-number-button" [disabled]="disabled" [class.active]="currentPage === page" (click)="selectPage(page)" mat-flat-button color="gray">{{page}}</button>
+    </li>
+    <li>
+        <button type="button" class="next" [disabled]="disabled" (click)="nextPage()" mat-button trans>Next</button>
+    </li>
+</ul>

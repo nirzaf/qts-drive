@@ -1,0 +1,33 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: $modal-default-width;
+  max-width: 100%;
+}
+
+.plaintext-token-input-container {
+  display: flex;
+
+  input {
+    flex: 1 1 auto;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  button {
+    width: 88px;
+    flex: 0 0 88px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.warning-icon {
+  color: mat-color($app-warn);
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  margin-right: 8px;
+  vertical-align: text-top;
+}

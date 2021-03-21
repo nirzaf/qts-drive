@@ -1,0 +1,11 @@
+@import "variables";
+
+:host-context(.settings-panels-container) {
+  .header {
+    margin-bottom: 25px;
+  }
+}
+
+.tab-content {
+  padding-top: 25px;
+}

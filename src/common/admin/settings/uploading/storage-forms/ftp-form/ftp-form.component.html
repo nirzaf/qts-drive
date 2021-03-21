@@ -1,0 +1,32 @@
+<div class="input-container">
+    <label for="storage_ftp_host" trans>FTP Hostname</label>
+    <input type="text" id="storage_ftp_host" name="storage_ftp_host" [(ngModel)]="state.server['storage_ftp_host']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_ftp_username" trans>FTP Username</label>
+    <input type="text" id="storage_ftp_username" name="storage_ftp_username" [(ngModel)]="state.server['storage_ftp_username']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_ftp_password" trans>FTP Password</label>
+    <input type="password" id="storage_ftp_password" name="storage_ftp_password" [(ngModel)]="state.server['storage_ftp_password']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_ftp_root" trans>FTP Directory</label>
+    <input type="text" id="storage_ftp_root" name="storage_ftp_root" [(ngModel)]="state.server['storage_ftp_root']" placeholder="/">
+</div>
+
+<div class="input-container">
+    <label for="storage_ftp_port" trans>FTP Port</label>
+    <input type="number" id="storage_ftp_port" name="storage_ftp_port" [(ngModel)]="state.server['storage_ftp_port']" min="0" placeholder="21">
+</div>
+
+<div class="setting-toggle-container">
+    <mat-slide-toggle name="storage_ftp_passive" id="storage_ftp_passive" [(ngModel)]="state.server['storage_ftp_passive']" trans>Passive</mat-slide-toggle>
+</div>
+
+<div class="setting-toggle-container">
+    <mat-slide-toggle name="storage_ftp_ssl" id="storage_ftp_ssl" [(ngModel)]="state.server['storage_ftp_ssl']" trans>SSL</mat-slide-toggle>
+</div>

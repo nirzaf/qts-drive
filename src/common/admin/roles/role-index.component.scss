@@ -1,0 +1,47 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+@media screen and (min-width: $medium) {
+  :host {
+    display: flex;
+  }
+
+  .new-role {
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+.datatable {
+  flex: 1 1 auto;
+}
+
+.role-type {
+  font-size: 1.3rem;
+  color: mat-color($app-foreground, secondary-text);
+}
+
+@media screen and (max-width: $medium) {
+  .admin-pill-nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .admin-pill-nav-mobile-selector {
+    margin-left: 15px;
+  }
+
+  .new-role-button {
+    height: 56px; // mobile-select-height
+  }
+}
+
+.assign-users-button {
+  margin-right: 5px;
+}

@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title>{{data.title}}</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<div class="mat-dialog-contents" mat-dialog-content>
+    <p>{{data.body}}</p>
+    <p class="bold" *ngIf="data.bodyBold">{{data.bodyBold}}</p>
+</div>
+
+<div class="buttons right mat-dialog-actions" mat-dialog-actions>
+    <button (click)="close()" type="button" mat-button class="button cancel cancel-button">{{data.cancel}}</button>
+    <button type="submit" mat-raised-button color="accent" class="button primary submit-button" cdkFocusInitial (click)="confirm()">{{data.ok}}</button>
+</div>

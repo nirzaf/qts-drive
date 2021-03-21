@@ -1,0 +1,41 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+.selected-tag {
+  margin: 0 10px 10px 0;
+  display: inline-block;
+}
+
+.main-info {
+  margin-top: 5px;
+  font-size: 1.3rem;
+}
+
+.existing-tags {
+  margin-top: 25px;
+
+  p {
+    margin-bottom: 5px;
+    font-size: 1.3rem;
+    color: mat-color($app-foreground, secondary-text);
+  }
+}
+
+.existing-tags-list {
+  border: 1px solid mat-color($app-foreground, divider);
+  padding: 8px;
+  height: 78px;
+  overflow: auto;
+}
+
+.existing-tag-name {
+  display: inline-block;
+  margin-right: 6px;
+  color: mat-color($app-foreground, link);
+  text-decoration: underline;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

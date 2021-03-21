@@ -1,0 +1,18 @@
+<ng-container *ngFor="let action of actions$ | async">
+    <ng-container *ngIf="action.visible()">
+        <div class="separator" *ngIf="!compact && action.separatorBefore"></div>
+
+        <button class="context-menu-item" *ngIf="!compact" (click)="action.execute()">
+            <mat-icon [svgIcon]="action.icon"></mat-icon>
+            <span trans>{{action.viewName}}</span>
+        </button>
+
+        <button mat-icon-button (click)="action.execute()" [matTooltip]="action.viewName | trans" *ngIf="compact && action.showInCompact">
+            <mat-icon [svgIcon]="action.icon"></mat-icon>
+        </button>
+    </ng-container>
+</ng-container>
+
+<button mat-icon-button (click)="openMoreActionsMenu()" [matTooltip]="'More actions' | trans" #moreActionsButton *ngIf="compact && hasMoreActions$ | async">
+    <mat-icon svgIcon="more-vert"></mat-icon>
+</button>

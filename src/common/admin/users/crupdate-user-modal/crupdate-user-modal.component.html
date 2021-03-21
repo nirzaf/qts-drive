@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title *ngIf="data.user" trans>Update User Details</h2>
+    <h2 class="modal-title" mat-dialog-title *ngIf="!data.user" trans>Create a New User</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form autocomplete="off" (ngSubmit)="confirm()" [formGroup]="form" *ngIf="errors$ | async as errors" ngNativeValidate>
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container" *ngIf="!data.user">
+            <label for="crupdate-user-email" trans>Email</label>
+            <input type="email" id="crupdate-user-email" formControlName="email" required>
+            <div class="error" *ngIf="errors?.email">{{errors?.email}}</div>
+        </div>
+
+        <div class="input-container" *ngIf="!data.user">
+            <label for="crupdate-user-password" trans>Password</label>
+            <input type="password" id="crupdate-user-password" formControlName="password" required>
+            <div class="error" *ngIf="errors?.password">{{errors?.password}}</div>
+        </div>
+
+        <div class="avatar-container">
+            <div class="input-container avatar-input-container">
+                <upload-image-control [uploadConfig]="avatarUploadConfig()" class="inherit-size" formControlName="avatar"></upload-image-control>
+                <div class="error" *ngIf="errors?.avatar">{{errors?.avatar}}</div>
+            </div>
+            <div class="many-inputs">
+                <div class="input-container">
+                    <label for="crupdate-user-first_name" trans>First Name</label>
+                    <input type="text" id="crupdate-user-first_name" formControlName="first_name">
+                    <div class="error" *ngIf="errors?.first_name">{{errors?.first_name}}</div>
+                </div>
+
+                <div class="input-container">
+                    <label for="crupdate-user-last_name" trans>Last Name</label>
+                    <input type="text" id="crupdate-user-last_name" formControlName="last_name">
+                    <div class="error" *ngIf="errors?.last_name">{{errors?.last_name}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-container" [class.resend-button-visible]="shouldShowResendButton()">
+            <label for="crupdate-user-confirmed" trans>Email Confirmed</label>
+            <div class="confirmed-select-wrapper">
+                <select id="crupdate-user-confirmed" formControlName="email_verified_at">
+                    <option [ngValue]="true" trans>Yes</option>
+                    <option [ngValue]="false" trans>No</option>
+                </select>
+                <button mat-flat-button color="accent" type="button" class="resend-confirmation-button" [disabled]="loading$ | async" (click)="sendEmailConfirmation()" trans>Resend</button>
+            </div>
+            <div class="error" *ngIf="errors?.email_verified_at">{{errors?.email_verified_at}}</div>
+        </div>
+
+        <div class="input-container">
+            <label for="crupdate-user-new-password" trans>New Password</label>
+            <div class="input-with-action">
+                <input type="text" id="crupdate-user-new-password" formControlName="password">
+                <button type="button" mat-flat-button color="accent" (click)="generateNewPassword()" trans>Generate</button>
+            </div>
+        </div>
+
+        <space-input label="Available Space" formControlName="available_space">
+            <p class="description" trans>Disk space available to user. If left empty, it will be inherited from value set in "admin -> settings -> uploading" page.</p>
+            <div class="error" *ngIf="errors?.available_space">{{errors?.available_space}}</div>
+        </space-input>
+
+        <role-manager formControlName="roles"></role-manager>
+        <div class="error" *ngIf="errors?.roles">{{errors?.roles}}</div>
+
+        <permission-manager formControlName="permissions" *ngIf="currentUser.hasPermission('permissions.update')"></permission-manager>
+        <div class="error" *ngIf="errors?.permissions">{{errors?.permissions}}</div>
+    </mat-dialog-content>
+
+    <div class="buttons right mat-dialog-actions" mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button class="button cancel" trans>Cancel</button>
+        <button type="submit" class="button primary" mat-raised-button color="accent" [disabled]="loading$ | async">
+            <span *ngIf="data.user" trans>Update User</span>
+            <span *ngIf="!data.user" trans>Create User</span>
+        </button>
+    </div>
+</form>

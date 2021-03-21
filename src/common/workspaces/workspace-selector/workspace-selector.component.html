@@ -1,0 +1,32 @@
+<div [matMenuTriggerFor]="workspaceMenu" *ngIf="workspaces.activeWorkspace$ | async as selected">
+    <div class="left">
+        <div class="role-name" trans>{{selected.name}}</div>
+        <div class="member-count">
+            <span *ngIf="selected.default" trans>Personal workspace</span>
+            <span *ngIf="!selected.default" trans>{{ ':count members' | trans:{count: selected?.members_count || 0} }}</span>
+        </div>
+    </div>
+    <div class="right">
+        <mat-icon svgIcon="unfold-more"></mat-icon>
+    </div>
+</div>
+
+<mat-menu #workspaceMenu="matMenu" class="workspace-menu">
+    <div mat-menu-item class="workspace-menu-item" [class.active]="(workspaces.activeId$ | async) === workspace.id" *ngFor="let workspace of workspaces.available$ | async" (click)="selectWorkspace(workspace)">
+        <mat-icon svgIcon="check" [class.visually-hidden]="(workspaces.activeId$ | async) !== workspace.id"></mat-icon>
+        <div>
+            <div class="name" trans>{{workspace.name}}</div>
+            <div class="member-count">
+                <span *ngIf="workspace.default" trans>Personal workspace</span>
+                <span *ngIf="!workspace.default" trans>{{ ':count members' | trans:{count: workspace?.members_count || 0} }}</span>
+            </div>
+        </div>
+        <button type="button" class="settings-button" mat-icon-button *ngIf="!workspace.default" (click)="openWorkspaceMembersModal(workspace); $event.stopPropagation()">
+            <mat-icon svgIcon="settings"></mat-icon>
+        </button>
+    </div>
+    <div mat-menu-item class="new-workspace-menu-item" (click)="openCrupdateWorkspaceModal()" *ngIf="currentUser.hasPermission('workspaces.create')">
+        <mat-icon svgIcon="add"></mat-icon>
+        <span trans>Create new workspace</span>
+    </div>
+</mat-menu>

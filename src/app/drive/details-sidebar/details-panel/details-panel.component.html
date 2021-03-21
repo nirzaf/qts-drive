@@ -1,0 +1,50 @@
+<ng-container *ngIf="entry$ | async as entry; else nothingSelected">
+    <ng-container *ngIf="entry.updated_at; else nothingSelected">
+        <file-thumbnail *ngIf="entry.type === 'image'" class="preview" [file]="entry"></file-thumbnail>
+        <div class="users-list">
+            <mat-icon class="users-list-img workspace-img" svgIcon="groups" *ngIf="entry.workspace_id" [matTooltip]="'Everyone at :workspace workspace' | trans:{workspace: (workspaces.activeWorkspace$ | async)?.name}"></mat-icon>
+            <img class="users-list-img" *ngFor="let user of entry.users" [src]="user.avatar" [matTooltip]="user.display_name">
+        </div>
+        <div class="details-list">
+            <div class="item">
+                <div class="name" trans>Type</div>
+                <div class="value type-value" trans>{{entry.type}}</div>
+            </div>
+            <div class="item">
+                <div class="name" trans>Size</div>
+                <div class="value">{{entry.file_size | formattedFileSize}}</div>
+            </div>
+            <div class="item">
+                <div class="name" trans>Storage Used</div>
+                <div class="value">{{entry.file_size | formattedFileSize}}</div>
+            </div>
+            <div class="item location-item">
+                <div class="name" trans>Location</div>
+                <div class="value" (click)="openLocation()">
+                    <mat-icon svgIcon="folder"></mat-icon>
+                    <span class="text">{{(parent$ | async)?.name || ('All Files') | trans}}</span>
+                </div>
+            </div>
+            <div class="item" *ngIf="entry.users && entry.users.length">
+                <div class="name" trans>Owner</div>
+                <div class="value">{{(owner$ | async).display_name}}</div>
+            </div>
+            <div class="item">
+                <div class="name" trans>Last Updated</div>
+                <div class="value">{{entry.updated_at | formattedDate}}</div>
+            </div>
+            <div class="item">
+                <div class="name" trans>Created</div>
+                <div class="value">{{entry.created_at | formattedDate}}</div>
+            </div>
+            <entry-description-panel></entry-description-panel>
+        </div>
+    </ng-container>
+</ng-container>
+
+<ng-template #nothingSelected>
+    <div class="nothing-selected">
+        <mat-icon svgIcon="selection-tool-custom" class="icon"></mat-icon>
+        <div class="text" trans>Select file or folder to view its details.</div>
+    </div>
+</ng-template>

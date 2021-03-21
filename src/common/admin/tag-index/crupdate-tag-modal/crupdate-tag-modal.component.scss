@@ -1,0 +1,11 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: $modal-default-width;
+  max-width: 100%;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

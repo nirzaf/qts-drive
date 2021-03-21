@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h2 mat-dialog-title>
+        <span *ngIf="data.tag" trans>Update Tag</span>
+        <span *ngIf="!data.tag" trans>Create a New Tag</span>
+    </h2>
+    <button type="button" (click)="close()" class="close-button" mat-icon-button tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form autocomplete="off" ngNativeValidate [formGroup]="form" (ngSubmit)="confirm()">
+   <mat-dialog-content class="many-inputs">
+
+       <div class="input-container">
+           <label for="crupdate-tag-modal-name" trans>Name</label>
+           <input type="text" id="crupdate-tag-modal-name" formControlName="name" required>
+           <p trans>Unique tag identifier.</p>
+           <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+       </div>
+
+       <div class="input-container">
+           <label for="display_name" trans>Display Name</label>
+           <input type="text" formControlName="display_name" id="display_name">
+           <p trans>User friendly tag name.</p>
+           <div class="error" *ngIf="errors.display_name">{{errors.display_name}}</div>
+       </div>
+
+       <div class="input-container">
+           <label for="crupdate_tag_modal_type" trans>Type</label>
+           <select formControlName="type" id="crupdate_tag_modal_type" class="capitalize" required>
+               <option [value]="type.name" *ngFor="let type of tagTypes" trans>{{type.name}}</option>
+           </select>
+           <div class="error" *ngIf="errors.type">{{errors.type}}</div>
+       </div>
+   </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" class="cancel-button" mat-button trans>Cancel</button>
+        <button type="submit" class="submit-button" mat-raised-button color="accent">
+            <span *ngIf="data.tag" trans>Update</span>
+            <span *ngIf="!data.tag" trans>Create</span>
+        </button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,26 @@
+@import "variables";
+
+:host {
+  display: block;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  margin-bottom: 15px;
+}
+
+.text {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
+.card-icons {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+
+  img {
+    margin-right: 5px;
+    width: 50px;
+    height: auto;
+    margin-bottom: 5px;
+  }
+}

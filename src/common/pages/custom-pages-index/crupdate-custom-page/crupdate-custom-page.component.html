@@ -1,0 +1,37 @@
+<ng-container *ngIf="errors$ | async as errors" [formGroup]="form">
+    <div class="many-inputs input-header">
+        <div class="input-container">
+            <label for="page-title" trans>Page Title</label>
+            <input type="text" id="page-title" formControlName="title">
+            <div class="error" *ngIf="errors.title">{{errors.title}}</div>
+        </div>
+
+        <div class="input-container slug-input-container" *ngIf="!hideSlug">
+            <slug-control [prefix]="slugPrefix()" formControlName="slug"></slug-control>
+            <div class="error" *ngIf="errors.slug">{{errors.slug}}</div>
+        </div>
+
+        <div class="setting-toggle-container">
+            <mat-slide-toggle id="crupdate_custom_page.hideNav" formControlName="hide_nav" trans>Hide Navbar</mat-slide-toggle>
+            <p trans>Whether default site navbar should be hidden for this page.</p>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button mat-raised-button color="accent" (click)="crupdatePage()">
+            <span *ngIf="page" trans>Update</span>
+            <span *ngIf="!page" trans>Create</span>
+        </button>
+        <a mat-button [routerLink]="backRoute()" trans>Cancel</a>
+    </div>
+
+    <div class="errors">
+        <div class="error" *ngIf="errors.body">{{errors.body}}</div>
+    </div>
+
+    <div class="editor-container">
+        <text-editor inlineUploadPrefix="page_media" class="text-editor" minHeight="auto" (onChange)="setBody($event)" [showAdvancedControls]="true"></text-editor>
+    </div>
+
+    <loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>
+</ng-container>

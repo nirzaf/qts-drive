@@ -1,0 +1,91 @@
+@import "variables";
+
+$filePreviewToolbarHeight: 60px;
+$navigationWidth: 125px;
+$mobileBreakpoint: 550px;
+
+file-preview-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  color: mat-color($app-accent, default-contrast);
+  height: $filePreviewToolbarHeight;
+  padding: 0 15px;
+  background: linear-gradient(to bottom,rgba(0,0,0,0.65) 0%,transparent 100%);
+  z-index: 10;
+
+  @media only screen and (max-width: $mobileBreakpoint) {
+    padding: 0 5px;
+  }
+
+  .entry-name {
+    display: block;
+    margin-right: 25px;
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    // limit entry name length until navigation element
+    // while navigation is displayed in toolbar
+    @media only screen and (min-width: $mobileBreakpoint) {
+      max-width: calc(50% - #{($navigationWidth / 2) + 15px});
+    }
+
+    file-icon {
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 5px;
+    }
+  }
+
+  .navigation {
+    @media only screen and (min-width: $mobileBreakpoint) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-right: -50%;
+      transform: translate(-50%,-50%);
+    }
+
+    @media only screen and (max-width: $mobileBreakpoint) {
+      position: fixed;
+      bottom: 10px;
+      left: 5px;
+    }
+  }
+
+  .actions {
+    margin-left: auto;
+    white-space: nowrap;
+
+    button, a {
+      margin: 0 5px;
+    }
+  }
+
+  .close-button {
+    margin-right: 25px;
+  }
+
+  .logo {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.2;
+    width: 150px;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .mat-icon-button[disabled][disabled] {
+    color: darken(#fff, 55%);
+  }
+}

@@ -1,0 +1,12 @@
+<skeleton *ngIf="loading$ | async; else breadcrumbs" @fadeOut></skeleton>
+<ng-template #breadcrumbs>
+    <div class="breadcrumb-container" @fadeIn>
+        <ng-container *ngFor="let item of breadcrumb | async; last as last; first as first;">
+            <div class="breadcrumb-item" (click)="last ? openContextMenu(item, button) : openPage(item)" [class.no-action]="!item.hasActions" #button>
+                <span class="name">{{first ? (item.viewName | trans) : item.viewName}}</span>
+                <mat-icon svgIcon="arrow-drop-down" *ngIf="last && item.hasActions"></mat-icon>
+            </div>
+            <mat-icon class="separator" svgIcon="keyboard-arrow-right" *ngIf="!last"></mat-icon>
+        </ng-container>
+    </div>
+</ng-template>

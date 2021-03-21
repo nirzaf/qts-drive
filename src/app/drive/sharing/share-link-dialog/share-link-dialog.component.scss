@@ -1,0 +1,53 @@
+@import "variables";
+
+share-link-dialog {
+  display: block;
+  min-height: 273px;
+  width: $modal-wide-width;
+  max-width: 100%;
+
+  .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    .right {
+      margin-left: auto;
+      color: mat-color($app-foreground, icon);
+    }
+  }
+
+  .link-input-container {
+    display: flex;
+    margin-bottom: 10px;
+
+    input {
+      flex: 1 1 auto;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    button {
+      width: 88px;
+      flex: 0 0 88px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .mat-dialog-content {
+    min-height: 144px;
+  }
+
+  .social-icons {
+    margin-bottom: 10px;
+  }
+
+  loading-indicator {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+  }
+}

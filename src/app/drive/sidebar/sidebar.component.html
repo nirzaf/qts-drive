@@ -1,0 +1,25 @@
+<div class="sidebar-body">
+    <sidebar-action-buttons></sidebar-action-buttons>
+
+    <div class="drive-folders">
+        <div class="sidebar-menu-item" [routerLink]="urls.driveRoot()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [folderDropTarget]="rootFolder$ | async">
+            <mat-icon svgIcon="arrow-drop-down" class="toggle-expansion-icon" [class.expanded]="driveTree.expanded" (click)="driveTree.toggle(); $event.stopPropagation()"></mat-icon>
+            <mat-icon svgIcon="network-drive-custom"></mat-icon>
+            <span class="text" trans>All Files</span>
+        </div>
+        <folders-tree (folderSelected)="openFolder($event)" #driveTree></folders-tree>
+    </div>
+
+    <custom-menu class="sidebar-menu" position="drive-sidebar" itemClass="sidebar-menu-item"></custom-menu>
+
+    <div class="usage-container">
+        <mat-icon svgIcon="storage"></mat-icon>
+        <available-space-indicator></available-space-indicator>
+    </div>
+</div>
+
+<div class="sidebar-footer">
+    <workspace-selector></workspace-selector>
+</div>
+
+

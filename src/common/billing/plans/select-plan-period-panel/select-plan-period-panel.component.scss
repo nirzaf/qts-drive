@@ -1,0 +1,122 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+.step-container {
+  display: flex;
+  position: relative;
+  background-color: mat-color($app-background, dialog);
+  border-radius: 4px;
+  margin-top: 25px;
+  @include mat-elevation(1);
+}
+
+@media only screen and (max-width: $medium) {
+  .subscription-period-step {
+    display: block;
+  }
+
+  upgrade-page-aside {
+    display: none;
+  }
+}
+
+.left-col {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  flex: 1 1 auto;
+  padding: 30px;
+}
+
+.actions {
+  margin-top: auto;
+}
+
+.title {
+  font-size: 2.1rem;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.periods {
+  margin-bottom: 40px;
+}
+
+.radio-button-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+
+  &.no-label {
+    padding-left: 90px;
+
+    @media only screen and (max-width: $medium) {
+      padding-left: 0;
+    }
+  }
+}
+
+.savings-label {
+  width: 90px;
+  height: 28px;
+  line-height: 28px;
+  padding-left: 22px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: mat-color($app-accent, default);
+  color: mat-color($app-accent, default-contrast);
+  position: relative;
+
+  @media only screen and (max-width: $medium) {
+    display: none;
+  }
+
+  &:after {
+    content: " ";
+    left: 100%;
+    top: 50%;
+    height: 0;
+    width: 0;
+    border: 14px solid transparent;
+    border-left-color: mat-color($app-accent, default);
+    position: absolute;
+    pointer-events: none;
+    margin-top: -14px;
+  }
+
+  &:before {
+    content: " ";
+    left: 0;
+    top: 50%;
+    height: 0;
+    width: 0;
+    border: 14px solid transparent;
+    border-left-color: mat-color($app-background, dialog);
+    position: absolute;
+    pointer-events: none;
+    margin-top: -14px;
+  }
+}
+
+.period {
+  display: block;
+  margin-left: 30px;
+
+  @media only screen and (max-width: $medium) {
+    margin-left: 0;
+  }
+}
+
+.radio-button-content {
+  display: flex;
+  font-size: 1.5rem;
+
+  .name {
+    font-weight: 500;
+    padding-right: 5px;
+  }
+}

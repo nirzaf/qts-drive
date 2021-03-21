@@ -1,0 +1,72 @@
+<div class="title" trans>Menu Items</div>
+
+<mat-accordion cdkDropList (cdkDropListDropped)="reorderMenuItems($event)" *ngIf="menus.activeMenu$ | async as activeMenu; else noActiveMenu">
+    <mat-expansion-panel
+            class="mat-elevation-z menu-item-container"
+            cdkDrag
+            *ngFor="let menuItem of activeMenu.items"
+            (opened)="toggleMenuItem(menuItem)"
+            (closed)="toggleMenuItem(menuItem)"
+            [attr.data-id]="menuItem.id"
+    >
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon class="drag-handle" cdkDragHandle svgIcon="drag-handle"></mat-icon>
+                <span class="name">{{menuItem.label}}</span>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="many-inputs menu-item-list">
+            <div class="input-container">
+                <label for="{{menuItem.id + '-label'}}" trans>Label</label>
+                <input type="text" [(ngModel)]="menuItem.label" id="{{menuItem.id + '-label'}}" (ngModelChange)="menus.commitChanges()">
+            </div>
+
+            <div class="input-container">
+                <label for="{{menuItem.id + '-type'}}" trans>Type</label>
+                <select [(ngModel)]="menuItem.type" id="{{menuItem.id + '-type'}}" (ngModelChange)="menus.commitChanges()">
+                    <option value="link" trans>Link</option>
+                    <option value="route" trans>Route</option>
+                    <option value="page" trans>Page</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="{{menuItem.id + '-action'}}" trans>Action</label>
+                <input type="text" [(ngModel)]="menuItem.action" id="{{menuItem.id + '-action'}}" (ngModelChange)="menus.commitChanges()">
+            </div>
+
+            <div class="input-container">
+                <label for="{{menuItem.id + '-condition'}}" trans>Condition</label>
+                <select [(ngModel)]="menuItem.condition" id="{{menuItem.id + '-condition'}}" (ngModelChange)="menus.commitChanges()">
+                    <option [ngValue]="null" trans>None</option>
+                    <option value="auth" trans>Show to Logged in Users Only</option>
+                    <option value="guest" trans>Show to Guest Users Only</option>
+                    <option value="admin" trans>Show to Admin Only</option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="{{menuItem.id + '-target'}}" trans>Open link in</label>
+                <select [(ngModel)]="menuItem.target" id="{{menuItem.id + '-target'}}" (ngModelChange)="menus.commitChanges()">
+                    <option value="_self" trans>Same Window</option>
+                    <option value="_blank" trans>New Window</option>
+                </select>
+            </div>
+
+            <div class="input-container icon-input-container" #iconInput (click)="openIconSelector(iconInput, menuItem)">
+                <label for="{{menuItem.id + '-icon'}}" trans>Icon</label>
+                <input type="text" readonly [(ngModel)]="menuItem.icon" id="{{menuItem.id + '-icon'}}" placeholder="(Optional)" trans-placeholder>
+                <mat-icon [svgIcon]="menuItem.icon"></mat-icon>
+            </div>
+        </div>
+
+        <mat-action-row>
+            <button mat-button color="warn" class="delete-button" (click)="confirmMenuItemDeletion()" trans>Remove</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<ng-template #noActiveMenu>
+    <div class="no-menu-items" trans>This menu has no items yet.</div>
+</ng-template>

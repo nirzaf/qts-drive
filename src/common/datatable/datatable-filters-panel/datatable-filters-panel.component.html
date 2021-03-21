@@ -1,0 +1,12 @@
+<header>
+    <mat-icon svgIcon="filter-list"></mat-icon>
+    <span trans>Filters</span>
+</header>
+
+<form class="body" (ngSubmit)="close()">
+    <ng-container *ngTemplateOutlet="data.filters"></ng-container>
+</form>
+
+<footer>
+    <button (click)="close()" type="button" mat-button color="accent" trans>Close</button>
+</footer>

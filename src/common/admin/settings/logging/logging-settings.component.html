@@ -1,0 +1,26 @@
+<div class="header">
+    <div class="title" trans>Logging</div>
+    <div class="subtitle" trans>Configure site error and access logging and related 3rd party integrations.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate *ngIf="errors$ | async as errors">
+    <div class="error-group many-inputs no-spacing" id="logging-group" [class.has-error]="errors.logging_group">
+        <div class="input-container">
+            <label for="logging.sentry_dsn" trans>Sentry DSN</label>
+            <input type="url" name="logging.sentry_dsn" id="logging.sentry_dsn" [(ngModel)]="state.server['sentry_dsn']" minlength="30">
+        </div>
+
+        <p class="error" *ngIf="errors.logging_group" [innerHTML]="errors.logging_group"></p>
+    </div>
+
+    <div class="widget widget-info">
+        <div class="title" trans>Information</div>
+        <p>
+            <a href="https://sentry.io" target="_blank">Sentry</a>
+            <span> {{'integration provides real-time error tracking and helps identify and fix issues when site is in production.' | trans}}</span>
+        </p>
+    </div>
+
+    <button type="submit" mat-raised-button color="accent" class="update-button" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

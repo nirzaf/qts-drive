@@ -1,0 +1,60 @@
+<ng-container *ngIf="currentUser.isLoggedIn$ | async; else guestMenuItems">
+    <a class="admin-link" mat-menu-item routerLink="/admin" *ngIf="currentUser.hasPermission('admin.access')" (click)="onItemClick()">
+        <mat-icon class="mat-icon" svgIcon="dashboard"></mat-icon>
+        <span trans>Admin Area</span>
+    </a>
+
+    <a class="notifications-link" mat-menu-item routerLink="/notifications" *ngIf="forceNotifButton || ((breakpoints.isMobile$ | async) && config.get('notifications.integrated'))" (click)="onItemClick()">
+        <mat-icon svgIcon="notifications"></mat-icon>
+        <span trans>Notifications</span>
+    </a>
+
+    <ng-content></ng-content>
+
+    <ng-container *ngIf="!hideConfigItems">
+        <ng-container *ngFor="let item of config.get('vebto.navbar.dropdownItems')">
+            <a mat-menu-item [routerLink]="item.route" *ngIf="shouldShowMenuItem(item)">
+                <mat-icon [svgIcon]="item.icon"></mat-icon>
+                <span trans>{{item.name}}</span>
+            </a>
+        </ng-container>
+    </ng-container>
+
+    <a class="account-settings-link" mat-menu-item routerLink="/account/settings" (click)="onItemClick()">
+        <mat-icon class="mat-icon" svgIcon="settings"></mat-icon>
+        <span trans>Account Settings</span>
+    </a>
+
+    <ng-container  *ngIf="currentUser.isSubscribed()">
+        <a class="subscription-link" mat-menu-item routerLink="/billing/subscription" (click)="onItemClick()">
+            <mat-icon class="mat-icon" svgIcon="credit-card"></mat-icon>
+            <span trans>Subscription</span>
+        </a>
+
+        <a class="subscription-link" mat-menu-item routerLink="/billing/invoices" (click)="onItemClick()">
+            <mat-icon class="mat-icon" svgIcon="assignment"></mat-icon>
+            <span trans>Invoices</span>
+        </a>
+    </ng-container>
+
+    <div mat-menu-item (click)="theme.toggle(); onItemClick()" *ngIf="config.get('themes.user_change')">
+        <ng-container *ngIf="(theme.selectedTheme$ | async)?.is_dark; else lightMode">
+            <mat-icon svgIcon="light-on"></mat-icon>
+            <span trans>Light Mode</span>
+        </ng-container>
+        <ng-template #lightMode>
+            <mat-icon svgIcon="light"></mat-icon>
+            <span trans>Dark Mode</span>
+        </ng-template>
+    </div>
+
+    <div class="logout-item" mat-menu-item (click)="auth.logOut(); onItemClick()">
+        <mat-icon svgIcon="exit-to-app"></mat-icon>
+        <span trans>Log Out</span>
+    </div>
+</ng-container>
+
+<ng-template #guestMenuItems>
+    <a routerLink="/login" mat-menu-item trans (click)="onItemClick()">Login</a>
+    <a routerLink="/register" mat-menu-item *ngIf="!config.get('registration.disable') && !hideRegisterButton" (click)="onItemClick()" trans>Register</a>
+</ng-template>

@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h2 class="modal-title mat-dialog-title" mat-dialog-title *ngIf="data.role" trans>Update Role</h2>
+    <h2 class="modal-title mat-dialog-title" mat-dialog-title *ngIf="!data.role" trans>Create a New Role</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1"><mat-icon svgIcon="close"></mat-icon></button>
+</div>
+
+<form autocomplete="off" (submit)="confirm()" *ngIf="errors$ | async as errors" [formGroup]="form" ngNativeValidate>
+   <div class="many-inputs mat-dialog-content" mat-dialog-content>
+       <div class="input-container">
+           <label for="name" trans>Name</label>
+           <input type="text" formControlName="name" id="name" required>
+           <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+       </div>
+
+       <div class="input-container">
+           <label for="description" trans>Description</label>
+           <textarea type="text" id="description" formControlName="description" maxlength="190"></textarea>
+       </div>
+
+       <div class="input-container" *ngIf="settings.get('workspaces.integrated')">
+           <label for="type" trans>Type</label>
+           <select id="type" formControlName="type">
+               <option value="sitewide" trans>Site Wide</option>
+               <option value="workspace" trans>Workspace</option>
+           </select>
+       </div>
+
+       <permission-manager formControlName="permissions" [valueListKey]="form.get('type').value === 'workspace' ? 'workspacePermissions' : 'permissions'" [hideRestrictions]="data?.role?.guests"></permission-manager>
+       <div class="error" *ngIf="errors?.permissions">{{errors?.permissions}}</div>
+
+       <div class="setting-container">
+           <mat-slide-toggle formControlName="default" id="default" trans>Default</mat-slide-toggle>
+           <p trans>Assign this role to new users automatically.</p>
+           <div class="error" *ngIf="errors.default">{{errors.default}}</div>
+       </div>
+
+       <div class="setting-container" *ngIf="form.get('type').value === 'sitewide'">
+           <mat-slide-toggle id="guest" formControlName="guests" trans>Guests</mat-slide-toggle>
+           <p trans>Assign this role to guests (not logged in users).</p>
+           <div class="error" *ngIf="errors.guests">{{errors.guests}}</div>
+       </div>
+   </div>
+
+    <div class="buttons right mat-dialog-actions" mat-dialog-actions>
+        <button (click)="close()" type="button" class="button cancel" mat-button trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async">
+            <span *ngIf="data.role" trans>Update</span>
+            <span *ngIf="!data.role" trans>Create</span>
+        </button>
+    </div>
+</form>

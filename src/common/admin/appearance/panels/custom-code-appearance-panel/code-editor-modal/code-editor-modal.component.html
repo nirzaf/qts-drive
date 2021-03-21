@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title trans>Code Editor</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <div class="editor-container">
+        <p class="info" *ngIf="data.language === 'html'" trans>If entering javascript, wrap it with &lt;script>&lt;/script> tag.</p>
+        <div class="editor" #editor></div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="close()" type="button" mat-button trans>Cancel</button>
+    <button type="submit" mat-raised-button color="accent" (click)="confirm()" [disabled]="syntaxInvalid$ | async" trans>Update</button>
+</mat-dialog-actions>
+
+<loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>

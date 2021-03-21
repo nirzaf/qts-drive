@@ -1,0 +1,54 @@
+@import "variables";
+
+:host {
+  padding: 30px 20px;
+  border-left: 1px solid mat-color($app-foreground, divider);
+  min-width: 320px;
+}
+
+.header {
+  font-weight: 500;
+  font-size: 1.5rem;
+  padding: 20px 20px 0 0;
+}
+
+.plan-features-list {
+  text-align: left;
+}
+
+.divider {
+  margin: 20px 0 30px;
+  border-top: 1px solid mat-color($app-foreground, divider);
+}
+
+.secure-shopping {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid mat-color($app-foreground, divider);
+  border-radius: 6px;
+  max-width: 275px;
+
+  .icon-container {
+    margin-right: 15px;
+
+    .mat-icon {
+      color: mat-color($app-accent);
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .text {
+    .primary {
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      font-size: 1.4rem;
+    }
+
+    .secondary {
+      font-size: 1.3rem;
+      color: mat-color($app-foreground, secondary-text);
+    }
+  }
+}

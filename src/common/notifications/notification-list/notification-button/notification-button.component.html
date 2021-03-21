@@ -1,0 +1,11 @@
+<button type="button" mat-icon-button class="notification-button" (click)="openNotificationPanel()" #notifButton>
+    <mat-icon
+        svgIcon="notifications"
+        [matBadge]="notifications.unreadCount$ | async"
+        matBadgeColor="warn"
+        matBadgeSize="small"
+        [matBadgeHidden]="(notifications.unreadCount$ | async) < 1"
+        [@bellAnimation]="animationTrigger$ | async"
+        (@bellAnimation.done)="stopAnimation()">
+    </mat-icon>
+</button>

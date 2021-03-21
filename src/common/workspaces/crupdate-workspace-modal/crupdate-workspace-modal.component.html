@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h2 mat-dialog-title>
+        <span trans *ngIf="!data.workspace">Create Workspace</span>
+        <span trans *ngIf="data.workspace">Update Workspace</span>
+    </h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form (ngSubmit)="confirm()" ngNativeValidate [formGroup]="form" *ngIf="errors$ | async as errors">
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container name-container">
+            <label for="crupdate-workspace-name" trans>Name</label>
+            <input type="text" id="crupdate-workspace-name" formControlName="name" required minlength="3">
+            <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async" trans>{{data.workspace ? 'Update' : 'Create'}}</button>
+    </mat-dialog-actions>
+</form>

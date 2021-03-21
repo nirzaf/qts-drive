@@ -1,0 +1,21 @@
+<div [formGroup]="form" class="many-inputs">
+    <div class="input-container">
+        <label for="subscription-status-filter" trans>Status</label>
+        <select id="subscription-status-filter" formControlName="ends_at">
+            <option [ngValue]="null" trans>Any</option>
+            <option [ngValue]="false" trans>Active</option>
+            <option [ngValue]="true" trans>Cancelled</option>
+        </select>
+    </div>
+
+    <div class="input-container">
+        <label for="subscription-gateway-filter" trans>Gateway</label>
+        <select id="subscription-gateway-filter" formControlName="gateway">
+            <option [ngValue]="null" trans>Any</option>
+            <option value="paypal" trans>Paypal</option>
+            <option value="stripe" trans>Stripe</option>
+        </select>
+    </div>
+
+    <between-input formControlName="created_at" [setDefaultDate]="false" [showLabels]="false">Subscribed Between</between-input>
+</div>

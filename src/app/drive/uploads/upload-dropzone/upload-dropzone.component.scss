@@ -1,0 +1,99 @@
+@import "variables";
+
+@keyframes pulsate {
+  0% {-webkit-transform: scale(1) }
+  50% { -webkit-transform: scale(1.05) }
+  100% {-webkit-transform: scale(1) }
+}
+
+.file-over-dropzone {
+  .animation-circle {
+    animation: pulsate 0.7s ease-out;
+    animation-iteration-count: 15;
+    background-color: mat-color($app-accent, lighter);
+    pointer-events: none;
+  }
+
+  .content-circle {
+    color: mat-color($app-accent, default-contrast);
+    pointer-events: none;
+  }
+}
+
+upload-dropzone {
+  display: block;
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border: 2px solid transparent;
+  margin: auto;
+
+  .animation-circle, .content-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 400px;
+    height: 400px;
+    min-height: 300px;
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .animation-circle {
+    background-color: mat-color($app-background, card);
+    border: 1px solid mat-color($app-foreground, divider);
+    z-index: 1;
+  }
+
+  .content-circle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border-color: transparent;
+    color: mat-color($app-foreground, secondary-text);
+    z-index: 2;
+
+    .main-icon {
+      width: 100px;
+      height: 100px;
+    }
+
+    .text {
+      text-align: center;
+      margin-top: 8px;
+
+      .mat-icon {
+        vertical-align: middle;
+      }
+
+      .primary {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .secondary {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    width: auto;
+
+    .animation-circle, .content-circle {
+      border-radius: 0;
+      border: none;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<material-navbar [hideRegisterButton]="state.mode === 'pricing'"></material-navbar>
+
+<div class="bg-wrapper">
+    <mat-horizontal-stepper class="container main-content" [linear]="true">
+        <ng-template matStepperIcon="edit">
+            <mat-icon svgIcon="edit" class="size-16"></mat-icon>
+        </ng-template>
+
+        <mat-step [label]="'Subscription plan' | trans" [completed]="!!(state.initialPlan$ | async)">
+            <select-plan-panel (selected)="nextStep()"></select-plan-panel>
+            <contact-widget></contact-widget>
+        </mat-step>
+
+        <mat-step [label]="'Subscription interval' | trans" [completed]="!!(state.selectedPlan$ | async)">
+            <select-plan-period-panel [showSidebar]="true" (selected)="nextStep()"></select-plan-period-panel>
+        </mat-step>
+
+        <mat-step [label]="'Payment' | trans" [completed]="false" *ngIf="state.mode === 'subscribe'">
+            <div class="step-container payment-step">
+                <div class="left-col">
+                    <create-subscription-panel [plan]="state.selectedPlan$ | async" (loading)="loading$.next($event)" (completed)="onCompleted()"></create-subscription-panel>
+                </div>
+
+                <upgrade-page-aside [plan]="state.selectedPlan$ | async" class="right-col"></upgrade-page-aside>
+            </div>
+
+            <p
+                class="legal-info" *ngIf="state.selectedPlan$ | async as plan"
+                trans
+                [transValues]="{
+                    siteName: settings.get('branding.site_name'),
+                    intervalCount: plan.interval_count > 1 ? plan.interval_count : '',
+                    intervalName: plan.interval_count > 1 ? plan.interval + 's' : plan.interval
+                }">
+                You authorise :siteName to charge you automatically every :intervalCount :intervalName, until you cancel your subscription. You consent to get access to your :siteName subscription immediately, and acknowledge that refunds are only available within 14 days and provided you haven't accessed :siteName. You will be able to cancel your subscription at any time from your profile page.
+            </p>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>
+
+<loading-indicator class="overlay" [isVisible]="loading$ | async"></loading-indicator>

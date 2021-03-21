@@ -1,0 +1,16 @@
+<material-navbar menuPosition="admin-navbar" color="primary" [showToggleButton]="true" (toggleButtonClick)="toggleLeftSidebar()"></material-navbar>
+
+<mat-sidenav-container class="admin-page-content">
+    <mat-sidenav [opened]="!leftColumnIsHidden" [mode]="(breakpoints.isMobile$ | async) ? 'over' : 'side'" [fixedInViewport]="true" [fixedTopGap]="70" class="left-column">
+        <div class="left-column-inner">
+            <custom-menu [position]="menu" [vertical]="true"></custom-menu>
+            <div class="version">
+                {{'Version:' | trans}} {{settings.get('version')}}
+            </div>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="content-inner">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

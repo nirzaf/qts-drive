@@ -1,0 +1,28 @@
+<material-navbar [container]="true" [menuPosition]="settings.get('vebto.navbar.defaultPosition', 'custom-page-navbar')"></material-navbar>
+
+<div class="form-container">
+    <form (ngSubmit)="submitMessage()" [formGroup]="form" *ngIf="errors$ | async as errors" class="many-inputs" ngNativeValidate>
+        <h1 trans>Contact Us</h1>
+        <p trans>Please use the form below to send us a message and we'll get back to you as soon as possible.</p>
+
+        <div class="input-container">
+            <label for="name" trans>Name</label>
+            <input type="text" id="name" formControlName="name" required>
+            <p class="error" *ngIf="errors.name">{{errors.name}}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="email" trans>Email</label>
+            <input type="email" id="email" formControlName="email" required>
+            <p class="error" *ngIf="errors.email">{{errors.email}}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="message" trans>Message</label>
+            <textarea id="message" formControlName="message" rows="10" required></textarea>
+            <p class="error" *ngIf="errors.message">{{errors.message}}</p>
+        </div>
+
+        <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async" trans>Send</button>
+    </form>
+</div>

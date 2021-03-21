@@ -1,0 +1,48 @@
+@import "variables";
+
+.social-icons {
+  &:empty {
+    display: none;
+  }
+
+  .social-icon {
+    width: 31px;
+    height: 31px;
+    line-height: 31px;
+    margin-right: 8px;
+    border-radius: 4px;
+    text-align: center;
+
+    &.facebook {
+      background-color: $facebook-color;
+      color: #fff;
+    }
+
+    &.twitter {
+      background-color: $twitter-color;
+      color: #fff;
+    }
+
+    &.google {
+      background-color: $google-color;
+      color: #fff;
+    }
+
+    &.mail {
+      background-color: $social-icon-mail-color;
+      color: #fff;
+    }
+
+    &.link {
+      background-color: $social-icon-link-color;
+      color: #fff;
+    }
+
+    .mat-icon {
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      margin: 0 auto;
+    }
+  }
+}

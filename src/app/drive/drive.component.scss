@@ -1,0 +1,76 @@
+@import "variables";
+
+$sidebar-width: 220px;
+$navbar-height: 65px;
+
+drive {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+
+  material-navbar {
+    height: $navbar-height;
+  }
+
+  .loading-overlay-container {
+    position: relative;
+    height: calc(100% - #{$file-list-header-height + $drive-toolbar-height - 4});
+  }
+
+  .has-rek {
+    ad-host {
+      margin-top: 25px;
+    }
+
+    .loading-overlay-container {
+      height: calc(100% - #{$file-list-header-height + $drive-toolbar-height + 175 - 4});
+    }
+  }
+
+  .mat-sidenav-container {
+    width: 100%;
+    height: calc(100% - #{$navbar-height});
+
+    .left-sidebar {
+      width: $sidebar-width;
+      flex: 0 0 $sidebar-width;
+      border-right: 1px solid mat-color($app-foreground, divider);
+    }
+
+    .right-sidebar {
+      width: 300px;
+      flex: 0 0 300px;
+      border-left: 1px solid mat-color($app-foreground, divider);
+      background-color: mat-color($app-background, card);
+      color: mat-color($app-foreground, text);
+    }
+
+    .mat-sidenav-content {
+      position: relative;
+      width: auto;
+      overflow: hidden;
+      height: 100%;
+      background-color: mat-color($app-background, card);
+    }
+  }
+
+  .files-container {
+    height: calc(100% - 4px);
+    border: 2px solid transparent;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    padding: ($file-list-gutter - 2px);
+
+    //lower opacity of selected items that are being dragged
+    &.dragging .selected {
+      opacity: 0.4;
+    }
+
+    &.file-over-dropzone {
+      border-color: mat-color($app-accent, default);
+      background-color: mat-color($app-accent, emphasis);
+    }
+  }
+}

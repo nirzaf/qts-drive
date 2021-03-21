@@ -1,0 +1,19 @@
+@import "variables";
+
+toolbar-actions {
+  display: flex;
+  align-items: center;
+  color: mat-color($app-foreground, icon);
+
+  context-actions-container {
+    border-right: 1px solid mat-color($app-foreground, divider);
+    padding-right: 5px;
+    margin-right: 5px;
+  }
+
+  .always-visible-actions {
+    .active {
+      color: mat-color($app-accent, default);
+    }
+  }
+}

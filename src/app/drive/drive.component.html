@@ -1,0 +1,39 @@
+<material-navbar [showToggleButton]="(isMobile$ | async)" (toggleButtonClick)="toggleSidebar()" menuPosition="drive-navbar">
+    <main-searchbar class="nav-searchbar"></main-searchbar>
+</material-navbar>
+<mat-sidenav-container>
+    <mat-sidenav [mode]="(isMobile$ | async) ? 'over' : 'side'" [opened]="sidebarOpen$ | async" class="left-sidebar">
+        <sidebar></sidebar>
+    </mat-sidenav>
+    <mat-sidenav [opened]="activityOpen$ | async" [mode]="(isMobile$ | async) ? 'over' : 'side'" position="end" class="right-sidebar">
+        <details-sidebar></details-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content driveHammerInteractions [class.has-rek]="settings.has('ads.drive')">
+        <ad-host slot="ads.drive"></ad-host>
+        <ng-container *ngIf="(activePage$ | async).name !== 'workspaces'">
+            <drive-toolbar></drive-toolbar>
+            <file-list-header></file-list-header>
+        </ng-container>
+        <div class="loading-overlay-container">
+            <div
+                class="files-container"
+                #filesContainer
+                #scrollContainer
+                toggleSelectedClass
+                [class.dragging]="dragging | async"
+                contextMenu="entry"
+                [disableContextMenu]="!(canUpload$ | async)"
+                fileDropzone
+                [disableDropzoneClick]="true"
+                [disableDropzone]="!(canUpload$ | async)"
+                driveInfiniteScroll
+                (filesDropped)="uploadFiles($event)"
+            >
+                <router-outlet></router-outlet>
+            </div>
+            <loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<entry-drag-preview></entry-drag-preview>

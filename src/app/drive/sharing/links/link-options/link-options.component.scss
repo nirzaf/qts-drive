@@ -1,0 +1,46 @@
+@import "variables";
+
+link-options {
+  display: block;
+  padding: 15px;
+  border: 1px solid mat-color($app-foreground, divider);
+  border-radius: 4px;
+
+  .link-option {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+
+    .label {
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .expiration-input-container, .password-input-container {
+      margin-top: 15px;
+    }
+
+    .content .error {
+      margin-top: 10px;
+    }
+  }
+
+  .expiration-input-container {
+    display: flex;
+
+    .date-input-container {
+      flex: 1 1 auto;
+      margin-right: 10px;
+      position: relative;
+    }
+
+    .time-input {
+      max-width: 150px;
+      margin-right: 20px;
+    }
+  }
+
+  .update-button {
+    margin-top: 15px;
+  }
+}

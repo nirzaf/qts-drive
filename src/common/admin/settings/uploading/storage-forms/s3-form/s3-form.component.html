@@ -1,0 +1,25 @@
+<div class="input-container">
+    <label for="storage_s3_key" trans>Amazon S3 Key</label>
+    <input type="text" id="storage_s3_key" name="storage_s3_key" [(ngModel)]="state.server['storage_s3_key']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_s3_secret" trans>Amazon S3 Secret</label>
+    <input type="text" id="storage_s3_secret" name="storage_s3_secret" [(ngModel)]="state.server['storage_s3_secret']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_s3_region" trans>Amazon S3 Region</label>
+    <input type="text" id="storage_s3_region" pattern="[a-z1-9\-]+" placeholder="us-east-1" name="storage_s3_region" [(ngModel)]="state.server['storage_s3_region']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_s3_bucket" trans>Amazon S3 Bucket</label>
+    <input type="text" id="storage_s3_bucket" name="storage_s3_bucket" [(ngModel)]="state.server['storage_s3_bucket']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_s3_endpoint" trans>Amazon S3 Endpoint</label>
+    <input type="url" id="storage_s3_endpoint" name="storage_s3_endpoint" [placeholder]="'Optional' | trans" [(ngModel)]="state.server['storage_s3_endpoint']">
+    <p trans>Only change endpoint if you are using another S3 compatible storage service.</p>
+</div>

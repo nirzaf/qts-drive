@@ -1,0 +1,33 @@
+<button mat-icon-button class="back-button" (click)="closed.emit(true)" *ngIf="showCloseButton">
+    <mat-icon svgIcon="arrow-back"></mat-icon>
+</button>
+<ng-container *ngIf="previewFiles.pagination() | async as pagination">
+    <div class="entry-name">
+        <file-icon [type]="pagination.entry.type"></file-icon>
+        {{pagination.entry.name}}
+    </div>
+
+    <ng-container *ngIf="previewFiles.pagination() | async as pagination">
+        <div class="navigation">
+            <button mat-icon-button class="previous" [disabled]="!pagination.havePrevious" (click)="previewFiles.showPrevious()">
+                <mat-icon svgIcon="keyboard-arrow-left"></mat-icon>
+            </button>
+
+            <span class="meta">{{pagination.pointer + 1}} {{'of' | trans}} {{pagination.total}}</span>
+
+            <button mat-icon-button class="next" [disabled]="!pagination.haveNext" (click)="previewFiles.showNext()">
+                <mat-icon svgIcon="keyboard-arrow-right"></mat-icon>
+            </button>
+        </div>
+    </ng-container>
+
+    <div class="actions">
+        <button mat-icon-button (click)="downloadFiles()" [disabled]="disableDownload">
+            <mat-icon svgIcon="file-download"></mat-icon>
+        </button>
+        <ng-content></ng-content>
+    </div>
+</ng-container>
+<a routerLink="/drive" class="logo" *ngIf="showLogo && settings.has('branding.logo_light')">
+    <img *ngIf="showLogo && settings.get('branding.logo_light')" [src]="settings.get('branding.logo_light')">
+</a>

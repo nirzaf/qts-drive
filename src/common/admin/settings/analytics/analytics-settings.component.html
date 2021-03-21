@@ -1,0 +1,30 @@
+<div class="header">
+    <div class="title">Analytics</div>
+    <div class="subtitle" trans>Configure google analytics integration and credentials.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate *ngIf="errors$ | async as errors">
+    <div class="error-group many-inputs no-spacing" id="analytics_group" [class.has-error]="errors.analytics_group">
+        <div class="input-container" [class.has-error]="errors['certificate']">
+            <label for="certificate" trans>Google Service Account Key File (.json)</label>
+            <input type="file" id="certificate" name="certificate" #fileInput (change)="setCertificateFile(fileInput.files)" accept=".json">
+            <p class="error" *ngIf="errors['certificate']">{{errors['certificate']}}</p>
+        </div>
+
+        <div class="input-container">
+            <label for="analytics.view_id" trans>Google Analytics View ID</label>
+            <input type="number" name="analytics.view_id" id="analytics.view_id" [(ngModel)]="state.server['analytics_view_id']">
+        </div>
+
+        <div class="input-container">
+            <label for="analytics.tracking_code" trans>Google Analytics Tracking Code</label>
+            <input name="analytics.tracking_code" id="analytics.tracking_code" [(ngModel)]="state.client['analytics.tracking_code']" min="1" max="20" placeholder="UA-******-2">
+            <p trans>Google analytics tracking code only, not the whole javascript code snippet.</p>
+        </div>
+
+        <p class="error" *ngIf="errors.analytics_group" [innerHTML]="errors.analytics_group"></p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" [disabled]="loading$ | async" type="submit" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

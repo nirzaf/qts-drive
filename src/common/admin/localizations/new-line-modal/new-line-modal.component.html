@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h2 class="mat-dialog-title" mat-dialog-title trans>Add New Translation Line</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form class="modal-content" (ngSubmit)="confirm()" [formGroup]="form" ngNativeValidate>
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container">
+            <label for="translation-key" trans>Translation Key</label>
+            <input type="text" formControlName="key" name="translation-key" id="translation-key" required>
+            <p trans>Word or sentence you want to translate.</p>
+        </div>
+
+        <div class="input-container">
+            <label for="translation-value" trans>Translation Value</label>
+            <input type="text" formControlName="value" name="translation-value" id="translation-value" required>
+            <p trans>What word or sentence should be translated to.</p>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" mat-button type="button" trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" trans>Add</button>
+    </mat-dialog-actions>
+</form>

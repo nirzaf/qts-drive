@@ -1,0 +1,28 @@
+<table class="material-table">
+    <thead>
+    <tr>
+        <th table-header-checkbox></th>
+        <th table-sort-header trans>Slug</th>
+        <th *ngIf="showOwnerColumn" table-sort-header trans>Owner</th>
+        <th class="body-column" trans>Body</th>
+        <th class="type-column" table-sort-header *ngIf="showTypeColumn" trans>Type</th>
+        <th trans>Last Updated</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let page of pages">
+        <td [table-body-checkbox]="page.id"></td>
+        <td data-label="Slug"><a [href]="getPageUrl(page)" target="_blank">{{page.slug}}</a></td>
+        <td data-label="Owner" *ngIf="showOwnerColumn">
+            <user-column [user]="page.user"></user-column>
+        </td>
+        <td data-label="Body" class="body-column">{{page.body}}</td>
+        <td data-label="Type" class="type-column" *ngIf="showTypeColumn">{{page.type ? viewName(page.type) : 'default'}}</td>
+        <td data-label="Last Updated">{{page.updated_at | formattedDate}}</td>
+        <td class="edit-column">
+            <ng-container *ngTemplateOutlet="editButtonTemplate; context: {page: page}"></ng-container>
+        </td>
+    </tr>
+    </tbody>
+</table>

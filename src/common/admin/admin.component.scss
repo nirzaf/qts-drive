@@ -1,0 +1,47 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+material-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.admin-page-content {
+  position: relative;
+  top: $material-navbar-height;
+  min-height: calc(100vh - #{$material-navbar-height});
+}
+
+.left-column {
+  width: 225px;
+  flex-shrink: 0;
+  border-right: $admin-card-border;
+  box-shadow: $admin-card-box-shadow;
+}
+
+.left-column-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 8px 0;
+}
+
+.version {
+  padding: 5px 8px;
+  font-size: 1.3rem;
+  margin-top: auto;
+}
+
+.content-inner {
+  flex: 1 1 auto;
+  padding: $admin-page-padding;
+  overflow: initial;
+
+  @media only screen and (max-width: $medium) {
+    padding: 10px;
+  }
+}

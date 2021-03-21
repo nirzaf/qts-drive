@@ -1,0 +1,39 @@
+@import "variables";
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.input-container {
+  max-width: 400px;
+
+  input, select, .fake-input {
+    border-radius: 4px;
+    height: 46px;
+    padding: 14px;
+    user-select: none;
+    color: mat-color($app-foreground, text);
+  }
+}
+
+.expiration-date {
+  display: flex;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  select {
+    display: block;
+    flex: 1 1 auto;
+    width: initial;
+  }
+
+  .expiration-month {
+    margin-right: 10px;
+  }
+}
+
+button[type=submit] {
+  margin-bottom: 5px;
+}

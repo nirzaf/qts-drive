@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Connect Domain</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form (ngSubmit)="nextStep()" ngNativeValidate [formGroup]="form" *ngIf="errors$ | async as errors">
+    <ng-container *ngIf="currentStep$ | async as currentStep">
+        <mat-dialog-content>
+            <div class="host-step" *ngIf="currentStep === Steps.Host">
+                <div class="input-container">
+                    <label for="host" trans>Host</label>
+                    <input type="text" id="host" formControlName="host" class="host-input" placeholder="https://example.com" maxlength="100" required>
+                    <p trans>Enter the exact domain name you want your {{ data.resourceName || 'links' }} to be accessible with. It can be a subdomain (example.yourdomain.com) or root domain (yourdomain.com).</p>
+                    <div class="error" *ngIf="errors.host">{{errors.host}}</div>
+                </div>
+
+                <div class="setting-toggle-container global-toggle" *ngIf="insideAdmin()">
+                    <mat-slide-toggle id="global" formControlName="global" trans>Global</mat-slide-toggle>
+                    <p trans>Whether all users should be able to select this domain.</p>
+                </div>
+            </div>
+
+            <div class="info-step" *ngIf="currentStep === Steps.Info">
+                <ng-container *ngIf="isSubdomain()">
+                    <p trans>Add this CNAME record to your domain by visiting your DNS provider or registrar.</p>
+                    <div class="message-widget">
+                        <div class="message"><strong>CNAME</strong>  {{ baseUrl() }}</div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="!isSubdomain()">
+                    <p trans>Add this A record to your domain by visiting your DNS provider or registrar.</p>
+                    <div class="message-widget">
+                        <div class="message"><strong>A</strong>  {{ serverIp }}</div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="validate-step" *ngIf="currentStep === Steps.Validate">
+                <div class="message-widget" *ngIf="loading$ | async; else notLoading">
+                    <loading-indicator class="small icon" [isVisible]="true"></loading-indicator>
+                    <div class="message" trans>Checking DNS configuration...</div>
+                </div>
+                <ng-template #notLoading>
+                    <div class="message-widget warning-color">
+                        <mat-icon svgIcon="warning" class="icon"></mat-icon>
+                        <div class="message" trans>The domain is missing {{ isSubdomain() ? 'CNAME' : 'A'}} record pointing to {{baseUrl()}} or the changes haven't propagated yet.</div>
+                    </div>
+                    <p>{{ 'You can wait and try again later or' | trans }} <button class="no-style refresh-btn" type="button" [disabled]="loading$ | async" (click)="validateCname()" trans>refresh</button></p>
+                </ng-template>
+            </div>
+
+            <div class="finalize-step" *ngIf="currentStep === Steps.Finalize">
+                <div class="message-widget">
+                    <loading-indicator class="small icon" [isVisible]="true"></loading-indicator>
+                    <div class="message" trans>Connecting domain...</div>
+                </div>
+                <p trans>Don't close this window until domain is connected.</p>
+            </div>
+        </mat-dialog-content>
+
+        <mat-dialog-actions>
+            <button (click)="close()" type="button" class="cancel-button" mat-button trans>Cancel</button>
+            <div class="submit-btns">
+                <button mat-button color="accent" class="step-btn" type="button" (click)="previousStep()" *ngIf="currentStep > 1" trans>
+                    <mat-icon svgIcon="keyboard-arrow-left" class="step-icon"></mat-icon>
+                    Previous
+                </button>
+                <button type="submit" mat-raised-button class="step-btn" color="accent" [disabled]="(loading$ | async) || (disabled$ | async)" trans>
+                    Next <mat-icon svgIcon="keyboard-arrow-right" class="step-icon"></mat-icon>
+                </button>
+            </div>
+        </mat-dialog-actions>
+    </ng-container>
+</form>

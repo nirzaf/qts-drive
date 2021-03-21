@@ -1,0 +1,27 @@
+@import "variables";
+
+:host {
+  display: block;
+  flex: 1 1 auto;
+  position: relative;
+}
+
+skeleton.text {
+  height: 18px;
+}
+
+.usage-info {
+  margin: 5px 0;
+  font-size: 1.3rem;
+  color: mat-color($app-foreground, secondary-text);
+}
+
+.upgrade-link {
+  color: mat-color($app-foreground, link);
+  font-size: 1.3rem;
+  margin-left: -16px;
+}
+
+.mat-progress-bar {
+  max-width: 132px;
+}

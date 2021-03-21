@@ -1,0 +1,22 @@
+<form (ngSubmit)="submitForm()" class="card-form many-inputs" ngNativeValidate>
+    <div class="input-container">
+        <label for="cardNumber" trans>Credit or Debit Card</label>
+        <div id="cardNumber" class="fake-input"></div>
+    </div>
+
+    <div class="input-container">
+        <label for="cardExpiry" trans>Card Expiration</label>
+        <div id="cardExpiry" class="fake-input"></div>
+    </div>
+
+    <div class="input-container">
+        <label for="cardCvc" trans>CVC</label>
+        <div id="cardCvc" class="fake-input"></div>
+    </div>
+
+    <div class="error margin-bottom" role="alert" *ngIf="error$ | async as error">{{error}}</div>
+
+    <order-summary *ngIf="showOrderSummary"></order-summary>
+
+    <button type="submit" *ngIf="showSubmitButton" mat-raised-button color="accent" [disabled]="loading$ | async">{{submitButtonText | trans}}</button>
+</form>

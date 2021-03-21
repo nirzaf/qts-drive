@@ -1,0 +1,19 @@
+<form class="panel" (ngSubmit)="saveAds()" [formGroup]="form" ngNativeValidate>
+    <div class="header" trans>Predefined AD Slots</div>
+
+    <div class="vert-row" *ngFor="let ad of allAds()">
+        <div class="input-container">
+            <label [for]="ad.slot" trans>{{ad.description}}</label>
+            <textarea [name]="ad.slot" [id]="ad.slot" [formControlName]="ad.slot"></textarea>
+        </div>
+        <image-zoom [src]="getPreviewUrl(ad)"></image-zoom>
+    </div>
+
+    <div class="setting-toggle-container margin-top margin-bottom">
+        <mat-slide-toggle name="ads.disable" id="ads.disable" formControlName="ads.disable" trans>Disable Ads</mat-slide-toggle>
+        <p trans>Disable all ad related functionality.</p>
+    </div>
+
+    <button type="submit" mat-raised-button color="accent" class="save-button" [disabled]="loading$ | async" trans>Save</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

@@ -1,0 +1,157 @@
+<appearance-panel-meta [path]="path$ | async" (back)="openPreviousPanel()"></appearance-panel-meta>
+
+<div class="appearance-panel-content">
+    <ng-container *ngIf="selectedSubpanel$ | async as selectedSubpanel; else mainPanel">
+        <div [ngSwitch]="selectedSubpanel">
+            <ng-container *ngSwitchCase="'primaryFeatures'">
+                <div *ngFor="let group of primaryArray().controls; index as index" [formGroup]="group"
+                     class="many-inputs feature-group">
+                    <div class="feature-group-header">
+                        <div class="text">{{'Feature' | trans}} #{{index + 1}}</div>
+                        <button mat-icon-button color="warn" (click)="removeFeature('primary', index)">
+                            <mat-icon svgIcon="close"></mat-icon>
+                        </button>
+                    </div>
+                    <div class="input-container">
+                        <label [for]="'primary.' + index + '.title'" trans>Title</label>
+                        <input type="text" [id]="'primary.' + index + '.title'" formControlName="title"
+                               [placeholder]="defaultValue('primaryFeatures.' + index + '.title')"
+                               highlightInPreview=".inline-feature:nth-child({{index + 1}}) h3" required>
+                    </div>
+                    <div class="input-container">
+                        <label [for]="'primary.' + index + '.subtitle'" trans>Subtitle</label>
+                        <textarea [id]="'primary.' + index + '.subtitle'" formControlName="subtitle"
+                               [placeholder]="defaultValue('primaryFeatures.' + index + '.subtitle')"
+                                  highlightInPreview=".inline-feature:nth-child({{index + 1}}) p" rows="3" required></textarea>
+                    </div>
+                    <appearance-image-input [defaultValue]="defaultValue('primaryFeatures.' + index + '.image')"
+                                            formControlName="image"
+                                            diskPrefix="homepage"
+                                            highlightInPreview=".inline-feature:nth-child({{index + 1}}) img" trans>
+                        Image
+                    </appearance-image-input>
+                </div>
+                <button mat-flat-button color="accent" *ngIf="primaryArray().length < 3" (click)="addFeature('primary')" trans>Add</button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'secondaryFeatures'">
+                <div *ngFor="let group of secondaryArray().controls; index as index" [formGroup]="group"
+                     class="many-inputs feature-group">
+                    <div class="feature-group-header">
+                        <div class="text">{{'Feature' | trans}} #{{index + 1}}</div>
+                        <button mat-icon-button color="warn" (click)="removeFeature('secondary', index)">
+                            <mat-icon svgIcon="close"></mat-icon>
+                        </button>
+                    </div>
+                    <div class="input-container">
+                        <label [for]="'secondary.' + index + '.title'" trans>Title</label>
+                        <input type="text" [id]="'secondary.' + index + '.title'" formControlName="title"
+                               [placeholder]="defaultValue('secondaryFeatures.' + index + '.title')"
+                               highlightInPreview=".big-feature:nth-child({{index + 1}}) h2" required>
+                    </div>
+                    <div class="input-container">
+                        <label [for]="'secondary.' + index + '.subtitle'" trans>Subtitle</label>
+                        <input type="text" [id]="'secondary.' + index + '.subtitle'" formControlName="subtitle"
+                               [placeholder]="defaultValue('secondaryFeatures.' + index + '.subtitle')"
+                               highlightInPreview=".big-feature:nth-child({{index + 1}}) small" required>
+                    </div>
+                    <div class="input-container">
+                        <label [for]="'secondary.' + index + '.description'" trans>Description</label>
+                        <textarea type="text" [id]="'secondary.' + index + '.description'" formControlName="description"
+                                  rows="4" [placeholder]="defaultValue('secondaryFeatures.' + index + '.description')"
+                                  highlightInPreview=".big-feature:nth-child({{index + 1}}) p"
+                                  required></textarea>
+                    </div>
+                    <appearance-image-input [defaultValue]="defaultValue('secondaryFeatures.' + index + '.image')"
+                                            highlightInPreview=".big-feature:nth-child({{index + 1}}) img"
+                                            diskPrefix="homepage"
+                                            formControlName="image" trans>Image
+                    </appearance-image-input>
+                </div>
+                <button mat-flat-button color="accent" (click)="addFeature('secondary')" trans>Add</button>
+            </ng-container>
+            <div *ngSwitchCase="'actions'" class="many-inputs" [formGroup]="form.get('actions')">
+                <div class="input-container">
+                    <label for="home.actions.cta1" trans>Call to Action #1</label>
+                    <input type="text" id="home.actions.cta1" formControlName="cta1"
+                           highlightInPreview=".get-started-button"
+                           [placeholder]="defaultValue('actions.cta1')" required>
+                </div>
+                <div class="input-container">
+                    <label for="home.actions.cta2" trans>Call to Action #2</label>
+                    <input type="text" id="home.actions.cta2" formControlName="cta2"
+                           highlightInPreview=".learn-more-button"
+                           [placeholder]="defaultValue('actions.cta2')" required>
+                </div>
+                <div class="input-container">
+                    <label for="home.actions.cta3" trans>Call to Action #3</label>
+                    <input type="text" id="home.actions.cta3" formControlName="cta3"
+                           highlightInPreview=".learn-more-button"
+                           [placeholder]="defaultValue('actions.cta3')" required>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #mainPanel>
+        <div [formGroup]="form" class="many-inputs">
+            <div class="input-container">
+                <label for="home.header.title" trans>Header Title</label>
+                <input type="text" id="home.header.title" formControlName="headerTitle"
+                       [placeholder]="defaultValue('headerTitle')" highlightInPreview=".header-title" required>
+            </div>
+            <div class="input-container">
+                <label for="home.header.subtitle" trans>Header Subtitle</label>
+                <textarea type="text" id="home.header.subtitle" formControlName="headerSubtitle" rows="4"
+                          [placeholder]="defaultValue('headerSubtitle')" highlightInPreview=".header-description"
+                          required></textarea>
+            </div>
+
+            <appearance-image-input [defaultValue]="defaultValue('headerImage')"
+                                    highlightInPreview=".hero"
+                                    diskPrefix="homepage"
+                                    formControlName="headerImage" trans>Header Image
+            </appearance-image-input>
+
+            <mat-slider min="0" max="1" step="0.1" formControlName="headerImageOpacity" class="opacity-slider"></mat-slider>
+
+            <color-picker-input formControlName="headerOverlayColor1" trans>Header Overlay Color 1</color-picker-input>
+            <color-picker-input formControlName="headerOverlayColor2" trans>Header Overlay Color 2</color-picker-input>
+
+            <div class="separator"></div>
+
+            <ul class="unstyled-list">
+                <li (click)="openSubpanel('actions')" class="nav-item">
+                    <span class="text" trans>Action Buttons</span>
+                    <mat-icon class="actions" svgIcon="keyboard-arrow-right"></mat-icon>
+                </li>
+                <li (click)="openSubpanel('primaryFeatures')" class="nav-item">
+                    <span class="text" trans>Primary Features</span>
+                    <mat-icon class="actions" svgIcon="keyboard-arrow-right"></mat-icon>
+                </li>
+                <li (click)="openSubpanel('secondaryFeatures')" class="nav-item">
+                    <span class="text" trans>Secondary Features</span>
+                    <mat-icon class="actions" svgIcon="keyboard-arrow-right"></mat-icon>
+                </li>
+            </ul>
+
+            <div class="separator"></div>
+
+            <div class="input-container">
+                <label for="home.footer.title" trans>Footer Title</label>
+                <input type="text" id="home.footer.title" formControlName="footerTitle"
+                       [placeholder]="defaultValue('footerTitle')" highlightInPreview=".footer-title" required>
+            </div>
+            <div class="input-container">
+                <label for="home.footer.subtitle" trans>Footer Subtitle</label>
+                <textarea type="text" id="home.footer.subtitle" formControlName="footerSubtitle" rows="4"
+                          [placeholder]="defaultValue('footerSubtitle')" highlightInPreview=".footer-description"
+                          required></textarea>
+            </div>
+            <appearance-image-input [defaultValue]="defaultValue('footerImage')"
+                                    highlightInPreview=".bottom-cta"
+                                    diskPrefix="homepage"
+                                    formControlName="footerImage" trans>Footer Image
+            </appearance-image-input>
+        </div>
+    </ng-template>
+</div>

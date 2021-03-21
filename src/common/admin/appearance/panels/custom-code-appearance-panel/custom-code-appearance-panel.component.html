@@ -1,0 +1,12 @@
+<appearance-panel-meta [path]="['Custom Code']" (back)="editor.closeActivePanel()"></appearance-panel-meta>
+
+<div class="appearance-panel-content">
+   <button type="button" class="nav-item" (click)="openModal('css')">
+      <span class="text" trans>Custom CSS</span>
+      <span class="actions" trans>Modify</span>
+   </button>
+   <button class="nav-item" (click)="openModal('html')">
+      <span class="text" trans>Custom HTML & Javascript</span>
+      <span class="actions" trans>Modify</span>
+   </button>
+</div>

@@ -1,0 +1,28 @@
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="datatable.paginator && datatable.paginator.loading$ | async"></mat-progress-bar>
+<div class="left-column">
+    <div class="default-left-content" *ngIf="!showSelectedActions || !numberOfRowsSelected">
+        <ng-content select="[leftContent]"></ng-content>
+    </div>
+    <div class="selected-left-content capitalize" *ngIf="showSelectedActions && numberOfRowsSelected">
+        {{ ':count :resource selected' | trans:{count: numberOfRowsSelected, resource: pluralResourceName} }}
+    </div>
+</div>
+<div class="right-column">
+    <div class="default-right-content" *ngIf="!showSelectedActions || !numberOfRowsSelected">
+        <ng-container *ngIf="filterPanelTemplate">
+            <mat-chip-list aria-label="Active Filters" class="filter-chip-list">
+                <mat-chip *ngFor="let filter of filters$ | async | keyvalue" [removable]="true" [selectable]="false" (removed)="datatable.removeFilter(filter.key)">
+                    {{filter.key | trans}}: {{isModel(filter.value) ? (filter.value.name || filter.value.display_name) : filter.value}}
+                    <mat-icon matChipRemove svgIcon="cancel"></mat-icon>
+                </mat-chip>
+            </mat-chip-list>
+            <button (click)="openFiltersPanel()" class="filter-button" [class.active]="filterPanelRef" #filterButton mat-icon-button>
+                <mat-icon svgIcon="filter-list"></mat-icon>
+            </button>
+        </ng-container>
+        <datatable-header-search-input placeholder="Search {{ pluralResourceName }}"></datatable-header-search-input>
+    </div>
+    <div class="selected-right-actions" *ngIf="showSelectedActions && numberOfRowsSelected">
+        <ng-content select="[rightContent]"></ng-content>
+    </div>
+</div>

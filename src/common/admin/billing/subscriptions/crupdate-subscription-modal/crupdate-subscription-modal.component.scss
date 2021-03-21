@@ -1,0 +1,23 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: $modal-default-width;
+  max-width: 100%;
+}
+
+.date-picker-input-container {
+  position: relative;
+}
+
+.mat-datepicker-toggle {
+  position: absolute;
+  top: 29px;
+  right: 0;
+}
+
+.mat-autocomplete-panel .mat-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

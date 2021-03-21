@@ -1,0 +1,40 @@
+<div class="header">
+    <span class="title" trans>New Menu Item</span>
+    <mat-icon svgIcon="close" (click)="close()"></mat-icon>
+</div>
+<div class="new-item-tabs">
+    <mat-accordion>
+        <form (ngSubmit)="addLinkMenuItem()" [formGroup]="linkForm" ngNativeValidate>
+            <mat-expansion-panel class="mat-elevation-z">
+                <mat-expansion-panel-header><mat-panel-title trans>Link</mat-panel-title></mat-expansion-panel-header>
+                <div class="many-inputs expansion-panel-content">
+                    <div class="input-container">
+                        <label for="external-link-url" trans>URL</label>
+                        <input type="url" id="external-link-url" formControlName="action" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="external-link-text" trans>Link Text</label>
+                        <input type="text" id="external-link-text" formControlName="label" required>
+                    </div>
+                </div>
+                <mat-action-row>
+                    <button mat-button color="accent" type="submit" trans>Add</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </form>
+        <mat-expansion-panel class="mat-elevation-z">
+            <mat-expansion-panel-header><mat-panel-title trans>Route</mat-panel-title></mat-expansion-panel-header>
+            <div class="items-list expansion-panel-content">
+                <div class="item" *ngFor="let route of appearance.config.menus.availableRoutes"
+                     (click)="addRouteMenuItem(route)">{{route}}
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="mat-elevation-z" *ngFor="let category of menuItemCategories">
+            <mat-expansion-panel-header><mat-panel-title trans>{{category.name}}</mat-panel-title></mat-expansion-panel-header>
+            <div class="items-list expansion-panel-content">
+                <div class="item" *ngFor="let item of category.items" (click)="addCustomMenuItem(item)">{{item.label}}</div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

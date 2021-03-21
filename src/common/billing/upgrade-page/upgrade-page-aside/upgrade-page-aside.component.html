@@ -1,0 +1,20 @@
+<accepted-payments-header></accepted-payments-header>
+
+<ng-container *ngIf="plan">
+    <div class="selected-plan">
+        <div class="header"><full-plan-name [plan]="plan"></full-plan-name></div>
+        <plan-features-list class="plan-features-list" [plan]="plan" [showCheckIcons]="true" [dense]="true"></plan-features-list>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="secure-shopping">
+        <div class="icon-container">
+            <mat-icon svgIcon="shield-custom"></mat-icon>
+        </div>
+        <div class="text">
+            <div class="primary" trans>SSL Secure Payment</div>
+            <div class="secondary" trans>Your information is protected by 256-bit SSL encryption</div>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,72 @@
+<div class="header">
+    <div class="title" trans>General</div>
+    <div class="subtitle" trans>Configure general site settings.</div>
+</div>
+
+<form class="body many-inputs" (ngSubmit)="saveSettings()" ngNativeValidate>
+    <div class="input-container" [class.has-error]="urlsDontMatch()">
+        <label for="app_url" trans>Site Url</label>
+        <input type="text" id="app_url" name="app_url" [(ngModel)]="state.server['app_url']" readonly="readonly" required>
+        <p class="error" *ngIf="urlsDontMatch()">
+            <span trans [transValues]="{baseUrl: state.server['app_url'], currentUrl: state.server['newAppUrl']}">Base site url is set as ":baseUrl" in configuration, but current url is ":currentUrl". It's recommended to set the primary url you want to use in configuration file and then redirect all other url versions to this primary version via cpanel or .htaccess file.</span>
+            &ngsp;
+            <a href="https://support.vebto.com/help-center/articles/35/primary-site-url" target="_blank" trans>More Information.</a>
+        </p>
+    </div>
+
+    <div class="error-group many-inputs">
+        <div class="inline-inputs-container">
+            <div class="input-container">
+                <label for="homepage.type" trans>Site Homepage</label>
+                <select name="homepage.type" id="homepage.type" [(ngModel)]="state.client['homepage.type']">
+                    <option value="default">Default</option>
+                    <option value="component">Application Page</option>
+                    <option [value]="category.name" *ngFor="let category of menuItemCategories$ | async">{{category.name}}</option>
+                </select>
+                <p trans>Type of the homepage.</p>
+            </div>
+
+            <ng-container *ngFor="let category of menuItemCategories$ | async">
+                <div class="input-container" *ngIf="state.client['homepage.type'] === category.name">
+                    <label [for]="category.name" class="visually-hidden" trans>{{category.name}}</label>
+                    <select [id]="category.name" [name]="category.name" [(ngModel)]="state.client['homepage.value']">
+                        <option *ngFor="let item of category.items" [value]="item.model_id">{{item.label}}</option>
+                    </select>
+                </div>
+            </ng-container>
+
+            <div class="input-container" *ngIf="state.client['homepage.type'] === 'component'">
+                <label for="homepage.value" class="visually-hidden" trans>Application Page</label>
+                <select name="homepage.value" id="homepage.value" [(ngModel)]="state.client['homepage.value']">
+                    <option [ngValue]="page.name" *ngFor="let page of getHomepageComponents()" trans>{{getDisplayName(page)}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <label for="themes.default_mode" trans>Default Site Theme</label>
+        <select id="themes.default_mode" name="themes.default_mode" [(ngModel)]="state.client['themes.default_mode']">
+            <option value="light" trans>Light</option>
+            <option value="dark" trans>Dark</option>
+        </select>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="themes.user_change" id="themes.user_change" [(ngModel)]="state.client['themes.user_change']" trans>Allow Theme Change</mat-slide-toggle>
+        <p trans>Allow user to switch from dark to light mode and vice versa.</p>
+    </div>
+
+    <div class="settings-separator"></div>
+
+    <button type="button" mat-flat-button color="accent" [disabled]="loading$ | async" (click)="createSitemap()" trans>Generate Sitemap</button>
+    <p class="sitemap-description">
+        <span trans>Once generated, sitemap index url will be</span>:
+        <a target="_blank" [href]="settings.getBaseUrl() + 'storage/sitemaps/sitemap-index.xml'">{{settings.getBaseUrl()}}storage/sitemaps/sitemap-index.xml</a>
+    </p>
+
+    <div class="settings-separator"></div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

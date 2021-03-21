@@ -1,0 +1,33 @@
+@import "src/scss/variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #597996;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  max-width: 90%;
+  height: auto;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 300;
+  margin-top: 50px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.mat-raised-button.mat-accent {
+  color: #fff;
+  background-color: #597996;
+  min-width: 220px;
+  line-height: 46px;
+  max-width: 90%;
+}

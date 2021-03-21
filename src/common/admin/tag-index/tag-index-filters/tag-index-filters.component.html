@@ -1,0 +1,9 @@
+<div [formGroup]="form" class="many-inputs">
+    <div class="input-container">
+        <label for="tag-type-filter" trans>Type</label>
+        <select id="tag-type-filter" formControlName="type">
+            <option [ngValue]="null" trans>Any</option>
+            <option [value]="type.name" *ngFor="let type of types" trans>{{type.name}}</option>
+        </select>
+    </div>
+</div>

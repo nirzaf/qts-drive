@@ -1,0 +1,21 @@
+<div class="auth-page-content">
+    <a class="logo" [routerLink]="['/']"><img [src]="logoUrl()" alt="logo"></a>
+    <div class="auth-panel">
+        <ng-content></ng-content>
+    </div>
+    <div class="info-row">
+        <ng-container *ngIf="infoRowTarget === 'signup' && !settings.get('registration.disable')">
+            <span trans>Don't have an account?</span>&ngsp;
+            <a class="register-link" [routerLink]="['/register']" trans>Sign up.</a>
+        </ng-container>
+
+        <ng-container *ngIf="infoRowTarget === 'signin'">
+            <span trans>Already have an account?</span>&ngsp;
+            <a [routerLink]="['/login']" trans>Sign in.</a>
+        </ng-container>
+    </div>
+</div>
+<div class="custom-menu-container">
+    <a routerLink="/" class="copyright">© {{settings.get('branding.site_name')}}</a>
+    <custom-menu position="auth-page-footer" [horizontal]="true"></custom-menu>
+</div>

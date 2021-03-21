@@ -1,0 +1,63 @@
+@import "variables";
+
+.context-menu {
+  width: 300px;
+  background-color: mat-color($app-background, dialog);
+  @include mat-elevation(4);
+  z-index: 10;
+  padding: 8px 0;
+  user-select: none;
+  border-radius: 4px;
+
+  .context-menu-item {
+    width: 100%;
+    background-color: inherit;
+    color: mat-color($app-foreground, text);
+    border: none;
+    font-size: 16px;
+    height: 48px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+
+    &:not(:disabled) {
+      .mat-icon {
+        color: mat-color($app-foreground, secondary-text);
+      }
+
+      &:hover {
+        background-color: mat-color($app-background, hover);
+      }
+    }
+
+    &:disabled {
+      color: mat-color($app-foreground, hint-text);
+      cursor: default;
+    }
+
+    .mat-icon {
+      margin-right: 16px;
+    }
+
+    .alt-text {
+      margin-left: auto;
+      color: mat-color($app-foreground, secondary-text);
+      font-size: 14px;
+    }
+
+    .indent {
+      margin-left: 40px;
+    }
+  }
+
+  .separator {
+    background-color: rgba(0,0,0,0.11);
+    margin: 8px 0;
+    height: 1px;
+    max-height: 1px;
+    min-height: 1px;
+    width: 100%;
+  }
+}

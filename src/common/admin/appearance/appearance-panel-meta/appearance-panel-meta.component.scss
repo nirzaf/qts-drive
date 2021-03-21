@@ -1,0 +1,41 @@
+@import "variables";
+
+:host {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  background-color: mat-color($app-background, card);
+}
+
+.title {
+  padding: 10px;
+}
+
+.path {
+  font-size: 2rem;
+  font-weight: 300;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.name {
+  display: inline-block;
+  vertical-align: middle;
+  text-transform: capitalize;
+}
+
+.last {
+  color: mat-color($app-accent);
+}
+
+.separator {
+  vertical-align: middle;
+  color: mat-color($app-foreground, icon);
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+}

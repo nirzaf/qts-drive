@@ -1,0 +1,13 @@
+<files-grid [entries]="entries$ | async" *ngIf="(viewMode$ | async) === 'grid'; else filesList"></files-grid>
+<ng-template #filesList>
+    <files-list [entries]="entries$ | async"></files-list>
+</ng-template>
+
+<ng-container [ngSwitch]="activePageName$ | async" *ngIf="noEntries | async">
+    <no-recent-entries *ngSwitchCase="'recent'"></no-recent-entries>
+    <no-trashed-entries *ngSwitchCase="'trash'"></no-trashed-entries>
+    <no-starred-entries *ngSwitchCase="'starred'"></no-starred-entries>
+    <no-shared-entries *ngSwitchCase="'shares'"></no-shared-entries>
+    <no-search-entries *ngSwitchCase="'search'"></no-search-entries>
+    <no-folder-entries *ngSwitchDefault></no-folder-entries>
+</ng-container>

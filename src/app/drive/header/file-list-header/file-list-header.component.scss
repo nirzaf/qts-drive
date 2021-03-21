@@ -1,0 +1,28 @@
+@import "variables";
+
+file-list-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  padding-bottom: $file-grid-item-gutter;
+  margin: 0 $file-list-gutter;
+  color: mat-color($app-foreground, text);
+  max-height: $file-list-header-height;
+
+  toolbar-actions {
+    margin-left: auto;
+  }
+
+  // only show compact sort icon on smaller screens
+  @media only screen and (max-width: 450px) {
+    entries-sort-button {
+      .label, .sort-button-content {
+        display: none;
+      }
+
+      .mobile-sort-button-content {
+        display: inline-block;
+      }
+    }
+  }
+}

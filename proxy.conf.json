@@ -1,0 +1,26 @@
+{
+    "/secure": {
+        "target": "http://localhost/bedrive/server",
+        "secure": false
+    },
+    "/api/": {
+        "target": "http://localhost/bedrive/server",
+        "secure": false
+    },
+    "/storage": {
+        "target": "http://localhost/bedrive/server",
+        "secure": false
+    },
+    "/client": {
+        "target": "http://localhost/bedrive/server",
+        "secure": false
+    },
+    "/tus": {
+        "target": "http://localhost/bedrive/server",
+        "secure": false
+    },
+    "/__clockwork": {
+        "target": "http://localhost/bedrive/server/public",
+        "secure": false
+    }
+}

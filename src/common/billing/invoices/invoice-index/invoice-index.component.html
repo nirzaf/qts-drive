@@ -1,0 +1,29 @@
+<material-navbar [menuPosition]="settings.get('vebto.navbar.defaultPosition')"></material-navbar>
+
+<div class="container">
+    <h1 trans>Your Payment History</h1>
+
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th trans>Date</th>
+            <th trans>Amount</th>
+            <th trans>Status</th>
+            <th trans>Invoice</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let invoice of invoices$ | async">
+            <td>{{invoice.created_at | formattedDate}}</td>
+            <td>{{invoice.subscription.plan.currency_symbol + invoice.subscription.plan.amount}}</td>
+            <td>{{(invoice.paid ? 'Paid' : 'Pending' | trans)}}</td>
+            <td>
+                <a [href]="getInvoiceUrl(invoice)" target="_blank" trans>View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="receipt.svg" *ngIf="!(invoices$ | async).length && !(loading$ | async)">
+        <span primary-text trans>You do not have any invoices yet.</span>
+    </no-results-message>
+</div>

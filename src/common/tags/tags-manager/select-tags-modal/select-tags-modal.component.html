@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h2 mat-dialog-title [transValues]="{tagName: pluralName}" trans>Select :tagName</h2>
+    <button type="button" (click)="close()" class="close-button" mat-icon-button tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+   <tags-manager [tagType]="data.tagType" [pluralName]="pluralName" [formControl]="selectedTagsControl"></tags-manager>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="close()" type="button" class="cancel-button" mat-button trans>Cancel</button>
+    <button type="button" class="submit-button" [disabled]="noTagsSelected()" (click)="confirm()" mat-raised-button color="accent" [transValues]="{tagName: pluralName}" trans>Merge :tagName</button>
+</mat-dialog-actions>

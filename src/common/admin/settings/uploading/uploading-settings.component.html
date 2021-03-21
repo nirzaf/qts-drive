@@ -1,0 +1,114 @@
+<div class="header">
+    <div class="title" trans>User Uploads</div>
+    <div class="subtitle" trans>Configure size and type of files that users are able to upload. This will affect all uploads across the site.</div>
+</div>
+
+<form class="body many-inputs" (ngSubmit)="saveSettings()" ngNativeValidate *ngIf="errors$ | async as errors">
+    <div class="input-container" *ngIf="state.server.uploads_disk_driver">
+        <label for="uploads_disk_driver" trans>User Uploads Storage Method</label>
+        <select name="uploads_disk_driver" id="uploads_disk_driver" [(ngModel)]="state.server.uploads_disk_driver" (ngModelChange)="clearErrors()">
+            <option value="local" trans>Local Disk (Default)</option>
+            <option value="s3">Amazon S3</option>
+            <option value="ftp">FTP</option>
+            <option value="digitalocean">DigitalOcean</option>
+            <option value="backblaze">Backblaze</option>
+            <option value="dropbox">Dropbox</option>
+            <option value="rackspace">Rackspace</option>
+        </select>
+        <p trans>{{settings.get('vebto.translations.uploads_disk_driver_description')}}</p>
+    </div>
+
+    <div class="input-container" *ngIf="state.server.public_disk_driver">
+        <label for="public_disk_driver" trans>Public Uploads Storage Method</label>
+        <select name="public_disk_driver" id="public_disk_driver" [(ngModel)]="state.server.public_disk_driver" (ngModelChange)="clearErrors()">
+            <option value="local" trans>Local Disk (Default)</option>
+            <option value="s3">Amazon S3</option>
+            <option value="digitalocean">DigitalOcean</option>
+            <option value="backblaze">Backblaze</option>
+        </select>
+        <p trans>{{settings.get('vebto.translations.public_disk_driver_description')}}</p>
+    </div>
+
+    <div class="error-group storage-credentials-group" id="storage_group" [class.hidden]="allSelectedDriversAreLocal()" [class.has-error]="errors.storage_group">
+        <ftp-form class="many-inputs credentials-form" *ngIf="driverSelected('ftp')"></ftp-form>
+        <dropbox-form class="many-inputs credentials-form" *ngIf="driverSelected('dropbox')"></dropbox-form>
+        <rackspace-form class="many-inputs credentials-form" *ngIf="driverSelected('rackspace')"></rackspace-form>
+        <s3-form class="many-inputs credentials-form" *ngIf="driverSelected('s3')"></s3-form>
+        <digitalocean-form class="many-inputs credentials-form" *ngIf="driverSelected('digitalocean')"></digitalocean-form>
+        <backblaze-form class="many-inputs credentials-form" *ngIf="driverSelected('backblaze')"></backblaze-form>
+        <p class="error" *ngIf="errors.storage_group" [innerHTML]="errors.storage_group"></p>
+    </div>
+
+    <div class="error-group no-bottom-border" id="static_delivery_group">
+        <div class="input-container" *ngIf="driverSelected('local')">
+            <label for="static_file_delivery" trans>File Delivery Optimization</label>
+            <select name="static_file_delivery" id="static_file_delivery" [(ngModel)]="state.server['static_file_delivery']">
+                <option [ngValue]="null" trans>None</option>
+                <option value="xsendfile">X-Sendfile (Apache)</option>
+                <option value="xaccel">X-Accel (Nginx)</option>
+            </select>
+            <p trans>Both X-Sendfile and X-Accel need to be enabled on the server first. When enabled it will reduce server memory and CPU usage when previewing or downloading files, especially for large files. </p>
+            <p class="error" *ngIf="errors.static_delivery_group" [innerHTML]="errors.static_delivery_group"></p>
+        </div>
+    </div>
+
+    <div class="error-group">
+        <div class="setting-toggle-container">
+            <mat-slide-toggle name="uploads.chunk" id="uploads.chunk" [(ngModel)]="state.client['uploads.chunk']" trans>Chunked Uploads</mat-slide-toggle>
+            <p trans>When enabled larger files will be uploaded in smaller chunks to improve upload reliability and avoid server max upload size limits.</p>
+        </div>
+
+        <div class="input-container" *ngIf="state.client['uploads.chunk']">
+            <label for="uploads.max_size" trans>Chunk Size</label>
+            <space-input name="uploads.chunk_size" id="uploads.chunk_size" [(ngModel)]="state.client['uploads.chunk_size']"></space-input>
+            <p trans>Size for each file chunk. Recommended size is 2MB-5MB. Must be lower then max upload file size on your server.</p>
+        </div>
+
+        <div class="widget widget-important">
+            <div class="title" trans>Important</div>
+            <p>{{ 'Maximum upload size on your server currently is set to' | trans }} <strong>{{serverMaxUploadSize$ | async}}</strong>.</p>
+        </div>
+
+        <div class="setting-toggle-container" *ngIf="state.client['uploads.chunk']">
+            <mat-slide-toggle name="uploads.resume" id="uploads.resume" [(ngModel)]="state.client['uploads.resume']" trans>Resumable Uploads</mat-slide-toggle>
+            <p trans>Allow users to resume partial or failed uploads.</p>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <label for="uploads.max_size" trans>Maximum file size</label>
+        <space-input name="uploads.max_size" id="uploads.max_size"  [(ngModel)]="state.client['uploads.max_size']"></space-input>
+        <p trans>Maximum size for a single file user can upload.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="uploads.available_space" trans>Available Space</label>
+        <space-input name="uploads.available_space" id="uploads.available_space" [(ngModel)]="state.client['uploads.available_space']"></space-input>
+        <p trans>Disk space each user uploads are allowed to take up. This can be overridden per user.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="allowed_extensions" trans>Allowed file types</label>
+        <chip-input
+            id="allowed_extensions"
+            name="allowed_extensions"
+            placeholder="Enter file type..."
+            [(ngModel)]="allowedExtensions"
+        ></chip-input>
+        <p trans>List of allowed file types (jpg, mp3, pdf etc.). Leave empty to allow all file types.</p>
+    </div>
+
+    <div class="input-container">
+        <label for="blocked_extensions" trans>Blocked file types</label>
+        <chip-input
+            id="blocked_extensions"
+            name="blocked_extensions"
+            placeholder="Enter file type..."
+            [(ngModel)]="blockedExtensions"
+        ></chip-input>
+        <p trans>Prevent uploading of these file types, even if they are allowed above.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

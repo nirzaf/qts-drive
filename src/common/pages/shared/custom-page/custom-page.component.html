@@ -1,0 +1,5 @@
+<material-navbar
+        [menuPosition]="settings.get('vebto.navbar.defaultPosition', 'custom-page-navbar')"
+             *ngIf="!(page$ | async)?.hide_nav && !settings.get('vebto.customPages.hideNavbar') && showNavbar"
+></material-navbar>
+<div class="page-body container article-body" [innerHTML]="body$ | async"></div>

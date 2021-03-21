@@ -1,0 +1,27 @@
+@import "variables";
+
+.form-container {
+  min-height: calc(100vh - #{$material-navbar-height});
+  background: mat-color($app-background, background);;
+  padding: 25px;
+  display: flex;
+}
+
+form {
+  background-color: mat-color($app-background, dialog);
+  box-shadow: $admin-card-box-shadow;
+  border: $admin-card-border;
+  width: 675px;
+  max-width: 100%;
+  padding: 25px;
+  margin: auto;
+
+  h1 {
+    font-weight: 300;
+    margin: 0;
+  }
+
+  p {
+    margin: 5px 0 35px;
+  }
+}

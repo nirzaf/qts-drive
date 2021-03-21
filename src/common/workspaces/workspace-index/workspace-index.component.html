@@ -1,0 +1,56 @@
+<div class="datatable responsive-table">
+    <datatable-header pluralResourceName="workspaces">
+        <ng-container leftContent>
+            <button mat-raised-button color="accent" (click)="showCrupdateWorkspaceModal()" [disabled]="!currentUser.hasPermission('workspaces.create')" trans>New workspace</button>
+            <info-popover>
+                <strong trans>Workspaces and Teammates</strong>
+                <p trans>{{workspaceConfig.description}}</p>
+            </info-popover>
+        </ng-container>
+    </datatable-header>
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th table-sort-header trans>Name</th>
+            <th table-sort-header="owner_id" trans>Owner</th>
+            <th trans>Your Role</th>
+            <th table-sort-header="members_count" trans>Members</th>
+            <th trans>Last Updated</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let workspace of workspaces$ | async">
+            <td data-label="Name">{{workspace.name}}</td>
+            <td data-label="Owner">
+                <user-column [user]="workspace.owner"></user-column>
+            </td>
+            <td data-label="Your Role">{{workspace.currentUser?.role_name || '-'}}</td>
+            <td data-label="Members">{{ workspace.members_count || '-' }}</td>
+            <td data-label="Last Updated">{{workspace.updated_at | formattedDate}}</td>
+            <td class="edit-column">
+                <button mat-icon-button (click)="openWorkspaceMembersModal(workspace)" [matTooltip]="'Manage Members' | trans">
+                    <mat-icon svgIcon="group-add"></mat-icon>
+                </button>
+                <ng-container *ngIf="workspace.owner_id === this.currentUser.get('id')">
+                    <button mat-icon-button (click)="showCrupdateWorkspaceModal(workspace)" [matTooltip]="'Edit workspace' | trans">
+                        <mat-icon svgIcon="edit"></mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="maybeDeleteWorkspace(workspace)" [matTooltip]="'Delete workspace' | trans">
+                        <mat-icon svgIcon="delete"></mat-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="workspace.owner_id !== this.currentUser.get('id')">
+                    <button mat-icon-button (click)="maybeLeaveWorkspace(workspace)" [matTooltip]="'Leave workspace' | trans">
+                        <mat-icon svgIcon="exit-to-app"></mat-icon>
+                    </button>
+                </ng-container>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="shared-workspace.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text trans>No workspaces have been created yet</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>

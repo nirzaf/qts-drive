@@ -1,0 +1,24 @@
+$fileColors: (
+  image: #f44336,
+  audio: #FF9800,
+  video: #f44336,
+  text: #2196F3,
+  default: #757575,
+  folder: #FBC02D,
+  shared-folder: #FBC02D,
+  archive: #FBC02D,
+  pdf: #f44336,
+  power-point: #f57f17,
+  word: #2196F3,
+  spreadsheet: #00897b,
+);
+
+.file-color {
+  color: map_get($fileColors, generic);
+}
+
+@each $type, $color in $fileColors {
+  .#{$type}-file {
+    color: $color;
+  }
+}

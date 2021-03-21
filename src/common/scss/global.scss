@@ -1,0 +1,41 @@
+@import "variables";
+
+body, html {
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  touch-action: manipulation;
+}
+
+body {
+  font-family: $font-family;
+  color: mat-color($app-foreground, text);
+  background-color: mat-color($app-background, dialog);
+  line-height: 1.42857143;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+//box-sizing
+body {
+  box-sizing: inherit;
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+}
+
+.be-fullscreen-overlay-scrollblock {
+  width: 100%;
+  position: fixed;
+}

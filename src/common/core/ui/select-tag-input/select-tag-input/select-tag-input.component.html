@@ -1,0 +1,29 @@
+<div class="input-container">
+    <div class="fake-label" trans>Tag</div>
+    <div class="fake-input" tabindex="0" [matMenuTriggerFor]="menu" (menuOpened)="onMenuOpened()" (menuClosed)="onMenuClosed()">
+        <span *ngIf="selectedTag$ | async as selectedTag; else anyTag">
+            {{selectedTag.display_name}}
+        </span>
+        <ng-template #anyTag>
+            <span trans>Any</span>
+        </ng-template>
+        <div class="arrow-container">
+            <div class="arrow"></div>
+        </div>
+    </div>
+</div>
+
+<mat-menu #menu="matMenu">
+    <div class="input-container search-input-container" (click)="$event.stopPropagation()">
+        <div class="search-input-wrapper">
+            <input type="text" [formControl]="searchFormControl" placeholder="Search..." (blur)="searchInput.focus()" #searchInput trans-placeholder>
+            <button class="clear-search-input-button" mat-icon-button (click)="clearSearchInput()" *ngIf="searchFormControl.value">
+                <mat-icon svgIcon="close"></mat-icon>
+            </button>
+            <loading-indicator [isVisible]="loading$ | async" class="small"></loading-indicator>
+        </div>
+    </div>
+    <button mat-menu-item (click)="selectTag(null)" trans>Any Tag</button>
+    <button mat-menu-item *ngFor="let tag of tags$ | async" (click)="selectTag(tag)" trans>{{tag.display_name}}</button>
+    <button mat-menu-item disabled *ngIf="searchedOnce && !(tags$ | async).length" trans>No tags found.</button>
+</mat-menu>

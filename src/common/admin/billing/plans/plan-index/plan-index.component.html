@@ -1,0 +1,50 @@
+<div class="datatable responsive-table">
+    <datatable-header pluralResourceName="plans">
+        <ng-container leftContent>
+            <button mat-raised-button color="accent" [disabled]="loading$ | async" (click)="showCrupdatePlanModal()" *ngIf="currentUser.hasPermission('plans.create')" trans>Add</button>
+            <button mat-button [disabled]="loading$ | async" (click)="syncPlans()" *ngIf="currentUser.hasPermission('plans.create')" [matTooltip]="'Sync if one of payment gateways was enabled after plan has already been created'" trans>Sync</button>
+        </ng-container>
+        <button mat-raised-button color="accent" (click)="maybeDeleteSelectedPlans()" *ngIf="currentUser.hasPermission('plans.delete')" rightContent trans>Delete Selected</button>
+        <ng-template #tableFilters>
+            <plan-index-filters></plan-index-filters>
+        </ng-template>
+    </datatable-header>
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th table-header-checkbox></th>
+            <th table-sort-header trans>Name</th>
+            <th table-sort-header="parent_id" trans>Parent Plan</th>
+            <th table-sort-header trans>Amount</th>
+            <th table-sort-header trans>Currency</th>
+            <th table-sort-header trans>Interval</th>
+            <th table-sort-header trans>Recommended</th>
+            <th table-sort-header trans>Position</th>
+            <th table-sort-header="updated_at" trans>Last Updated</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let plan of plans$ | async">
+            <td [table-body-checkbox]="plan.id"></td>
+            <td data-label="Name">{{plan.name}}</td>
+            <td data-label="Parent Plan">{{plan.parent ? plan.parent.name : '-'}}</td>
+            <td data-label="Amount">{{plan.free ? 'Free' : (plan.amount | currency:plan.currency)}}</td>
+            <td data-label="Currency">{{plan.free ? 'Free' : plan.currency}}</td>
+            <td data-label="Interval">{{plan.free ? 'Free' : plan.interval}}</td>
+            <td data-label="Recommended">{{plan.parent_id ? '-' : (plan.recommended ? 'Yes' : 'No') }}</td>
+            <td data-label="Position">{{plan.parent_id ? '-' : plan.position}}</td>
+            <td data-label="Last Updated">{{plan.updated_at | formattedDate}}</td>
+            <td class="edit-column">
+                <button mat-icon-button (click)="showCrupdatePlanModal(plan)" *ngIf="currentUser.hasPermission('plans.update')" [matTooltip]="'Edit plan' | trans">
+                    <mat-icon svgIcon="edit"></mat-icon>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="online-payments.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text trans>No plans have been created yet</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>

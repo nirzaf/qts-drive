@@ -1,0 +1,7 @@
+<ng-container *ngIf="user">
+    <img [src]="user.avatar" alt="">
+    <div class="content">
+        <div>{{user.display_name}}</div>
+        <div class="email secondary">{{user.email}}</div>
+    </div>
+</ng-container>

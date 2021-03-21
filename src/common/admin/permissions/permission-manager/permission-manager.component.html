@@ -1,0 +1,19 @@
+<div class="header">
+    <span class="title" trans>Permissions</span>
+    <button mat-flat-button color="accent" (click)="showSelectPermissionsModal()" type="button" trans>Manage</button>
+</div>
+<div class="manage-permissions">
+    <div class="no-permissions" *ngIf="!(permissions$ | async)?.length" trans>No permissions yet.</div>
+
+    <mat-chip-list [selectable]="false">
+        <mat-chip (removed)="removePermission(permission.name)" [removable]="true" *ngFor="let permission of permissions$ | async">
+            <span>
+                <span trans>{{permission.name}}</span>
+                <ng-container *ngIf="getCountRestriction(permission) as restriction">
+                    <span *ngIf="restriction.value">({{restriction.value + ' ' + 'max' | trans}})</span>
+                </ng-container>
+            </span>
+            <mat-icon svgIcon="cancel" matChipRemove></mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+</div>

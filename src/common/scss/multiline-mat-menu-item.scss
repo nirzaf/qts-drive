@@ -1,0 +1,38 @@
+@import "variables";
+
+.multiline-mat-menu-item.mat-menu-item, .multiline-mat-menu-item.mat-option {
+  display: block;
+  white-space: normal;
+  line-height: normal;
+  height: auto;
+  min-height: 48px;
+  padding: 10px 16px;
+  font-size: 1.4rem;
+
+  &.with-icon {
+    display: flex;
+  }
+
+  .title {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  .description {
+    display: block;
+    color: mat-color($app-foreground, secondary-text);
+    margin-top: 3px;
+  }
+
+  .mat-icon {
+    flex-shrink: 0;
+  }
+}
+
+.mat-menu-item.active {
+  color: mat-color($app-primary, default);
+
+  .title {
+    font-weight: 500;
+  }
+}

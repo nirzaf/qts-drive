@@ -1,0 +1,42 @@
+<form class="update-link-panel" [formGroup]="form" (ngSubmit)="saveChanges()">
+    <div class="link-options">
+        <div class="link-option">
+            <div class="label" trans>Link expiration</div>
+            <div class="content">
+                <mat-checkbox color="accent" [formControl]="expirationVisible" trans>Link is valid until:</mat-checkbox>
+                <div class="input-container expiration-input-container" formGroupName="expiresAt"  [class.hidden]="!expirationVisible.value">
+                    <div class="date-input-container">
+                        <input type="date" formControlName="date" class="date-input" placeholder="Expiration date..." trans-placeholder [min]="getMinDate()">
+                    </div>
+                    <input type="time" class="time-input" formControlName="time" placeholder="Expiration time..." trans-placeholder>
+                </div>
+                <div class="error" *ngIf="(backendErrors$ | async)?.expiresAt as error">{{error}}</div>
+            </div>
+        </div>
+        <div class="link-option">
+            <div class="label" trans>Password Protect</div>
+            <div class="content">
+                <mat-checkbox color="accent" [formControl]="passwordVisible" trans>Require password:</mat-checkbox>
+                <ng-container *ngIf="passwordVisible.value">
+                    <div class="input-container password-input-container">
+                        <input type="password" formControlName="password" placeholder="Enter new password..." trans-placeholder>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="link-option">
+            <div class="label" trans>Allow editing</div>
+            <mat-checkbox color="accent" formControlName="allowEdit" trans>Users with link can modify this item.</mat-checkbox>
+        </div>
+        <div class="link-option">
+            <div class="label" trans>Allow download</div>
+            <mat-checkbox color="accent" formControlName="allowDownload" trans>Users with link can download this item.</mat-checkbox>
+        </div>
+    </div>
+
+    <button type="button" (click)="toggleOptionsPanel()" mat-button trans>Cancel</button>
+
+    <button type="submit" class="update-button" mat-raised-button color="accent" [disabled]="loading$ | async">
+        {{ ((link$ | async) ? 'Update Link' : 'Create Link') | trans }}
+    </button>
+</form>

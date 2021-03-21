@@ -1,0 +1,19 @@
+<div class="input-container">
+    <label for="storage_digitalocean_key" trans>DigitalOcean Key</label>
+    <input type="text" id="storage_digitalocean_key" name="storage_digitalocean_key" [(ngModel)]="state.server['storage_digitalocean_key']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_digitalocean_secret" trans>DigitalOcean Secret</label>
+    <input type="text" id="storage_digitalocean_secret" name="storage_digitalocean_secret" [(ngModel)]="state.server['storage_digitalocean_secret']" required>
+</div>
+
+<div class="input-container">
+    <label for="storage_digitalocean_region" trans>DigitalOcean Region</label>
+    <input type="text" id="storage_digitalocean_region" name="storage_digitalocean_region" [(ngModel)]="state.server['storage_digitalocean_region']" required pattern="[a-z0-9]+" maxlength="5">
+</div>
+
+<div class="input-container">
+    <label for="storage_digitalocean_bucket" trans>DigitalOcean Bucket</label>
+    <input type="text" id="storage_digitalocean_bucket" name="storage_digitalocean_bucket" [(ngModel)]="state.server['storage_digitalocean_bucket']" required>
+</div>

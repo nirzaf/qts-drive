@@ -1,0 +1,22 @@
+<div class="panel-content">
+    <div class="header">
+        <h2 trans>Notifications</h2>
+        <button mat-button class="mark-as-read-button" *ngIf="notifications.unreadCount$ | async" type="button"
+                (click)="markAllAsRead()" trans>Mark all as read
+        </button>
+    </div>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="notifications.loading$ | async"></mat-progress-bar>
+    <notification-list [notifications]="notifications.all$ | async" [compact]="true"></notification-list>
+    <div class="footer">
+        <a routerLink="notifications" (click)="closePanel()" class="view-all-button"
+           *ngIf="notifications.canLoadMore | async" trans>
+            <span trans>View all</span>
+            <mat-icon svgIcon="keyboard-arrow-right"></mat-icon>
+        </a>
+        <a routerLink="notifications/settings" (click)="closePanel()" class="settings-button"
+           *ngIf="settings.get('notif.subs.integrated') && currentUser.hasPermission('notification.subscribe') && (notifications.all$ | async)?.length">
+            <span trans>Settings</span>
+            <mat-icon svgIcon="settings"></mat-icon>
+        </a>
+    </div>
+</div>

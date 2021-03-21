@@ -1,0 +1,160 @@
+@import "variables";
+
+.input-container {
+  display: block;
+  width: 100%;
+
+  &.has-error {
+    input, select, textarea, .fake-input {
+      border-color: mat-color($app-warn);
+    }
+
+    label {
+      color: mat-color($app-warn);
+    }
+  }
+
+  .error {
+    margin-top: 6px;
+    color: mat-color($app-warn);
+
+    a {
+      color: inherit;
+      font-weight: 500;
+    }
+  }
+
+  p, .input-description {
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 13px;
+  }
+
+  label, .fake-label {
+    color: mat-color($app-foreground, label);
+    display: block;
+    padding-bottom: 5px;
+  }
+
+  input, select, textarea, .fake-input {
+    display: block;
+    width: 100%;
+    height: $input-height;
+    color: inherit;
+    caret-color: inherit;
+    border: 1px solid mat-color($app-foreground, divider);
+    padding: $input-padding;
+    margin: 0;
+    outline: 0;
+    line-height: normal;
+    font-size: 14px;
+    font-family: inherit;
+    background-color: transparent;
+    box-sizing: border-box;
+    border-radius: 4px;
+    transition-duration: 0.15s;
+    transition-property: border,background-color,color,box-shadow;
+    transition-timing-function: ease-in;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+
+    @include input-placeholder {
+      color: mat-color($app-foreground, disabled-button-text);
+    }
+
+    &:focus {
+      outline: 0;
+      border-color: mat-color($app-accent, lighter);
+      box-shadow: 0 0 0 2px mat-color($app-accent, lighter);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+    }
+
+    &[readonly] {
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    &:required:not(:focus) {
+      box-shadow: none;
+    }
+  }
+
+  option {
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  // fix for firefox "file" input
+  input[type="file"] {
+    height: auto;
+  }
+
+  textarea {
+    height: auto;
+    padding: 10px;
+  }
+
+  .input-with-action {
+    &:not(.hide-action) {
+      display: flex;
+
+      input, select {
+        flex: 1;
+      }
+
+      &:not(.action-left) {
+        input, select {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          border-right: none;
+        }
+
+        .mat-flat-button, .input-action {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+
+      &.action-left {
+        input, select {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          border-left: none;
+        }
+
+        .mat-flat-button, .input-action {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
+    }
+
+    &.hide-action {
+      .mat-flat-button, .input-action {
+        display: none;
+        visibility: hidden;
+      }
+    }
+  }
+}
+
+.inline-inputs-container {
+  display: flex;
+
+  .input-container {
+    margin-right: 15px;
+    flex: 1 1 auto;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.many-inputs {
+  > .input-container, > .custom-control {
+    margin-bottom: 20px;
+  }
+}

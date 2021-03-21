@@ -1,0 +1,19 @@
+<div class="datatable responsive-table">
+    <datatable-header pluralResourceName="custom pages">
+        <a routerLink="new" mat-raised-button color="accent" *ngIf="currentUser.hasPermission('custom_pages.create')" leftContent trans>Add</a>
+        <button mat-raised-button color="accent" [matTooltip]="'Delete selected' | trans" (click)="maybeDeleteSelectedPages()" rightContent trans>Delete Selected</button>
+    </datatable-header>
+    <custom-page-table [showOwnerColumn]="showUserColumn()" [showTypeColumn]="!endpoint" [pages]="datatable.data$ | async">
+        <ng-template #editButton let-page="page">
+            <a [routerLink]="[page.id, 'edit']" mat-icon-button *ngIf="currentUser.hasPermission('custom_pages.update')" [matTooltip]="'Edit page' | trans">
+                <mat-icon svgIcon="edit"></mat-icon>
+            </a>
+        </ng-template>
+    </custom-page-table>
+    <no-results-message svgImage="custom-page.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text trans>No pages have been created yet</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>
+
+

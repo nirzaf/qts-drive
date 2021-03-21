@@ -1,0 +1,119 @@
+@import "variables";
+
+$button-height: $text-editor-header-height - 1;
+$button-icon-size: 22px !default;
+$button-padding: ($button-height - $button-icon-size) / 2;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 218px;
+  max-height: 600px;
+  position: relative;
+  border: 1px solid mat-color($app-foreground, divider);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .editor-button {
+  color: #788593;
+  padding: $button-padding;
+  width: $button-height;
+  height: $button-height;
+
+  .mat-icon {
+    height: $button-icon-size;
+    width: $button-icon-size;
+  }
+
+  .caret {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+
+  &.text-button {
+    display: block;
+    font-weight: 300;
+    font-size: 1.5rem;
+    width: auto;
+  }
+
+  &.disabled {
+    opacity: .4;
+  }
+
+  &.active {
+    background-color: rgba(0,0,0,0.04);
+  }
+
+  &.success {
+    color: mat-color($app-accent);
+  }
+
+  &:hover {
+    background-color: rgba(0,0,0,0.04);
+  }
+}
+
+:host ::ng-deep .editor-footer {
+  position: relative;
+  height: $text-editor-header-height;
+  flex-shrink: 0;
+  background-color: mat-color($app-background, background);
+  border-top: 1px solid mat-color($app-foreground, divider);
+}
+
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 15px;
+}
+
+.editor-header {
+  clear: both;
+  flex: 0 0 $text-editor-header-height;
+  background-color: mat-color($app-background, background);
+}
+
+.toolbar-row {
+  display: flex;
+  height: $text-editor-header-height;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  overflow: hidden;
+}
+
+::ng-deep .header-actions {
+  display: inline-block;
+  border-right: 1px solid mat-color($app-foreground, divider);
+  height: 100%;
+  padding: 0 4px;
+
+  &.right {
+    margin-left: auto;
+    margin-right: 7px;
+  }
+
+  &.last {
+    border-right: none;
+  }
+}
+
+.editor-toggle-buttons {
+  border-right: none;
+  margin-left: auto;
+  padding: 0;
+  display: flex;
+
+  .editor-button {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: $medium) {
+  .editor-header {
+    display: none;
+  }
+}

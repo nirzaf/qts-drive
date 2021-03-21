@@ -1,0 +1,27 @@
+<div class="header">
+    <div class="info">
+        <ng-container *ngIf="activeUploads.count$ | async as count">
+            <ng-container *ngIf="count.pending > 0">
+                {{ 'Uploading' | trans }} {{count.pending}} {{(count.pending > 1 ? 'Items' : 'Item') | trans}}
+            </ng-container>
+            <ng-container *ngIf="count.pending === 0">
+                {{count.completed}} {{'items uploaded' | trans}}
+            </ng-container>
+        </ng-container>
+    </div>
+    <div class="actions">
+        <button mat-icon-button (click)="toggleMinimized()">
+            <mat-icon svgIcon="keyboard-arrow-up" *ngIf="minimized$ | async; else notMinimized" class="minimize-icon"></mat-icon>
+            <ng-template #notMinimized>
+                <mat-icon svgIcon="keyboard-arrow-down" class="minimize-icon"></mat-icon>
+            </ng-template>
+        </button>
+        <button mat-icon-button (click)="close()">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+</div>
+
+<div class="uploads-list" [class.hidden]="minimized$ | async">
+    <uploads-panel-item *ngFor="let upload of activeUploads.uploads$ | async; trackBy: trackById" [upload]="upload"></uploads-panel-item>
+</div>

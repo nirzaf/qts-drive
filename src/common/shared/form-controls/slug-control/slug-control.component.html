@@ -1,0 +1,15 @@
+<mat-icon svgIcon="link" class="link-icon"></mat-icon>
+<ng-container *ngIf="editing$ | async; else editButton">
+    <div class="nowrap">{{baseUri + getPrefix()}}</div>
+    <div class="input-container">
+        <input type="text" [formControl]="slugControl">
+    </div>
+    <button type="button" mat-flat-button color="gray" class="action-button" (click)="save()" trans>Save</button>
+</ng-container>
+
+<ng-template #editButton>
+    <ng-container *ngIf="baseUri + getPrefix() + (slug$ | async) as fullUrl">
+        <a class="nowrap" [href]="fullUrl" target="_blank" [title]="fullUrl">{{fullUrl}}</a>
+    </ng-container>
+    <button type="button" mat-flat-button color="gray" class="action-button" (click)="startEditing()" trans>Edit</button>
+</ng-template>

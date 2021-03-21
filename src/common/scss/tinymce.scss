@@ -1,0 +1,16 @@
+@import "variables";
+
+.tox-tinymce.tox {
+  border: none;
+  flex: 1 1 auto;
+
+  .tox-edit-area {
+    border: none;
+  }
+
+  .tox-panel {
+    background-color: mat-color($app-background, background);
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    padding: 0;
+  }
+}

@@ -1,0 +1,26 @@
+@import "variables";
+
+.panel-outter {
+  margin: 10px 0 20px;
+}
+
+.header {
+  display: flex;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  align-items: flex-end;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.add-button {
+  text-align: right;
+  flex: 1 1 auto;
+}
+
+.role-name {
+  text-transform: capitalize;
+}

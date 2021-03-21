@@ -1,0 +1,23 @@
+<div class="field-container" (click)="openModal()">
+    <div class="label fake-label" trans><ng-content></ng-content></div>
+    <div class="img-container">
+        <image-or-icon [src]="image" *ngIf="image$ | async as image; else noImage"></image-or-icon>
+
+        <ng-template #noImage>
+            <div class="no-image">
+                <mat-icon svgIcon="photo-size-select-actual"></mat-icon>
+                <span class="text" trans>Upload</span>
+            </div>
+        </ng-template>
+
+        <div class="actions-dropdown">
+            <button class="no-style" [matMenuTriggerFor]="actionsMenu" (click)="$event.stopPropagation()"><mat-icon svgIcon="settings" class="trigger-icon"></mat-icon></button>
+
+            <mat-menu #actionsMenu>
+                <div mat-menu-item (click)="remove()" *ngIf="image$ | async" trans>Remove</div>
+                <div mat-menu-item (click)="useDefault()" *ngIf="defaultValue" trans>Use Default</div>
+            </mat-menu>
+        </div>
+    </div>
+</div>
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>

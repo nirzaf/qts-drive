@@ -1,0 +1,29 @@
+@import "variables";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #323232;
+  color: #fff;
+  padding: 15px;
+  width: 100%;
+  @include mat-elevation(3);
+}
+
+a {
+  display: block;
+  margin-left: 15px;
+  color: mat-color($app-accent, lighter);
+}
+
+.mat-flat-button {
+  margin-left: 15px;
+  line-height: 28px;
+  min-width: 50px;
+  font-size: 1.3rem;
+}
+
+a, .mat-flat-button {
+  flex-shrink: 0;
+}

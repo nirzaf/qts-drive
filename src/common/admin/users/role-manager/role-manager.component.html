@@ -1,0 +1,18 @@
+<div class="panel-outter" *ngIf="currentUser.hasPermission('roles.update')">
+    <div class="header">
+        <div class="title" trans>Roles</div>
+        <div class="add-button" *ngIf="!readonly">
+            <button mat-flat-button color="accent" class="select-roles-modal-button" (click)="openSelectRolesModal()" type="button" trans>Manage</button>
+        </div>
+    </div>
+    <div class="panel-body roles">
+        <div class="no-permissions" *ngIf="!(roles$ | async)?.length" trans>No roles yet.</div>
+
+        <mat-chip-list [selectable]="false">
+            <mat-chip (removed)="detachRole(role)" [removable]="true" *ngFor="let role of roles$ | async" [disabled]="readonly">
+                <span class="role-name">{{role.name}}</span>
+                <mat-icon svgIcon="cancel" matChipRemove></mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+</div>

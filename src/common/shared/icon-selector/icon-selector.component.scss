@@ -1,0 +1,23 @@
+@import "variables";
+
+:host {
+  display: block;
+  background-color: mat-color($app-background, dialog);
+  padding: 15px;
+  border-radius: 4px;
+  width: 490px;
+  max-width: 90vw;
+  min-height: 390px;
+  overflow: auto;
+  position: relative;
+  text-align: center;
+  @include mat-elevation(6);
+}
+
+.mat-icon-button {
+  transition: transform 0.1s ease-in-out;
+
+  &:hover {
+    transform: scale(1.6);
+  }
+}

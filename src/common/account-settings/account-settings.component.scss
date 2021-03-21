@@ -1,0 +1,230 @@
+@import "variables";
+
+:host {
+  display: block;
+  min-height: 100vh;
+  flex: 1 1 auto;
+}
+
+.content {
+  margin: 0 auto;
+}
+
+.header {
+  font-size: 3.5rem;
+  margin: 25px 0;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+
+.header-text {
+  white-space: nowrap;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-toggle-button {
+  flex-shrink: 0;
+  margin-left: 30px;
+}
+
+.panels {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+}
+
+::ng-deep .account-settings-panel {
+  box-shadow: none;
+  border: 1px solid mat-color($app-foreground, divider);
+  border-radius: 4px;
+  width: calc(50% - 30px);
+  margin: 15px;
+  padding: 15px;
+  background-color: mat-color($app-background, dialog);
+
+  .panel-header {
+    display: flex;
+    vertical-align: middle;
+    background-color: transparent;
+    font-size: 1.8rem;
+    font-weight: 300;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+  }
+
+  .panel-header-title {
+    flex: 1 1 auto;
+  }
+
+  .panel-header-action {
+    font-size: 1.5rem;
+    display: block;
+  }
+
+  .panel-body {
+    padding: 25px 0 0;
+    min-height: 314px;
+  }
+
+  .panel-footer {
+    padding: 10px 0 0 0;
+    margin-top: 35px;
+    border-top: 1px solid mat-color($app-foreground, divider);
+    text-align: right;
+  }
+}
+
+.input-inline {
+  display: flex;
+  margin-bottom: 26px;
+  align-items: center;
+  position: relative;
+
+  label {
+    flex: 0 0 30%;
+    min-width: 200px;
+    line-height: 42px;
+    vertical-align: middle;
+  }
+
+  input, select {
+    flex: 1 1 auto;
+    height: 48px;
+    border-radius: 3px;
+    border-color: mat-color($app-foreground, divider);
+    background-color: mat-color($app-background, dialog);
+  }
+
+  select {
+    text-transform: capitalize;
+  }
+
+  .error {
+    color: mat-color($app-warn);
+    font-size: 1.3rem;
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+  }
+}
+
+.avatar-input {
+  display: flex;
+  flex-wrap: wrap;
+
+  img {
+    flex: 0 0 90px;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+
+  .avatar-actions-container {
+    flex: 1 1 auto;
+    max-width: 130px;
+
+    .info {
+      padding-top: 5px;
+      color: mat-color($app-foreground, secondary-text);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    button {
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.social-login-panel .info {
+  margin-bottom: 35px;
+}
+
+.logout-button-container {
+  padding: 20px 0 15px;
+  display: none;
+
+  .logout-button .mat-icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.api-input-container {
+  border-top: 1px solid mat-color($app-foreground, divider-lighter);
+  padding-top: 25px;
+  margin-top: 20px;
+}
+
+.api-panel {
+  dt, dd {
+    margin: 0;
+  }
+
+  dt {
+    font-weight: 500;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+  }
+
+  dd {
+    margin-bottom: 10px;
+  }
+
+  ul {
+    max-height: 400px;
+    overflow: auto;
+  }
+
+  li {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+    }
+  }
+}
+
+@media only screen and (max-width: $large) {
+  .panel .input-inline {
+    display: block;
+
+    label {
+      line-height: initial;
+    }
+  }
+}
+
+@media only screen and (max-width: $medium) {
+  .logout-button-container {
+    display: block;
+  }
+
+  .panels {
+    display: block;
+
+    .panel {
+      width: auto;
+    }
+
+    .input-inline {
+      display: block;
+
+      input, select {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .social-account-username {
+    display: none;
+  }
+}

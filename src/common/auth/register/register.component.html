@@ -1,0 +1,73 @@
+<auth-page infoRowTarget="signin">
+    <form (ngSubmit)="register()" *ngIf="errors$ | async as errors" [formGroup]="form" ngNativeValidate>
+        <div class="header" [transValues]="{siteName: settings.get('branding.site_name')}" trans>
+            {{ route.snapshot.data.message || 'Create a new account' }}
+        </div>
+
+        <div class="many-inputs">
+            <div class="input-container">
+                <label for="email" trans>Email</label>
+                <input type="email" formControlName="email" id="email" required>
+                <p class="error" *ngIf="errors.email">
+                    <mat-icon svgIcon="warning"></mat-icon>
+                    <span>{{errors.email}}</span>
+                </p>
+            </div>
+
+            <div class="input-container">
+                <label for="register_password" trans>Password</label>
+                <input type="password" formControlName="password" id="register_password" required>
+                <p class="error" *ngIf="errors.password">
+                    <mat-icon svgIcon="warning"></mat-icon>
+                    <span>{{errors.password}}</span>
+                </p>
+            </div>
+
+            <div class="input-container">
+                <label for="register_password_confirmation" trans>Confirm Password</label>
+                <input type="password" formControlName="password_confirmation" id="register_password_confirmation" required>
+            </div>
+
+            <div class="input-container" *ngIf="settings.get('envato.enable') && settings.get('envato.require_purchase_code')">
+                <label for="purchase_code" trans>Envato Purchase Code</label>
+                <input type="text" formControlName="purchase_code" id="purchase_code" required>
+                <p class="error" *ngIf="errors.purchase_code">
+                    <mat-icon svgIcon="warning"></mat-icon>
+                    <span>{{errors.purchase_code}}</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="policies" *ngIf="registerPolicies.length">
+            <mat-checkbox name="remember-me" class="policy-checkbox" *ngFor="let policy of registerPolicies" [formControlName]="policy.id" color="accent" required trans>
+                <span trans>I accept the</span>&ngsp;
+                <a [href]="policy.type === 'link' ? policy.action : (settings.getBaseUrl() + policy.action)" *ngIf="policy.action" target="_blank">
+                    <strong>{{policy.label | trans}}</strong>
+                </a>
+                <strong *ngIf=!policy.action>{{policy.label | trans}}</strong>
+            </mat-checkbox>
+        </div>
+
+        <button mat-raised-button class="primary-button" color="accent" type="submit" [disabled]="loading$ | async" trans>Create Account</button>
+
+        <ng-container *ngIf="!settings.get('registration.disable')">
+            <button type="button" class="no-style alternative-signin-method" (click)="socialAuth.loginWith('envato')" *ngIf="settings.get('social.envato.enable'); else defaultSocialAuth">
+                <mat-icon svgIcon="envato-custom"></mat-icon>
+                <span trans>Sign in with Envato instead</span>
+            </button>
+            <ng-template #defaultSocialAuth>
+                <div class="social-icons center">
+                    <button type="button" mat-icon-button (click)="socialAuth.loginWith('facebook')" *ngIf="settings.get('social.facebook.enable')" class="social-icon no-style facebook" [matTooltip]="'Login with facebook' | trans">
+                        <mat-icon svgIcon="facebook"></mat-icon>
+                    </button>
+                    <button type="button" mat-icon-button (click)="socialAuth.loginWith('google')" *ngIf="settings.get('social.google.enable')" class="social-icon no-style google" [matTooltip]="'Login with google' | trans">
+                        <mat-icon svgIcon="google"></mat-icon>
+                    </button>
+                    <button type="button" mat-icon-button (click)="socialAuth.loginWith('twitter')" *ngIf="settings.get('social.twitter.enable')" class="social-icon no-style twitter" [matTooltip]="'Login with twitter' | trans">
+                        <mat-icon svgIcon="twitter"></mat-icon>
+                    </button>
+                </div>
+            </ng-template>
+        </ng-container>
+    </form>
+</auth-page>

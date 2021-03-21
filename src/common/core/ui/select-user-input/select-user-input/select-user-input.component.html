@@ -1,0 +1,40 @@
+<div class="input-container">
+    <div class="fake-label" trans>User</div>
+    <div class="fake-input" tabindex="0" [matMenuTriggerFor]="menu" (menuOpened)="onMenuOpened()" (menuClosed)="onMenuClosed()">
+        <span *ngIf="selectedUser$ | async as selectedUser; else anyUser">
+            <img [src]="selectedUser.avatar">{{selectedUser.display_name}}
+        </span>
+        <ng-template #anyUser>
+            <span trans>Any</span>
+        </ng-template>
+        <div class="arrow-container">
+            <div class="arrow"></div>
+        </div>
+    </div>
+</div>
+
+<mat-menu #menu="matMenu">
+    <div class="input-container search-input-container" (click)="$event.stopPropagation()">
+        <div class="search-input-wrapper">
+            <input type="text" [formControl]="searchFormControl" placeholder="Search..." (blur)="searchInput.focus()" #searchInput trans-placeholder>
+            <button class="clear-search-input-button" mat-icon-button (click)="clearSearchInput()" *ngIf="searchFormControl.value">
+                <mat-icon svgIcon="close"></mat-icon>
+            </button>
+            <loading-indicator [isVisible]="loading$ | async" class="small"></loading-indicator>
+        </div>
+    </div>
+    <div mat-menu-item (click)="selectUser(null)">
+        <img src="client/assets/images/anonymous-user.png" alt="">
+        <div class="info any-user-info">
+            <div class="name" trans>Any User</div>
+        </div>
+    </div>
+    <div mat-menu-item *ngFor="let user of users$ | async" (click)="selectUser(user)">
+        <img [src]="user.avatar" alt="">
+        <div class="user-info">
+            <div class="name">{{user.display_name}}</div>
+            <div class="email">{{user.email}}</div>
+        </div>
+    </div>
+    <div class="nothing-found-item" aria-disabled="true" mat-menu-item disabled *ngIf="searchedOnce && !(users$ | async).length" trans>No users found.</div>
+</mat-menu>

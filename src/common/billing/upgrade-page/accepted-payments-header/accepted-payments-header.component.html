@@ -1,0 +1,5 @@
+<div class="text" trans>Accepted Payment Methods</div>
+<div class="card-icons">
+    <img [src]="getCardIcon('paypal')" *ngIf="settings.get('billing.paypal.enable')">
+    <img [src]="getCardIcon(card)" *ngFor="let card of acceptedCards">
+</div>

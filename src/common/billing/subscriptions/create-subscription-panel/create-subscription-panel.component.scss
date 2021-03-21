@@ -1,0 +1,20 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+credit-card-form, .paypal-tab {
+  padding: 25px;
+}
+
+.paypal-tab {
+  padding-bottom: 5px;
+
+  p {
+    background-color: mat-color($app-background, background);
+    border-radius: 4px;
+    padding: 15px;
+    border: 1px solid mat-color($app-foreground, divider-lighter);
+  }
+}

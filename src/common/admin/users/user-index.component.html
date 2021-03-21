@@ -1,0 +1,47 @@
+<div class="datatable responsive-table">
+    <datatable-header pluralResourceName="users">
+        <ng-container leftContent>
+            <button mat-raised-button color="accent" (click)="showCrupdateUserModal()" *ngIf="currentUser.hasPermission('users.create')" trans>Add</button>
+        </ng-container>
+        <button mat-raised-button color="accent" [matTooltip]="'Delete selected' | trans" (click)="maybeDeleteSelectedUsers()" rightContent *ngIf="currentUser.hasPermission('users.delete')" trans>Delete Selected</button>
+        <ng-template #tableFilters>
+            <user-index-filters></user-index-filters>
+        </ng-template>
+    </datatable-header>
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th table-header-checkbox></th>
+            <th table-sort-header="email" trans>User</th>
+            <th *ngIf="settings.get('billing.enable')" trans>Subscribed</th>
+            <th trans>Roles</th>
+            <th table-sort-header trans>First Name</th>
+            <th table-sort-header trans>Last Name</th>
+            <th table-sort-header trans>Created At</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users$ | async">
+            <td [table-body-checkbox]="user.id"></td>
+            <td>
+                <user-column [user]="user"></user-column>
+            </td>
+            <td data-label="Subscribed" *ngIf="settings.get('billing.enable')">{{user.subscriptions?.length ? 'Yes' : 'No'}}</td>
+            <td data-label="Roles">{{makeRolesList(user.roles)}}</td>
+            <td data-label="First Name">{{user.first_name || '-'}}</td>
+            <td data-label="Last Name">{{user.last_name || '-'}}</td>
+            <td>{{user.created_at | formattedDate}}</td>
+            <td class="edit-column">
+                <button mat-icon-button (click)="showCrupdateUserModal(user)" *ngIf="currentUser.hasPermission('users.update')" [matTooltip]="'Edit user' | trans">
+                    <mat-icon svgIcon="edit"></mat-icon>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="people.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text trans>No users have been created yet</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>

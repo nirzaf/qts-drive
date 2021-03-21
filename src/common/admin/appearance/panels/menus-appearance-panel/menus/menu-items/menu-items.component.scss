@@ -1,0 +1,81 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+.title {
+  margin: 35px 0 5px;
+}
+
+.no-menu-items {
+  font-size: 1.6rem;
+  font-style: italic;
+  color: mat-color($app-foreground, secondary-text);
+  margin: 10px 0;
+}
+
+.icon-input-container {
+  position: relative;
+
+  input {
+    padding-left: 35px;
+  }
+
+  .mat-icon {
+    position: absolute;
+    top: 36px;
+    left: 8px;
+    color: mat-color($app-foreground, icon);
+  }
+}
+
+/**
+ EXPANSION PANEL OVERRIDES
+ */
+
+.menu-item-list {
+  padding-top: 25px;
+}
+
+.mat-expansion-panel {
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid mat-color($app-foreground, divider);
+}
+
+.mat-expansion-panel-header {
+  min-height: 57px;
+
+  &.mat-expanded {
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+  }
+}
+
+.mat-action-row {
+  border: none;
+  padding: 0 15px 10px;
+}
+
+.drag-handle {
+  display: block;
+  color: mat-color($app-foreground, icon);
+  margin-right: 8px;
+  cursor: move;
+}
+
+/**
+ DRAG AND DROP ANIMATIONS
+ */
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

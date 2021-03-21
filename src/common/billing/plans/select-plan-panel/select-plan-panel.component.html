@@ -1,0 +1,17 @@
+<div class="plans" [class.has-recommended]="hasRecommendedPlan">
+    <div class="plan" *ngFor="let plan of getAllPlans(); last as last; first as first" [class.recommended]="plan.recommended" [class.last]="last" [class.first]="first">
+        <div class="name">{{plan.name}}</div>
+        <div class="price-box" *ngIf="!plan.free">
+            <span class="number">{{plan.amount | currency:plan.currency}}</span>
+            <span class="interval"> / {{plan.interval | trans}}</span>
+        </div>
+        <div class="price-box" *ngIf="plan.free" trans>Free</div>
+        <plan-features-list [plan]="plan"></plan-features-list>
+        <button class="select-plan-button" (click)="selectPlan(plan)" mat-raised-button color="accent" *ngIf="plan.recommended" [disabled]="userSubscribedToPlan(plan)">
+            {{ selectPlanButtonText(plan) | trans }}
+        </button>
+        <button class="select-plan-button" (click)="selectPlan(plan)" mat-stroked-button color="accent" *ngIf="!plan.recommended" [disabled]="userSubscribedToPlan(plan)">
+            {{ selectPlanButtonText(plan) | trans }}
+        </button>
+    </div>
+</div>

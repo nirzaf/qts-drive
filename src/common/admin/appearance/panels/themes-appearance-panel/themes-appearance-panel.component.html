@@ -1,0 +1,30 @@
+<appearance-panel-meta [path]="path$ | async" (back)="openPreviousPanel()"></appearance-panel-meta>
+
+<div class="appearance-panel-content">
+    <css-theme-colors-panel
+            [theme]="selectedTheme"
+            *ngIf="selectedTheme$ | async as selectedTheme else themesList"
+    ></css-theme-colors-panel>
+
+    <ng-template #themesList>
+        <button mat-raised-button color="accent" type="button" class="new-theme-button" (click)="openCrupdateThemeModal()" trans>New Theme</button>
+        <ul class="unstyled-list">
+            <li class="nav-item" *ngFor="let theme of loadedThemes$ | async" (click)="setSelectedTheme(theme)">
+                <div class="name">{{theme.name}}</div>
+                <div class="actions" (click)="$event.stopPropagation()">
+                    <button mat-icon-button type="button" (click)="setSelectedTheme(theme)">
+                        <mat-icon svgIcon="drop-custom"></mat-icon>
+                    </button>
+                    <button mat-icon-button type="button" (click)="openCrupdateThemeModal(theme);">
+                        <mat-icon svgIcon="edit"></mat-icon>
+                    </button>
+                    <button mat-icon-button type="button" (click)="maybeDeleteThemeModal(theme)">
+                        <mat-icon svgIcon="delete"></mat-icon>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </ng-template>
+</div>
+
+<loading-indicator [isVisible]="loading$ | async" class="overlay overlay-partial"></loading-indicator>

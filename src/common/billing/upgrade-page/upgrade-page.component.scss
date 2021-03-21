@@ -1,0 +1,54 @@
+@import "variables";
+
+:host-context(.be-dark-mode) .bg-wrapper {
+  background-image: none;
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: mat-color($app-background, background);
+}
+
+.bg-wrapper {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url("/client/assets/images/pricing-plans-bg.svg");
+}
+
+.main-content {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background-color: inherit;
+  min-height: calc(100vh - #{$material-navbar-height});
+}
+
+.step-container {
+  display: flex;
+  position: relative;
+  background-color: mat-color($app-background, dialog);
+  border-radius: 4px;
+  margin-top: 25px;
+  @include mat-elevation(1);
+
+  .left-col {
+    flex: 1 1 auto;
+  }
+}
+
+select-plan-panel {
+  margin-top: 25px;
+}
+
+.legal-info {
+  margin-top: 20px;
+  color: mat-color($app-foreground, secondary-text);
+}
+
+@media only screen and (max-width: $medium) {
+  upgrade-page-aside {
+    display: none;
+  }
+}
+

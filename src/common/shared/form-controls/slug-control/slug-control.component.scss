@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+.input-container {
+  margin-left: 3px;
+  width: auto;
+  max-width: 160px;
+
+  input {
+    height: 25px;
+    padding: 6px;
+  }
+}
+
+.link-icon {
+  margin-right: 5px;
+  flex-shrink: 0;
+}
+
+.action-button {
+  margin-left: 20px;
+  line-height: 25px;
+}
+
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,13 @@
+.mat-chip.mat-compact-chip {
+  padding: 4px 8px !important;
+  font-weight: 400;
+  font-size: 1.2rem;
+  min-height: 20px;
+  line-height: 20px;
+
+  .mat-chip-remove.mat-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+  }
+}

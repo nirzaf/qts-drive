@@ -1,0 +1,12 @@
+<mat-icon class="icon" [svgIcon]="svgIcon" *ngIf="svgIcon; else svgImageRef"></mat-icon>
+<ng-template #svgImageRef>
+    <svg-image class="icon" [name]="svgImage"></svg-image>
+</ng-template>
+<div class="text">
+    <div class="main">
+        <ng-content select="[primary-text]"></ng-content>
+    </div>
+    <div class="secondary">
+        <ng-content select="[secondary-text]"></ng-content>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title *ngIf="data.plan" trans>Update Plan Details</h2>
+    <h2 class="modal-title" mat-dialog-title *ngIf="!data.plan" trans>Create a New Plan</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form autocomplete="off" (ngSubmit)="confirm()" ngNativeValidate *ngIf="errors$ | async as errors" [formGroup]="form">
+    <div class="many-inputs mat-dialog-content" mat-dialog-content>
+        <div class="input-container">
+            <label for="plan-modal-name" trans>Name</label>
+            <input type="text" id="plan-modal-name" formControlName="name" required>
+            <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+        </div>
+
+        <div class="input-container">
+            <label for="parent_id" trans>Parent Plan</label>
+            <select id="parent_id" formControlName="parent_id" required>
+                <option [ngValue]="null" trans>None</option>
+                <option [ngValue]="plan.id" *ngFor="let plan of getBasePlans(data.plan)">{{plan.name}}</option>
+            </select>
+            <p trans>Used for creating yearly, weekly etc versions of base plan. Child plans will inherit their parent permissions/features.</p>
+            <div class="error" *ngIf="errors.parent_id">{{errors.parent_id}}</div>
+        </div>
+
+       <ng-container *ngIf="!formValue().free">
+           <div class="input-container">
+               <label for="amount" trans>Amount</label>
+               <input type="number" step="0.01" id="amount" formControlName="amount" required [min]="getMinAmount()" [max]="getMaxAmount()">
+                <ng-container *ngIf="!data.plan">
+                    <p trans>How much subscribers of this plan should be charged. (Dollars, euros etc.)</p>
+                    <p trans>For example, Amount=100, Interval=Year and Interval Count=1, will charge user 100 dollars every year.</p>
+                </ng-container>
+               <p *ngIf="data.plan" trans>Plan amount can't be changed once plan has already been created, however you can add a new child plan with a different price or delete this plan and create a new one.</p>
+               <div class="error" *ngIf="errors.amount">{{errors.amount}}</div>
+           </div>
+
+           <div class="input-container" *ngIf="!formValue().parent_id">
+               <label for="currency" trans>Currency</label>
+               <select id="currency" formControlName="currency" required>
+                   <option [ngValue]="currency.code" *ngFor="let currency of currencies$ | async">{{currency.code}} - {{currency.name}}</option>
+               </select>
+               <div class="error" *ngIf="errors.currency">{{errors.currency}}</div>
+           </div>
+
+           <div class="input-container">
+               <label for="interval" trans>Interval</label>
+               <select id="interval" class="interval-select" formControlName="interval" required>
+                   <option [ngValue]="interval" *ngFor="let interval of intervals">{{interval}}</option>
+               </select>
+               <p trans>The frequency with which a subscription should be billed.</p>
+               <div class="error" *ngIf="errors.interval">{{errors.interval}}</div>
+           </div>
+
+           <div class="input-container" *ngIf="formValue().interval !== 'year'">
+               <label for="interval_count" trans>Interval Count</label>
+               <input type="number" id="interval_count" formControlName="interval_count" required min="1" max="12">
+               <p trans>The number of intervals (specified in the interval property above) between each subscription billing. For example, Interval=Month and Interval Count=3 bills every 3 months.</p>
+               <div class="error" *ngIf="errors.interval_count">{{errors.interval_count}}</div>
+           </div>
+       </ng-container>
+
+        <ng-container *ngIf="!formValue().parent_id">
+            <div class="input-container">
+                <label for="position" trans>Position</label>
+                <select type="text" id="position" formControlName="position" required>
+                    <option [ngValue]="1">1</option>
+                    <option [ngValue]="2">2</option>
+                    <option [ngValue]="3">3</option>
+                    <option [ngValue]="4">4</option>
+                    <option [ngValue]="5">5</option>
+                    <option [ngValue]="6">6</option>
+                    <option [ngValue]="7">7</option>
+                    <option [ngValue]="8">8</option>
+                </select>
+                <p trans>Order of plans. Lower position will appear first.</p>
+                <div class="error" *ngIf="errors.position">{{errors.position}}</div>
+            </div>
+
+            <div class="setting-toggle-container">
+                <mat-slide-toggle id="recommended" formControlName="recommended" trans>Recommended</mat-slide-toggle>
+                <p trans>Plan will be marked as "Most Popular" and emphasized to users.</p>
+            </div>
+
+            <div class="setting-toggle-container" *ngIf="!data.plan || data.plan.free">
+                <mat-slide-toggle id="free" formControlName="free" trans>Free</mat-slide-toggle>
+                <p trans>Basic free plan that will be assigned to new users that have not upgraded to other plans.</p>
+            </div>
+
+            <div class="setting-toggle-container">
+                <mat-slide-toggle id="show_permissions" formControlName="show_permissions" trans>Show Permissions</mat-slide-toggle>
+                <p trans>Whether plan permissions should be displayed as features to users.</p>
+            </div>
+
+            <div class="setting-toggle-container">
+                <mat-slide-toggle id="plan-modal-hidden" formControlName="hidden" trans>Hidden</mat-slide-toggle>
+                <p trans>Whether this plan should be hidden on upgrade and pricing pages.</p>
+            </div>
+
+            <permission-manager formControlName="permissions"></permission-manager>
+            <div class="error" *ngIf="errors?.permissions">{{errors?.permissions}}</div>
+
+            <div class="plan-features">
+                <div class="section-title" trans>Custom Features</div>
+
+                <ul class="unstyled-list feature-list" cdkDropList (cdkDropListDropped)="reorderPlanFeatures($event)">
+                    <li class="feature-list-item" *ngFor="let feature of features$ | async" [attr.data-id]="feature.id" cdkDrag>
+                        <button cdkDragHandle mat-icon-button class="drag-handle"><mat-icon svgIcon="drag-handle" matListIcon></mat-icon></button>
+                        <div class="text">{{feature.content}}</div>
+                        <button class="delete-button" mat-icon-button (click)="removeFeature(feature)"><mat-icon svgIcon="delete" matListIcon></mat-icon></button>
+                    </li>
+                </ul>
+
+                <p *ngIf="!(features$ | async).length" trans>No custom features yet.</p>
+
+                <form (ngSubmit)="addFeature()" ngNativeValidate>
+                    <div class="input-container">
+                        <div class="input-with-action">
+                            <input type="text" name="new-feature" placeholder="+New Feature" trans-placeholder [(ngModel)]="newFeature" autocomplete="false" required>
+                            <button type="submit" mat-flat-button color="accent" trans>Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="available-space">
+                <div class="section-title" trans>Available Space</div>
+
+                <space-input formControlName="available_space">
+                    <p class="description" trans>Hard drive space available to users subscribed to this plan.</p>
+                    <div class="error" *ngIf="errors.available_space">{{errors.available_space}}</div>
+                </space-input>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="buttons right mat-dialog-actions" mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button class="button cancel" trans>Cancel</button>
+        <button type="submit" class="button primary" mat-raised-button color="accent" [disabled]="loading$ | async">
+            <span *ngIf="data.plan" trans>Update Plan</span>
+            <span *ngIf="!data.plan" trans>Create Plan</span>
+        </button>
+    </div>
+</form>
+
+<loading-indicator class="overlay" [isVisible]="loading$ | async"></loading-indicator>

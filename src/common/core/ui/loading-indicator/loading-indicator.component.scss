@@ -1,0 +1,103 @@
+@import "variables";
+
+// full screen overlay
+:host-context(.overlay) {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgba(250, 250, 250, 0.7);
+
+  .spinner {
+    position: absolute;
+    top: calc(50% - #{$loading-indicator-height / 2});
+    left: calc(50% - #{$loading-indicator-width / 2});
+  }
+}
+
+// overlay contained within some other element
+:host-context(.overlay-partial) {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+:host-context(.small) {
+  width: $loading-indicator-width / 2.8;
+  height: $loading-indicator-height / 2.8;
+
+  .spinner {
+    width: $loading-indicator-width / 2.8;
+    height: $loading-indicator-height / 2.8;
+
+    > div {
+      width: ($loading-indicator-width / 4) / 2.8;
+      height: ($loading-indicator-width / 4) / 2.8;
+      margin-top: (-(($loading-indicator-width / 4) / 2)) / 2.8;
+      margin-left: (-(($loading-indicator-width / 4) / 2)) / 2.8;
+    }
+  }
+}
+
+:host-context(.inline) {
+  position: relative;
+  width: 100%;
+
+  .spinner {
+    margin: auto;
+  }
+}
+
+:host {
+  opacity: 0;
+  display: none;
+  position: absolute;
+  width: $loading-indicator-width;
+  height: $loading-indicator-height;
+  user-select: none;
+  background-color: transparent;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.spinner {
+  width: $loading-indicator-width;
+  height: $loading-indicator-height;
+  color: $loading-indicator-color;
+
+  > div {
+    width: $loading-indicator-width / 4;
+    height: $loading-indicator-width / 4;
+    margin-top: -(($loading-indicator-width / 4) / 2);
+    margin-left: -(($loading-indicator-width / 4) / 2);
+  }
+}
+
+:host-context(.be-dark-mode) {
+  &.overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+:host-context(.center) {
+  top: calc(50% - #{$loading-indicator-height / 2});
+  left: calc(50% - #{$loading-indicator-width / 2});
+}
+
+:host-context(.overlay-light) {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+:host-context(.overlay-dark) {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+:host-context(.overlay-transparent) {
+  background-color: transparent;
+}
+
+@import "spinner";

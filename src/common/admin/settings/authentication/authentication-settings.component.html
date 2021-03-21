@@ -1,0 +1,117 @@
+<div class="header">
+    <div class="title" trans>Authentication</div>
+    <div class="subtitle" trans>Configure registration, social login and related 3rd party integrations.</div>
+</div>
+
+<form class="body many-inputs social-login-container" (ngSubmit)="saveSettings()" ngNativeValidate *ngIf="errors$ | async as errors">
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="require_email_confirmation" id="require_email_confirmation" [disabled]="!state.client['require_email_confirmation'] && !state.server['mail_setup']" [(ngModel)]="state.client['require_email_confirmation']" trans>Require Email Confirmation</mat-slide-toggle>
+        <p>
+            <span trans>Require new users to validate their email address before being able to login.</span><br>
+            <ng-container *ngIf="!state.server['mail_setup']">
+                <span trans>Outgoing mail method needs to be setup before enabling this setting.</span>
+                &ngsp;<a routerLink="/admin/settings/mail" trans>Fix now.</a>
+            </ng-container>
+        </p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="registration.disable" id="registration.disable" [(ngModel)]="state.client['registration.disable']" trans>Disable Registration</mat-slide-toggle>
+        <p trans>All registration (including social login) will be disabled.</p>
+    </div>
+
+    <div class="setting-toggle-container">
+        <mat-slide-toggle name="single_device_login" id="single_device_login" [(ngModel)]="state.client['single_device_login']" trans>Single Device Login</mat-slide-toggle>
+        <p trans>Only allow one device to be logged into user account at the same time.</p>
+    </div>
+
+    <ng-container *ngIf="settings.get('envato.enable')">
+        <div class="setting-toggle-container envato">
+            <mat-slide-toggle name="social.envato.enable" id="social.envato.enable" [(ngModel)]="state.client['social.envato.enable']" trans>Envato Login</mat-slide-toggle>
+            <p trans>Enable logging into the site via envato.</p>
+        </div>
+
+        <ng-container *ngIf="state.client['social.envato.enable']">
+            <div class="input-container">
+                <label for="social.envato.id" trans>Envato ID</label>
+                <input name="social.envato.id" id="social.envato.id" [(ngModel)]="state.server['envato_id']">
+            </div>
+
+            <div class="input-container">
+                <label for="social.envato.secret" trans>Envato Secret</label>
+                <input name="social.envato.secret" id="social.envato.secret" [(ngModel)]="state.server['envato_secret']">
+            </div>
+
+            <div class="input-container">
+                <label for="social.envato.personal_token" trans>Envato Personal Token</label>
+                <input name="social.envato.personal_token" id="social.envato.personal_token" [(ngModel)]="state.server['envato_personal_token']">
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <div class="error-group many-inputs no-bottom-border" id="google_group" [class.has-error]="errors.google_group">
+        <div class="setting-toggle-container google">
+            <mat-slide-toggle name="social.google.enable" id="social.google.enable" [(ngModel)]="state.client['social.google.enable']" trans>Google Login</mat-slide-toggle>
+            <p trans>Enable logging into the site via google.</p>
+        </div>
+
+        <ng-container *ngIf="state.client['social.google.enable']">
+            <div class="input-container">
+                <label for="social.google.id" trans>Google Client ID</label>
+                <input name="social.google.id" id="social.google.id" [(ngModel)]="state.server['google_id']">
+            </div>
+
+            <div class="input-container">
+                <label for="social.google.secret" trans>Google Client Secret</label>
+                <input name="social.google.secret" id="social.google.secret" [(ngModel)]="state.server['google_secret']">
+            </div>
+        </ng-container>
+
+        <p class="error" *ngIf="errors.google_group" [innerHTML]="errors.google_group"></p>
+    </div>
+
+    <div class="error-group many-inputs no-bottom-border" [class.has-error]="errors.facebook_group">
+        <div class="setting-toggle-container facebook">
+            <mat-slide-toggle name="social.facebook.enable" id="social.facebook.enable" [(ngModel)]="state.client['social.facebook.enable']" trans>Facebook Login</mat-slide-toggle>
+            <p trans>Enable logging into the site via facebook.</p>
+        </div>
+
+        <ng-container *ngIf="state.client['social.facebook.enable']">
+            <div class="input-container">
+                <label for="social.facebook.id" trans>Facebook App ID</label>
+                <input name="social.facebook.id" id="social.facebook.id" [(ngModel)]="state.server['facebook_id']">
+            </div>
+
+            <div class="input-container">
+                <label for="social.facebook.secret" trans>Facebook App Secret</label>
+                <input name="social.facebook.secret" id="social.facebook.secret" [(ngModel)]="state.server['facebook_secret']">
+            </div>
+        </ng-container>
+
+        <p class="error" *ngIf="errors.facebook_group" [innerHTML]="errors.facebook_group"></p>
+    </div>
+
+    <div class="error-group many-inputs" [class.has-error]="errors.twitter_group">
+        <div class="setting-toggle-container twitter">
+            <mat-slide-toggle name="social.twitter.enable" id="social.twitter.enable" [(ngModel)]="state.client['social.twitter.enable']" trans>Twitter Login</mat-slide-toggle>
+            <p trans>Enable logging into the site via twitter.</p>
+        </div>
+
+        <ng-container *ngIf="state.client['social.twitter.enable']">
+            <div class="input-container">
+                <label for="social.twitter.id" trans>Twitter ID</label>
+                <input name="social.twitter.id" id="social.twitter.id" [(ngModel)]="state.server['twitter_id']">
+            </div>
+
+            <div class="input-container">
+                <label for="social.twitter.secret" trans>Twitter Secret</label>
+                <input name="social.twitter.secret" id="social.twitter.secret" [(ngModel)]="state.server['twitter_secret']">
+            </div>
+        </ng-container>
+
+        <p class="error" *ngIf="errors.twitter_group" [innerHTML]="errors.twitter_group"></p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

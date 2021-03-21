@@ -1,0 +1,40 @@
+<div class="no-results-message" *ngIf="!haveNotifications()">
+    <mat-icon class="icon" svgIcon="notifications"></mat-icon>
+    <div class="text">
+        <div class="main" trans>Hang tight!</div>
+        <div class="secondary" trans>Notifications will start showing up here soon.</div>
+        <a routerLink="/notifications/settings" (click)="closePanel()" class="notif-settings-link"
+           *ngIf="settings.get('notif.subs.integrated') && currentUser.hasPermission('notifications.subscribe')" trans>Notification Settings</a>
+    </div>
+</div>
+
+<ng-container></ng-container>
+<ng-container *ngFor="let notification of notifications; let i = index; trackBy: trackByFn">
+    <div class="group-header" *ngIf="notifications[i - 1]?.time_period !== notification.time_period" trans>{{notification.time_period}}</div>
+    <div class="notification"
+        [class.compact]="compact"
+        [class.unread]="!notification.read_at"
+        [class.has-action]="notification.data.mainAction"
+        [class.warning]="notification.data.warning"
+        [title]="notification.data.mainAction?.label || ''"
+        (click)="performAction(notification.data.mainAction, notification, $event)"
+    >
+        <image-or-icon class="inherit-size" [src]="notification.data.image"></image-or-icon>
+        <div class="middle-column">
+            <div class="line"
+                 [ngClass]="line.type ? line.type : (index === 0 ? 'primary' : 'secondary')"
+                 (click)="performAction(line.action, notification, $event)"
+                 [title]="line.action?.label || ''"
+                 *ngFor="let line of notification.data.lines; index as index"
+                 [class.has-action]="line.action"
+            >
+                <mat-icon [svgIcon]="line.icon" *ngIf="line.icon"></mat-icon>
+                <span [innerHTML]="line.content"></span>
+            </div>
+            <div class="line button-actions" *ngIf="notification.data.buttonActions">
+                <button type="button" mat-stroked-button [color]="action.color || 'accent'" *ngFor="let action of notification.data.buttonActions" (click)="emitAction(action, notification)">{{action.label}}</button>
+            </div>
+        </div>
+        <div class="right-column" *ngIf="!compact">{{notification.relative_created_at}}</div>
+    </div>
+</ng-container>

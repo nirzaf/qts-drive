@@ -1,0 +1,15 @@
+@import "variables";
+
+entry-description-panel {
+  color: mat-color($app-foreground, text);
+  display: flex;
+  align-items: center;
+  max-width: 215px;
+
+  .description-text {
+    cursor: text;
+    vertical-align: sub;
+    flex: 1 1 auto;
+    opacity: 0.8;
+  }
+}

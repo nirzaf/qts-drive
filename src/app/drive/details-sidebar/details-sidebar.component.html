@@ -1,0 +1,18 @@
+<div class="header">
+    <div class="title">
+        <ng-container *ngIf="entry$ | async as entry; else defaultTitle">
+            <ng-container *ngIf="entry.type; else defaultTitle">
+                <file-icon [type]="entry.type"></file-icon>
+                <div class="name">{{entry.name}}</div>
+            </ng-container>
+        </ng-container>
+        <ng-template #defaultTitle>
+            <file-icon type="folder"></file-icon>
+            <div class="name">{{ ((activePage$ | async)?.viewName) | trans }}</div>
+        </ng-template>
+        <button mat-icon-button class="close-button" (click)="close()">
+            <mat-icon svgIcon="close"></mat-icon>
+        </button>
+    </div>
+</div>
+<details-panel></details-panel>

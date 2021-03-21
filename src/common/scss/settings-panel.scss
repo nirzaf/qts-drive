@@ -1,0 +1,183 @@
+@import "variables";
+$spacing: 30px;
+
+.settings-panel {
+  display: block;
+  margin-bottom: $spacing;
+  border: $admin-card-border;
+  box-shadow: $admin-card-box-shadow;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: mat-color($app-background, card);
+  padding: ($spacing - 5px) $spacing;
+  position: relative;
+
+  .body {
+    margin: 0;
+  }
+
+  .header {
+    margin-bottom: $spacing + 10px;
+
+    .title {
+      font-size: 2rem;
+      margin-bottom: 5px;
+      opacity: 0.8;
+      text-transform: capitalize;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      color: mat-color($app-foreground, secondary-text);
+    }
+  }
+
+  .input-container {
+    input, select, textarea, space-input {
+      max-width: 400px;
+    }
+
+    chip-input {
+      max-width: 400px;
+
+      .mat-chip-list-wrapper {
+        border-radius: 4px;
+      }
+
+      input {
+        height: 28px;
+      }
+    }
+
+    p, .input-description {
+      margin: 10px 0 25px;
+      padding: 0 1px;
+      max-width: 650px;
+    }
+
+    select:not(.no-capitalize) {
+      text-transform: capitalize;
+    }
+  }
+
+  .description {
+    font-size: 1.3rem;
+  }
+
+  .margin-top {
+    margin-top: 35px;
+  }
+
+  .margin-bottom {
+    margin-bottom: 35px;
+  }
+
+  .widget {
+    background-color: #f3fbf7;
+    padding: 14px;
+    margin: 35px 0;
+    border-radius: 3px;
+    overflow-wrap: break-word;
+    border-left: 5px solid darken(#f3fbf7, 40%);
+    max-width: 650px;
+
+    p {
+      margin: 5px 0 0;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: rgba(0,0,0,0.87);
+    }
+
+    .title {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #555;
+    }
+
+    button {
+      margin-top: 15px;
+      margin-right: 8px;
+    }
+
+    &.widget-flat {
+      background-color: mat-color($app-background, background);
+      color: mat-color($app-foreground, text);
+      border: 1px solid mat-color($app-foreground, divider-lighter);
+    }
+
+    &.widget-important {
+      background-color: #fef7ed;
+      border-left: 5px solid darken(#fef7ed, 40%);
+    }
+
+    &.widget-warning {
+      background-color: #f2564d;
+      border-left: 5px solid darken(#f2564d, 40%);
+    }
+  }
+
+  .settings-separator {
+    background-color: var(--be-divider-lighter);
+    height: 1px;
+    margin: 25px 0;
+  }
+
+  .error-group {
+    border-top: 1px solid mat-color($app-foreground, divider-lighter);
+    border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+    padding-top: 20px;
+    margin-bottom: 20px;
+    max-width: 400px;
+
+    &.has-error {
+      border-color: mat-color($app-warn);
+
+      input, select, textarea {
+        border-color: mat-color($app-warn);
+      }
+
+      label {
+        color: mat-color($app-warn);
+      }
+    }
+
+    &.no-bottom-border {
+      border-bottom: none;
+    }
+
+    &.no-border-top {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    &.no-spacing {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .group-error {
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin: 5px 0 25px;
+    }
+  }
+
+  .mat-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .mat-tab-label {
+    text-transform: capitalize;
+  }
+
+  strong {
+    font-weight: 500;
+  }
+}

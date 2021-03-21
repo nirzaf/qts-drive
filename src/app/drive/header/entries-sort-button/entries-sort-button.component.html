@@ -1,0 +1,27 @@
+<ng-container *ngIf="sort$ | async as sortValue">
+    <span class="label" trans>Sort by</span>
+    <button class="no-style" [matMenuTriggerFor]="menu" [disabled]="btnDisabled">
+        <span class="sort-button-content">
+            <span>{{getSortViewName(sortValue.column) | trans}}</span>
+            <mat-icon svgIcon="keyboard-arrow-down" class="arrow-icon"></mat-icon>
+        </span>
+        <mat-icon svgIcon="sort" class="mobile-sort-button-content"></mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" class="drive-sort-menu">
+        <div class="title" trans>Direction</div>
+        <button mat-menu-item (click)="changeDirection('asc')" [class.active]="sortValue.direction === 'asc'">
+            <mat-icon svgIcon="check"></mat-icon>
+            <span trans>Ascending</span>
+        </button>
+        <button mat-menu-item (click)="changeDirection('desc')" [class.active]="sortValue.direction === 'desc'">
+            <mat-icon svgIcon="check"></mat-icon>
+            <span trans>Descending</span>
+        </button>
+        <div class="separator"></div>
+        <div class="title" trans>Sort By</div>
+        <button mat-menu-item *ngFor="let sort of availableSorts" (click)="changeSort(sort)" [class.active]="sortValue.column === sort.name">
+            <mat-icon svgIcon="check"></mat-icon>
+            <span trans>{{sort.viewName}}</span>
+        </button>
+    </mat-menu>
+</ng-container>

@@ -1,0 +1,34 @@
+@import "variables";
+
+uploads-panel {
+  width: 380px;
+  @include mat-elevation(5);
+  background-color: mat-color($app-background, card);
+  user-select: none;
+
+  .header {
+    display: flex;
+    align-items: center;
+    background-color: mat-color($app-accent, default);
+    color: mat-color($app-accent, default-contrast);
+    padding: 8px;
+
+    .info {
+      padding-left: 10px;
+    }
+
+    .actions {
+      margin-left: auto;
+    }
+
+    .minimize-icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .uploads-list {
+    max-height: 350px;
+    overflow: auto;
+  }
+}

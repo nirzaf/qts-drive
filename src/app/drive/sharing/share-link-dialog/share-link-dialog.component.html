@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>Shareable link</h2>
+    <button type="button" mat-icon-button (click)="close()" class="close-button" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <ng-container *ngIf="link$ | async">
+        <div class="title">
+            <div class="left">
+                {{ 'Link sharing is' | trans}} <span class="state on"><button class="on-text text no-style" (click)="deleteLink()" trans>on</button></span>
+            </div>
+            <div class="right">
+                <button type="button" mat-icon-button (click)="deleteLink()">
+                    <mat-icon svgIcon="delete"></mat-icon>
+                </button>
+                <button type="button" mat-icon-button (click)="toggleOptionsPanel()">
+                    <mat-icon svgIcon="settings"></mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="link-container">
+            <div class="link-input-container input-container">
+                <input type="text" id="link-input" readonly (click)="focusInput()" (change)="focusInput()" [value]="shareableLink$ | async" tabindex="1">
+                <button mat-flat-button color="accent" (click)="copyLinkToClipboard()" trans>Copy</button>
+            </div>
+            <div class="social-icons">
+                <button type="button" mat-icon-button class="social-icon no-style facebook" (click)="shareLink('facebook')">
+                    <mat-icon svgIcon="facebook"></mat-icon>
+                </button>
+                <button type="button" mat-icon-button class="social-icon no-style twitter" (click)="shareLink('twitter')">
+                    <mat-icon svgIcon="twitter"></mat-icon>
+                </button>
+                <button type="button" mat-icon-button class="social-icon no-style mail" (click)="shareLink('mail')">
+                    <mat-icon svgIcon="mail"></mat-icon>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+
+    <link-options [@visibility]="optionsVisible$ | async"></link-options>
+    <loading-indicator [isVisible]="loading$ | async" class="overlay-transparent"></loading-indicator>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button type="button" mat-button class="submit-button" (click)="close()" [disabled]="loading$ | async" trans>Close</button>
+</mat-dialog-actions>

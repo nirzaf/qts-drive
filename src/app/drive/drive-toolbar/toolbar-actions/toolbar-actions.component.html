@@ -1,0 +1,11 @@
+<context-actions-container [compact]="true"></context-actions-container>
+
+<div class="always-visible-actions">
+    <button mat-icon-button (click)="toggleViewMode()">
+        <mat-icon [svgIcon]="(viewMode | async) === 'list' ? 'view-list' : 'view-module'"></mat-icon>
+    </button>
+    <button mat-icon-button (click)="ToggleDetails()" [class.active]="activityOpen | async">
+        <mat-icon svgIcon="info"></mat-icon>
+    </button>
+</div>
+

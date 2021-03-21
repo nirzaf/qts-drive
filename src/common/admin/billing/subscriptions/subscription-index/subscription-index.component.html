@@ -1,0 +1,48 @@
+<div class="datatable responsive-table">
+    <datatable-header pluralResourceName="subscriptions">
+        <ng-container leftContent>
+            <button mat-raised-button color="accent" headerActions [disabled]="loading$ | async" (click)="openCrupdateSubscriptionModal()" *ngIf="currentUser.hasPermission('subscriptions.create')" trans>Add</button>
+        </ng-container>
+        <ng-template #tableFilters>
+            <subscription-index-filters></subscription-index-filters>
+        </ng-template>
+    </datatable-header>
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th table-sort-header="user_id" trans>Owner</th>
+            <th table-sort-header trans>Gateway</th>
+            <th table-sort-header="ends_at" trans>Cancelled</th>
+            <th trans>On Grace Period</th>
+            <th table-sort-header trans>Renews At</th>
+            <th table-sort-header trans>Ends At</th>
+            <th table-sort-header="created_at" trans>Created At</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let subscription of subscriptions$ | async">
+            <td>
+                <user-column [user]="subscription.user"></user-column>
+            </td>
+            <td data-label="Gateway">{{subscription.gateway}}</td>
+            <td data-label="Cancelled">{{subscription.cancelled ? 'Yes' : 'No' }}</td>
+            <td data-label="On Grace Period">{{subscription.on_grace_period ? 'Yes' : 'No' }}</td>
+            <td data-label="Renews At">{{subscription.renews_at ? (subscription.renews_at | formattedDate) : '-'}}</td>
+            <td data-label="Ends At">{{subscription.ends_at ? (subscription.ends_at | formattedDate) : '-'}}</td>
+            <td data-label="Created At">{{subscription.created_at | formattedDate}}</td>
+            <td class="edit-column">
+                <ng-container *ngIf="currentUser.hasPermission('subscriptions.delete')">
+                    <button mat-icon-button (click)="openCrupdateSubscriptionModal(subscription)" [matTooltip]="'Edit' | trans"><mat-icon svgIcon="edit"></mat-icon></button>
+                    <button mat-icon-button (click)="maybeCancelSubscription(subscription)" [disabled]="subscription.cancelled" [matTooltip]="'Cancel/Suspend' | trans"><mat-icon svgIcon="pause"></mat-icon></button>
+                    <button mat-icon-button (click)="maybeDeleteSubscription(subscription)" [matTooltip]="'Delete' | trans"><mat-icon svgIcon="delete"></mat-icon></button>
+                </ng-container>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <no-results-message svgImage="subscriptions.svg" *ngIf="datatable.paginator.noResults$ | async">
+        <span primary-text trans>No subscriptions have been created yet</span>
+    </no-results-message>
+    <datatable-footer></datatable-footer>
+</div>

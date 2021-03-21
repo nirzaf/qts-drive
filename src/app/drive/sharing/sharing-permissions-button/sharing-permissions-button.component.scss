@@ -1,0 +1,47 @@
+@import "variables";
+
+.mat-menu-with-description {
+  .mat-menu-item {
+    display: flex;
+    height: auto;
+    min-height: 48px;
+    line-height: normal;
+    white-space: normal;
+    padding: 10px 16px;
+    font-size: 1.5rem;
+
+    .mat-icon {
+      flex: 0 0 24px;
+    }
+
+    .description {
+      font-size: 1.4rem;
+      color: mat-color($app-foreground, secondary-text);
+      margin-top: 3px;
+    }
+  }
+}
+
+sharing-permissions-button {
+  display: inline-block;
+
+  &.compact {
+    .button-text {
+      display: none;
+    }
+  }
+
+  &:not(.compact) .button-icon, .dropdown-icon {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+  }
+
+  &:not(.compact) .button-icon {
+    margin-right: 5px;
+  }
+
+  .button-text {
+    font-size: 1.3rem;
+  }
+}

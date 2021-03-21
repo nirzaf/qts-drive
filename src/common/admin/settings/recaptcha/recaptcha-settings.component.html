@@ -1,0 +1,31 @@
+<div class="header">
+    <div class="title" trans>Recaptcha</div>
+    <div class="subtitle" trans>Configure google recaptcha integration and credentials.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate *ngIf="errors$ | async as errors">
+
+    <div class="setting-toggle-container" *ngFor="let action of actions">
+        <mat-slide-toggle [name]="action.key" [id]="action.key" [(ngModel)]="state.client[action.key]">{{action.name | trans}}</mat-slide-toggle>
+        <p>{{action.description | trans}}</p>
+    </div>
+
+    <div class="error-group many-inputs no-spacing" id="recaptcha-group" [class.has-error]="errors.recaptcha_group">
+        <div class="input-container" [class.has-error]="errors['recaptcha.site_key']">
+            <label for="recaptcha.site_key" trans>Recaptcha V3 Site Key</label>
+            <input name="recaptcha.site_key" id="recaptcha.site_key" [(ngModel)]="state.client['recaptcha.site_key']">
+            <p class="error" *ngIf="errors['recaptcha.site_key']">{{errors['recaptcha.site_key']}}</p>
+        </div>
+
+        <div class="input-container" [class.has-error]="errors['recaptcha.secret_key']">
+            <label for="recaptcha.secret_key" trans>Recaptcha V3 Secret Key</label>
+            <input name="recaptcha.secret_key" id="recaptcha.secret_key" [(ngModel)]="state.client['recaptcha.secret_key']">
+            <p class="error" *ngIf="errors['recaptcha.secret_key']">{{errors['recaptcha.secret_key']}}</p>
+        </div>
+
+        <p class="error" *ngIf="errors.recaptcha_group" [innerHTML]="errors.recaptcha_group"></p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" [disabled]="loading$ | async" type="submit" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

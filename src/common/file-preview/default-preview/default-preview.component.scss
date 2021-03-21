@@ -1,0 +1,30 @@
+@import "variables";
+
+:host {
+  display: block;
+  max-width: 380px;
+  max-height: 150px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: mat-color($app-background, dialog);
+  color: mat-color($app-foreground, text);
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  @include mat-elevation(3);
+}
+
+.message {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.mat-raised-button {
+  display: block;
+}

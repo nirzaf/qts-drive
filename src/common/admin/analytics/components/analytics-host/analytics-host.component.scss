@@ -1,0 +1,49 @@
+@import "variables";
+
+:host {
+  display: block;
+  position: relative;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  background-color: mat-color($app-background, dialog);
+  box-shadow: $admin-card-box-shadow;
+  border: $admin-card-border;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+
+.analytics-nav {
+  margin-left: auto;
+}
+
+.analytics-nav-item {
+  display: inline-block;
+  padding: 0 5px;
+  text-transform: capitalize;
+}
+
+.active {
+  background-color: mat-color($app-accent);
+  color: mat-color($app-accent, default-contrast);
+}
+
+@media only screen and (max-width: $medium) {
+  h1 {
+    display: none;
+  }
+
+  .analytics-nav {
+    margin-left: 0;
+  }
+}

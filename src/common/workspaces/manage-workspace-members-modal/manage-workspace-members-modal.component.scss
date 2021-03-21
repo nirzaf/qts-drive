@@ -1,0 +1,87 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: 600px;
+  max-width: 100%;
+}
+
+chip-input {
+  flex: 1;
+}
+
+.invite-container {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.mat-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.header {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+
+  .mat-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+
+  .text {
+    vertical-align: middle;
+  }
+}
+
+.animation-container {
+  position: relative;
+}
+
+.member-list-item {
+  display: flex;
+  margin-bottom: 20px;
+
+  img {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 4px;
+  }
+
+  .details {
+    flex: 1 1 auto;
+  }
+
+  .invited_at, .delete-member-button {
+    color: mat-color($app-foreground, secondary-text);
+  }
+}
+
+.not-clickable {
+  pointer-events: none;
+
+  .mat-icon {
+    display: none;
+  }
+}
+
+.dropdown-icon {
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+}
+
+.resend-invite-button {
+  color: mat-color($app-foreground, link);
+}
+
+.role-trigger-button {
+  margin-right: 8px;
+  font-size: 1.3rem;
+  font-weight: 400;
+}

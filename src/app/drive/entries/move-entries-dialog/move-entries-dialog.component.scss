@@ -1,0 +1,20 @@
+@import "variables";
+
+.move-entries-dialog-container {
+  width: 350px;
+}
+
+move-entries-dialog {
+  display: block;
+  width: $modal-default-width;
+  max-width: 100%;
+  
+  folders-tree {
+    border: 1px solid mat-color($app-foreground, divider-lighter);
+    border-radius: 3px;
+  }
+
+  .mat-dialog-actions {
+    margin-top: 15px;
+  }
+}

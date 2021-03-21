@@ -1,0 +1,15 @@
+<fieldset [formGroup]="form">
+    <legend trans>
+        <ng-content></ng-content>
+    </legend>
+   <div class="inline-inputs-container">
+       <div class="input-container">
+           <label for="from" [class.hidden]="!showLabels" trans>From</label>
+           <input type="date" id="from" formControlName="from" [placeholder]="defaultFrom" [pattern]="datePattern" required>
+       </div>
+       <div class="input-container">
+           <label for="to" [class.hidden]="!showLabels" trans>To</label>
+           <input type="date" id="to" formControlName="to" [placeholder]="defaultTo" [pattern]="datePattern" required>
+       </div>
+   </div>
+</fieldset>

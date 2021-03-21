@@ -1,0 +1,26 @@
+<div class="mat-tree-node root-tree-node" *ngIf="showRootNode" (click)="selectFolder()" [class.active]="!(selectedFolderId$ | async)">
+    <mat-icon svgIcon="network-drive-custom" class="folder-icon"></mat-icon>
+    <span class="text" trans>My Drive</span>
+</div>
+<mat-tree [dataSource]="tree.dataSource" [treeControl]="tree.control">
+    <mat-tree-node
+            *matTreeNodeDef="let node"
+            matTreeNodePadding
+            [matTreeNodePaddingIndent]="showRootNode ? 40 : 24"
+            [contextMenu]="{type: 'entry', entry: node}"
+            [disableContextMenu]="disableContextMenu"
+            [folderDropTarget]="node"
+            [class.active]="(selectedFolderId$ | async) === node.hash"
+            class="tree-node"
+    >
+        <mat-icon class="toggle-expansion-icon"
+                  matTreeNodeToggle
+                  [class.expanded]="tree.control.isExpanded(node)"
+                  svgIcon="arrow-drop-down"
+        ></mat-icon>
+        <button type="button" class="no-style folder-button" (click)="selectFolder(node)">
+            <mat-icon svgIcon="folder" class="folder-icon"></mat-icon>
+            <span class="folder-name text">{{node.name}}</span>
+        </button>
+    </mat-tree-node>
+</mat-tree>

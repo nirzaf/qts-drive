@@ -1,0 +1,14 @@
+@import "variables";
+
+.storage-credentials-group {
+  border-bottom: none;
+}
+
+.credentials-form {
+  display: block;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+  }
+}

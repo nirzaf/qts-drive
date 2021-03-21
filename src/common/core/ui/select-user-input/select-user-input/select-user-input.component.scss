@@ -1,0 +1,104 @@
+@import "variables";
+
+:host {
+  display: block;
+  min-width: 280px;
+  max-width: 100%;
+}
+
+.fake-input {
+  position: relative;
+}
+
+.fake-label {
+  text-transform: capitalize;
+}
+
+img {
+  display: inline-block;
+  margin-right: 8px;
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.arrow-container {
+  height: 100%;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 20px;
+}
+
+.arrow {
+  position: absolute;
+  border-color: #000 transparent transparent transparent;
+  border-style: solid;
+  border-width: 5px 4px 0 4px;
+  height: 0;
+  width: 0;
+  left: 50%;
+  top: 50%;
+  margin-left: -4px;
+  margin-top: -2px;
+}
+
+.search-input-container {
+  padding: 0 8px;
+  min-width: 280px;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.search-input-wrapper {
+  position: relative;
+}
+
+.clear-search-input-button {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  color: mat-color($app-foreground, icon);
+}
+
+.mat-menu-item {
+  display: flex;
+  vertical-align: middle;
+  line-height: initial;
+
+  &.selected {
+    background-color: mat-color($app-accent, emphasis);
+  }
+
+  img {
+    width: 35px;
+    height: 35px;
+    align-self: center;
+  }
+
+  .name {
+    text-transform: capitalize;
+  }
+
+  .email {
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 1.3rem;
+  }
+}
+
+.user-info, .any-user-info {
+  align-self: center;
+}
+
+loading-indicator {
+  position: absolute;
+  top: 12px;
+  right: 40px;
+}
+
+.nothing-found-item {
+  color: mat-color($app-foreground, disabled-text);
+  line-height: 48px;
+}

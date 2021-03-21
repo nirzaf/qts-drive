@@ -1,0 +1,22 @@
+<form class="input-container" (ngSubmit)="openSearchPage({query: formControl.value})">
+    <input type="text" [matAutocomplete]="auto" [formControl]="formControl" placeholder="Search files and folders..." #trigger trans-placeholder>
+    <button type="button" mat-icon-button class="search-icon">
+        <mat-icon svgIcon="search"></mat-icon>
+    </button>
+    <button type="button" mat-icon-button class="cancel-icon" *ngIf="formControl.value" (click)="resetForm()">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</form>
+
+<mat-autocomplete #auto="matAutocomplete" class="file-types-autocomplete mat-elevation-z1" (optionSelected)="executeAction($event)" [displayWith]="displayFn">
+    <ng-container *ngFor="let result of results$ | async">
+        <mat-option [value]="result">
+            <file-icon [type]="result.content.type"></file-icon>
+            <div class="meta">
+                <div class="name">{{ result.type === 'entryType' ? (result.content.name | trans) : result.content.name}}</div>
+                <div class="owner" *ngIf="result.content.users">{{result.content.users[0]?.display_name}}</div>
+            </div>
+            <div class="date" *ngIf="result.content.updated_at">{{result.content.updated_at | formattedDate}}</div>
+        </mat-option>
+    </ng-container>
+</mat-autocomplete>

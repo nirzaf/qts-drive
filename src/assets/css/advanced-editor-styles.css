@@ -1,0 +1,124 @@
+.article-body, .editor-body {
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 26px; }
+  .article-body ul, .article-body ol, .editor-body ul, .editor-body ol {
+    font-size: inherit;
+    font-weight: inherit;
+    margin-top: 10px;
+    position: relative; }
+    .article-body ul > li, .article-body ol > li, .editor-body ul > li, .editor-body ol > li {
+      margin-bottom: 8px; }
+  .article-body ul, .editor-body ul {
+    padding-left: 40px;
+    position: relative; }
+    .article-body ul > li, .editor-body ul > li {
+      list-style-type: disc;
+      margin-bottom: 7px; }
+  .article-body ol, .editor-body ol {
+    counter-reset: custom-counter;
+    list-style: none; }
+    .article-body ol > li:before, .editor-body ol > li:before {
+      content: counter(custom-counter, decimal) ".";
+      counter-increment: custom-counter;
+      font-weight: 500;
+      position: absolute;
+      left: -10px;
+      width: 40px;
+      text-align: right; }
+  .article-body strong, .editor-body strong {
+    font-weight: 400;
+    color: #43484d; }
+  .article-body img, .editor-body img {
+    max-width: 100%;
+    height: auto;
+    margin: 15px auto;
+    border: 1px solid #eff1f2;
+    padding: 0;
+    border-radius: 4px; }
+  .article-body hr, .editor-body hr {
+    background-color: #eaeaea;
+    height: 2px;
+    border: 0;
+    width: 100%; }
+  .article-body h1, .editor-body h1 {
+    font-size: 3.8rem;
+    font-weight: 300;
+    line-height: normal;
+    margin: 0; }
+  .article-body h2, .editor-body h2 {
+    font-size: 2.8rem;
+    font-weight: 300;
+    line-height: normal;
+    margin: 0; }
+  .article-body h3, .editor-body h3 {
+    font-size: 2.3rem;
+    font-weight: 300;
+    line-height: normal;
+    margin: 0 0 5px; }
+  .article-body p, .editor-body p {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    overflow: hidden; }
+  .article-body pre, .editor-body pre {
+    overflow: auto;
+    max-width: 700px; }
+    .article-body pre > code, .editor-body pre > code {
+      background-color: inherit;
+      border-radius: 0;
+      color: inherit;
+      padding: 0; }
+  .article-body code, .editor-body code {
+    background-color: #F9F9F9;
+    border-radius: 3px;
+    font-size: 90%;
+    color: #c7254e;
+    padding: 2px 4px; }
+  .article-body a, .editor-body a {
+    color: #1E88E5; }
+    .article-body a:hover, .editor-body a:hover {
+      text-decoration: underline; }
+  .article-body table, .editor-body table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: transparent; }
+    .article-body table td, .editor-body table td {
+      padding: 8px;
+      vertical-align: top;
+      border-top: 1px solid #E0E0E0; }
+    .article-body table th, .editor-body table th {
+      text-align: left;
+      padding: 8px;
+      vertical-align: bottom;
+      border-bottom: 2px solid #E0E0E0;
+      color: #43484d;
+      font-weight: 400; }
+  .article-body .widget, .editor-body .widget {
+    background-color: #f3fbf7;
+    max-width: 100%;
+    padding: 14px;
+    margin: 35px 0;
+    border-radius: 3px;
+    overflow-wrap: break-word;
+    border-left: 5px solid #5ac891;
+    font-size: 1.7rem; }
+    .article-body .widget > .title, .editor-body .widget > .title {
+      font-weight: 500;
+      color: #43484d; }
+    .article-body .widget.widget-important, .editor-body .widget.widget-important {
+      background-color: #fef7ed;
+      border-left: 5px solid #f3a12c; }
+    .article-body .widget.widget-warning, .editor-body .widget.widget-warning {
+      background-color: #f2564d;
+      border-left: 5px solid #6b0d08; }
+  @media only screen and (max-width: 641px) {
+    .article-body, .editor-body {
+      font-size: 1.6rem; }
+      .article-body widget.widget-info, .editor-body widget.widget-info {
+        font-size: inherit; } }
+
+.editor-body {
+  margin: 15px 20px; }

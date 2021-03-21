@@ -1,0 +1,42 @@
+<div class="navbar-container" [class.container]="container">
+    <a routerLink="/" class="logo-container img-logo-container" *ngIf="config.get('branding.logo_light')">
+        <img class="logo" [alt]="'Site logo' | trans" [src]="config.get('branding.logo_light')">
+    </a>
+    <a routerLink="/" class="logo-container" *ngIf="!config.get('branding.logo_light')">
+        <div class="text-logo">{{config.get('branding.site_name')}}</div>
+    </a>
+
+    <button class="toggle-sidebar-button" mat-icon-button *ngIf="shouldShowToggleBtn()" (click)="toggleButtonClick.emit()" aria-label="Toggle sidebar visibility">
+        <mat-icon svgIcon="menu"></mat-icon>
+    </button>
+
+    <ng-content></ng-content>
+
+    <ng-container *ngIf="(mobileOrTablet$ | async) && menuPosition && !shouldShowToggleBtn()">
+        <button class="toggle-sidebar-button" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon svgIcon="menu"></mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <custom-menu [position]="menuPosition" itemClass="mat-menu-item"></custom-menu>
+        </mat-menu>
+    </ng-container>
+
+    <custom-menu [position]="menuPosition" [horizontal]="true" [class.color-accent]="color === 'accent'" *ngIf="!(mobileOrTablet$ | async)"></custom-menu>
+
+    <div class="right-side-actions" *ngIf="!hideRightSideActions">
+        <ng-content select="[rightContent]"></ng-content>
+        <notification-button *ngIf="!isMobile() && config.get('notifications.integrated') && currentUser.isLoggedIn$ | async"></notification-button>
+        <ng-container *ngIf="searchInput && (mobileOrTablet$ | async)">
+            <button mat-icon-button class="mobile-search-toggle" (click)="openMobileSearch()" *ngIf="!(mobileSearchActive$ | async); else closeToggle">
+                <mat-icon svgIcon="search"></mat-icon>
+            </button>
+            <ng-template #closeToggle>
+                <button mat-icon-button class="mobile-search-toggle" (click)="closeMobileSearch()">
+                    <mat-icon svgIcon="close"></mat-icon>
+                </button>
+            </ng-template>
+        </ng-container>
+        <logged-in-user-widget [hideRegisterButton]="hideRegisterButton"></logged-in-user-widget>
+    </div>
+</div>

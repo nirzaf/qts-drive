@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title trans>Select Roles</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1"><mat-icon svgIcon="close"></mat-icon></button>
+</div>
+
+<form (ngSubmit)="confirm()" ngNativeValidate>
+    <mat-dialog-content>
+        <ul class="unstyled-list selection-list">
+            <li class="list-item" *ngFor="let role of allRoles$ | async">
+                <div class="list-item-header" (click)="selectionModel.toggle(role)" matRipple>
+                    <div class="meta">
+                        <div class="list-item-name">{{role.name}}</div>
+                    </div>
+                    <mat-pseudo-checkbox [state]="selectionModel.isSelected(role) ? 'checked' : 'unchecked'"></mat-pseudo-checkbox>
+                </div>
+            </li>
+        </ul>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="buttons right mat-dialog-actions">
+        <button (click)="close()" mat-button type="button" trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" trans>Select</button>
+    </mat-dialog-actions>
+</form>

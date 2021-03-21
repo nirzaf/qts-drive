@@ -1,0 +1,31 @@
+<material-navbar [menuPosition]="settings.get('vebto.navbar.defaultPosition')" class="box-shadow"></material-navbar>
+
+<div class="be-container">
+    <form class="table material-panel" (ngSubmit)="saveSettings()">
+        <div class="setting-group" *ngFor="let group of groupedNotifications; let first = first">
+            <div class="row">
+                <div class="name-column strong" trans>{{group.group_name}}</div>
+                <ng-container *ngIf="first">
+                    <div class="channel-column" *ngFor="let channelName of availableChannels">
+                        <div class="channel-name" trans>{{channelName}}</div>
+                        <mat-checkbox (change)="$event ? toggleAllRowsFor(channelName) : null"
+                                      [checked]="allRowsSelectedFor(channelName)"
+                                      [indeterminate]="someRowsSelectedFor(channelName) && !allRowsSelectedFor(channelName)"
+                                      [disabled]="channelName === 'browser' && !supportsBrowserNotifications">
+                        </mat-checkbox>
+                    </div>
+                </ng-container>
+            </div>
+            <div [formGroup]="form">
+                <div class="row indent" *ngFor="let subscription of group.notifications; let last = last" [class.no-border]="last" [formGroupName]="subscription.notif_id">
+                    <div class="name-column" trans>{{subscription.name}}</div>
+                    <div class="channel-column" *ngFor="let channelName of availableChannels">
+                        <mat-checkbox [formControlName]="channelName"></mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button mat-raised-button color="accent" class="submit-button" [disabled]="loading$ | async" trans>Save Settings</button>
+    </form>
+</div>

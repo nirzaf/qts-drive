@@ -1,0 +1,98 @@
+<div class="header">
+    <div class="title" trans>Billing</div>
+    <div class="subtitle" trans>Configure billing and subscription settings.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate *ngIf="errors$ | async as errors">
+    <mat-tab-group color="accent" animationDuration="0">
+        <mat-tab [label]="'General' | trans">
+            <div class="many-inputs tab-content">
+                <div class="setting-toggle-container">
+                    <mat-slide-toggle name="billing.enable" id="billing.enable" [(ngModel)]="state.client['billing.enable']" trans>Enable Billing</mat-slide-toggle>
+                    <p trans>Enable or disable all billing functionality across the site.</p>
+                </div>
+
+                <ng-container *ngIf="state.client['billing.enable']">
+                    <div class="setting-toggle-container">
+                        <mat-slide-toggle name="billing.paypal.enable" id="billing.paypal.enable" [(ngModel)]="state.client['billing.paypal.enable']" trans>Paypal Gateway</mat-slide-toggle>
+                        <p trans>Enable PayPal payment gateway.</p>
+                    </div>
+
+                    <div class="error-group many-inputs" id="paypal_group" *ngIf="state.client['billing.paypal.enable']" [class.has-error]="errors.paypal_group">
+                        <div class="input-container">
+                            <label for="billing.paypal.id" trans>Paypal Client ID</label>
+                            <input name="billing.paypal.id" id="billing.paypal.id" [(ngModel)]="state.server['paypal_client_id']" required>
+                        </div>
+
+                        <div class="input-container">
+                            <label for="billing.paypal.secret" trans>Paypal Secret</label>
+                            <input name="billing.paypal.secret" id="billing.paypal.secret" [(ngModel)]="state.server['paypal_secret']" required>
+                        </div>
+
+                        <div class="input-container">
+                            <label for="billing.paypal.webhook_id" trans>Paypal Webhook ID</label>
+                            <input name="billing.paypal.webhook_id" id="billing.paypal.webhook_id" [(ngModel)]="state.server['paypal_webhook_id']" required>
+                        </div>
+
+                        <div class="setting-toggle-container">
+                            <mat-slide-toggle name="billing.paypal.test_mode" id="billing.paypal.test_mode" [(ngModel)]="state.client['billing.paypal_test_mode']" trans>Paypal Test Mode</mat-slide-toggle>
+                            <p trans>Allows testing PayPal payments with sandbox accounts.</p>
+                        </div>
+
+                        <p class="error" *ngIf="errors.paypal_group" [innerHTML]="errors.paypal_group"></p>
+                    </div>
+
+                    <div class="setting-toggle-container">
+                        <mat-slide-toggle name="billing.enable.stripe" id="billing.enable.stripe" [(ngModel)]="state.client['billing.stripe.enable']" trans>Stripe Gateway</mat-slide-toggle>
+                        <p trans>Enable Stripe payment gateway.</p>
+                    </div>
+
+                    <div class="error-group many-inputs" id="stripe_group" *ngIf="state.client['billing.stripe.enable']" [class.has-error]="errors.stripe_group">
+                        <div class="input-container">
+                            <label for="stripe_key" trans>Stripe Client ID</label>
+                            <input name="billing.stripe.id" id="stripe_key" [(ngModel)]="state.server['stripe_key']" required>
+                        </div>
+
+                        <div class="input-container" [class.has-error]="errors.stripe_secret">
+                            <label for="stripe_secret" trans>Stripe Secret</label>
+                            <input name="billing.stripe.secret" id="stripe_secret" [(ngModel)]="state.server['stripe_secret']" required>
+                            <div class="error" *ngIf="errors.stripe_secret">{{errors.stripe_secret}}</div>
+                        </div>
+
+                        <p class="error" *ngIf="errors.stripe_group" [innerHTML]="errors.stripe_group"></p>
+                    </div>
+
+                    <div class="input-container">
+                        <label for="accepted-cards" trans>Accepted Cards</label>
+                        <chip-input
+                                id="accepted-cards"
+                                name="accepted-cards"
+                                [(ngModel)]="acceptedCards"
+                                placeholder="+New Card..."
+                                trans-placeholder
+                        ></chip-input>
+                    </div>
+                </ng-container>
+            </div>
+        </mat-tab>
+
+        <mat-tab [label]="'Invoices' | trans">
+            <div class="many-inputs tab-content">
+                <div class="input-container">
+                    <label for="billing.invoice.address" trans>Invoice Address</label>
+                    <textarea name="billing.invoice.address" id="billing.invoice.address" [(ngModel)]="state.client['billing.invoice.address']" rows="5"></textarea>
+                    <p trans>Address to show under "from" section of user invoice. Supports HTML. Optional.</p>
+                </div>
+
+                <div class="input-container">
+                    <label for="billing.invoice.notes" trans>Invoice Note</label>
+                    <textarea name="billing.invoice.notes" id="billing.invoice.notes" [(ngModel)]="state.client['billing.invoice.notes']" rows="5"></textarea>
+                    <p trans>Default notes to show under "notes" section of user invoice. Optional.</p>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+
+    <button mat-raised-button color="accent" class="button primary update-button" type="submit" [disabled]="loading$ | async" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

@@ -1,0 +1,5 @@
+<div class="message" trans>We use cookies to optimize site functionality and provide you with the best possible experience.</div>
+
+<a [routerLink]="learnMore" *ngIf="settings.get('cookie_notice.learn_more') as learnMore" trans>Learn More</a>
+
+<button mat-flat-button color="accent" (click)="hideNotice()" trans>OK</button>

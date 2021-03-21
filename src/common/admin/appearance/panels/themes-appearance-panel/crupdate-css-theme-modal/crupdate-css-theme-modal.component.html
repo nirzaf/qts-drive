@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h2 mat-dialog-title>
+        <span *ngIf="data.theme" trans>Update Theme</span>
+        <span *ngIf="!data.theme" trans>Create Theme</span>
+    </h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form (ngSubmit)="confirm()" ngNativeValidate [formGroup]="form" *ngIf="errors$ | async as errors">
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container">
+            <label for="name" trans>Name</label>
+            <input type="text" id="name" formControlName="name" required minlength="3">
+            <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+        </div>
+
+        <div class="setting-toggle-container">
+            <mat-slide-toggle id="is_dark" formControlName="is_dark" trans>Dark Theme</mat-slide-toggle>
+            <p trans>Whether this theme has light text on dark background.</p>
+        </div>
+
+        <div class="setting-toggle-container">
+            <mat-slide-toggle id="default_dark" formControlName="default_dark" trans>Default Dark Theme</mat-slide-toggle>
+            <p trans>Whether this theme should be used as default dark theme.</p>
+        </div>
+
+        <div class="setting-toggle-container">
+            <mat-slide-toggle id="default_light" formControlName="default_light" trans>Default Light Theme</mat-slide-toggle>
+            <p trans>Whether this theme should be used as default light theme.</p>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async" trans>
+            <span *ngIf="data.theme; else creating">Update</span>
+            <ng-template #creating>
+                <span>Create</span>
+            </ng-template>
+        </button>
+    </mat-dialog-actions>
+</form>
+
+

@@ -1,0 +1,8 @@
+<ng-container *ngIf="!(showDefaultPreview$ | async); else defaultPreview">
+    <iframe class="preview-object" #iframe></iframe>
+    <div class="pop-out-block office-block" (click)="openInNewWindow()"></div>
+</ng-container>
+<ng-template #defaultPreview>
+    <default-preview></default-preview>
+</ng-template>
+<loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>

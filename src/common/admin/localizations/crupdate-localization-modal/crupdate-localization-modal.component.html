@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h2 mat-dialog-title>
+        <span *ngIf="data.localization" trans>Update Localization</span>
+        <span *ngIf="!data.localization" trans>Create Localization</span>
+    </h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form class="modal-content" (ngSubmit)="confirm()" [formGroup]="form" *ngIf="errors$ | async as errors" ngNativeValidate>
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container">
+            <label for="name" trans>Name</label>
+            <input type="text" formControlName="name" id="name" pattern="[A-Za-z0-9_-]+" required>
+            <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+        </div>
+
+        <div class="input-container">
+            <label for="language" trans>Language</label>
+            <select id="language" formControlName="language">
+                <option [value]="lang.code" *ngFor="let lang of languages$ | async" trans>{{lang.name}}</option>
+            </select>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" mat-button type="button" trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" [disabled]="loading$ | async" trans>
+            <span *ngIf="data.localization" trans>Update</span>
+            <span *ngIf="!data.localization" trans>Create</span>
+        </button>
+    </mat-dialog-actions>
+</form>

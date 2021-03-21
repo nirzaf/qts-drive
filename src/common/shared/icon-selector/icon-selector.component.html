@@ -1,0 +1,5 @@
+<button mat-icon-button (click)="selectIcon(icon)" *ngFor="let icon of icons$ | async">
+  <mat-icon [svgIcon]="icon"></mat-icon>
+</button>
+
+<loading-indicator [isVisible]="loading$ | async" class="overlay overlay-partial"></loading-indicator>

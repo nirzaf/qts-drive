@@ -1,0 +1,24 @@
+@import "variables";
+
+button.no-style {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  overflow: visible;
+  padding: 0;
+  border-radius: 0;
+  min-width: initial;
+  -webkit-user-select: none; /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  outline: none;
+  cursor: pointer;
+  text-align: initial;
+}
+
+.mat-flat-button.mat-gray {
+  background-color: mat-color($app-background, unselected-chip);
+  color: mat-color($app-foreground, text);
+}

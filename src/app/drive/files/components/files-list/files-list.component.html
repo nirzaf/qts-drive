@@ -1,0 +1,24 @@
+<table class="material-table">
+    <thead>
+    <tr>
+        <th table-sort-header class="name-column" trans>Name</th>
+        <th table-sort-header="updated_at" class="last-updated-column" trans>Last Updated</th>
+        <th table-sort-header="file_size" class="size-column" trans>Size</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let file of entries; trackBy: trackById" class="drive-entry" [contextMenu]="{type: 'entry', entry: file}" [disableContextMenu]="disableInteractions" [attr.data-id]="file.id"  [folderDropTarget]="file">
+        <td data-label="Name" class="name-column">
+            <div class="file-name-container">
+                <file-thumbnail [file]="file"></file-thumbnail>
+                <div class="file-name">
+                    <span class="entry-name">{{file.name}}</span>
+                    <mat-icon class="star-icon" svgIcon="star" *ngIf="isStarred(file)" [matTooltip]="'Starred' | trans"></mat-icon>
+                </div>
+            </div>
+        </td>
+        <td data-label="Last Updated" class="last-updated-column">{{file.updated_at | formattedDate}}</td>
+        <td data-label="Size" class="size-column">{{file.file_size | formattedFileSize}}</td>
+    </tr>
+    </tbody>
+</table>

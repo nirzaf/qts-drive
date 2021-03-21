@@ -1,0 +1,65 @@
+<material-navbar [menuPosition]="settings.get('vebto.navbar.defaultPosition')"></material-navbar>
+
+<div class="content container mat-elevation-z1" *ngIf="activeSubscription$ | async as activeSubscription">
+    <div class="main">
+        <div class="main-section">
+            <div class="main-section-title"><full-plan-name [plan]="activeSubscription.plan"></full-plan-name></div>
+            <div class="main-section-content">
+                <ng-container *ngIf="canCancel()">
+                    <p>
+                        {{ 'Your plan will automatically renew on' | trans }}
+                        <strong>{{getFormattedRenewDate() | formattedDate}}</strong>
+                        {{ "and you'll be charged" | trans }}
+                        <strong>{{activeSubscription.plan.amount | currency:activeSubscription.plan.currency}}</strong>.
+                    </p>
+
+                    <a mat-raised-button color="accent" routerLink="/billing/upgrade" trans>Change Plan</a>
+                </ng-container>
+
+                <ng-container *ngIf="canResume()">
+                    <p>{{ 'You are on a grace period until' | trans }} <strong>{{getFormattedEndDate() | formattedDate}}</strong>. {{ 'Your subscription will not automatically resume and you will not be charged' | trans }}.</p>
+                    <p trans>You still have access to your plan's features until this date and you can resume your subscription anytime, by clicking button below.</p>
+                    <button mat-raised-button color="accent" (click)="resumeSubscription()" trans>Resume</button>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="main-section" *ngIf="canCancel() && canChangePaymentMethod()">
+            <div class="main-section-title" trans>Payment Method</div>
+            <div class="main-title-description" trans>Change your preferred payment method below. You can use a credit card or PayPal.</div>
+
+            <p>{{ 'Current payment Method' | trans }}: <strong>{{activeSubscription.gateway === 'paypal' ? 'PayPal' : ('Credit Card' | trans)}}</strong></p>
+
+            <div class="card-preview" *ngIf="activeSubscription.gateway === 'stripe'">
+                <div class="icon"><mat-icon svgIcon="credit-card"></mat-icon></div>
+                <div class="info">{{currentUser.get('card_brand')}} **** {{currentUser.get('card_last_four')}}</div>
+            </div>
+
+            <create-subscription-panel
+                    (completed)="onPaymentMethodChange($event)"
+                    (loading)="loading$.next($event)"
+                    [plan]="getPlan()"
+                    [from]="activeSubscription"
+                    [disablePaypalTab]="activeSubscription.gateway === 'paypal'"
+                    submitText="Change Payment Method"
+            ></create-subscription-panel>
+        </div>
+
+        <div class="main-section" *ngIf="canCancel()">
+            <div class="main-section-title" trans>Cancel Subscription</div>
+
+            <div class="main-section-content">
+                <p trans>After cancelling subscription, you will have access to your active plan until your billing period end.</p>
+            </div>
+
+            <div class="main-section-actions">
+                <button mat-raised-button color="warn" (click)="maybeCancelSubscription()" trans>Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <upgrade-page-aside [plan]="getPlan()"></upgrade-page-aside>
+
+    <loading-indicator class="overlay" [isVisible]="loading$ | async"></loading-indicator>
+</div>
+

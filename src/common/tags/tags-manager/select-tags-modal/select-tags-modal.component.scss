@@ -1,0 +1,15 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: $modal-default-width;
+  max-width: 100%;
+}
+
+.mat-dialog-title {
+  text-transform: capitalize;
+}
+
+.submit-button {
+  text-transform: capitalize;
+}

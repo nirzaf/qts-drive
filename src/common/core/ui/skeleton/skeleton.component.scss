@@ -1,0 +1,70 @@
+@import "variables";
+
+:host {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  background-color: mat-color($app-foreground, divider-lighter);
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+
+  &.wave {
+    animation: wave 2s ease-in-out infinite;
+    background-size: 200px 100%;
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  }
+
+  &.wave.dark {
+    background-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2), transparent);
+  }
+
+  &.pulsate {
+    animation: pulse 1.5s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+
+  &.avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  &.circle {
+    border-radius: 50%;
+  }
+
+  &.text {
+    height: 1.4rem;
+    vertical-align: middle;
+
+    &:before {
+      content: "\00a0";
+    }
+  }
+}
+
+@keyframes wave {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

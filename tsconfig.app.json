@@ -1,0 +1,19 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "./out-tsc/app",
+        "allowSyntheticDefaultImports": true,
+        "types": [
+            "stripe-v3",
+            "hammerjs"
+        ]
+    },
+    "files": [
+        "src/main.ts",
+        "src/polyfills.ts"
+    ],
+    "include": [
+        "src/**/*.d.ts",
+        "src/common/typings.d.ts"
+    ]
+}

@@ -1,0 +1,28 @@
+@import "variables";
+
+entry-drag-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: mat-color($app-accent, emphasis);
+  color: mat-color($app-accent, lighter);
+  width: 185px;
+  @include mat-elevation(3);
+  pointer-events: none;
+
+  .selected-entry-count {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    font-weight: 500;
+    background-color: mat-color($app-accent, default);
+    color: mat-color($app-accent, default-contrast);
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    border-radius: 50%;
+    @include mat-elevation(2);
+  }
+}

@@ -1,0 +1,13 @@
+<ng-container *ngIf="state.selectedPlan$ | async as selectedPlan">
+    <div class="line">
+        <div class="summary-left">
+            <full-plan-name [plan]="selectedPlan"></full-plan-name>
+        </div>
+        <div class="summary-right">{{selectedPlan.amount | currency:selectedPlan.currency}}</div>
+    </div>
+
+    <div class="line emphasis">
+        <div class="summary-left" trans>Total</div>
+        <div class="summary-right">{{selectedPlan.amount | currency:selectedPlan.currency}}</div>
+    </div>
+</ng-container>

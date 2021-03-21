@@ -1,0 +1,3 @@
+<video #playerEl controls="controls" class="preview-object" [class.hidden]="invalidMedia" controlsList="nodownload noremoteplayback" playsinline></video>
+
+<default-preview *ngIf="invalidMedia"></default-preview>

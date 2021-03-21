@@ -1,0 +1,5 @@
+<material-navbar [menuPosition]="settings.get('vebto.navbar.defaultPosition')"></material-navbar>
+<div class="be-container">
+    <notification-list [notifications]="(pagination$ | async)?.data" [compact]="breakpoints.isMobile$ | async" (markedAsRead)="markAsRead($event)"></notification-list>
+    <pagination-widget [pagination]="pagination$ | async" [disabled]="notifications.loading$ | async" (pageChanged)="loadPage($event)"></pagination-widget>
+</div>

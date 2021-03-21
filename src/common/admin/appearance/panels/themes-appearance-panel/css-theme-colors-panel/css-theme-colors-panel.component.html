@@ -1,0 +1,5 @@
+<ul class="unstyled-list" [formGroup]="form">
+    <li *ngFor="let color of theme.colors | keyvalue">
+        <color-picker-input [formControlName]="color.key" trans>{{viewName(color.key)}}</color-picker-input>
+    </li>
+</ul>

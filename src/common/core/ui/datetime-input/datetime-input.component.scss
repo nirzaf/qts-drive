@@ -1,0 +1,20 @@
+@import "variables";
+
+.date-input {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.time-input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-container {
+  margin-right: 0;
+}
+
+legend {
+  color: mat-color($app-foreground, label);
+}

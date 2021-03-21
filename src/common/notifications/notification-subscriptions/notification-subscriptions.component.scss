@@ -1,0 +1,59 @@
+@import "variables";
+
+:host {
+  display: block;
+  background-color: mat-color($app-background, background);
+  min-height: 100vh;
+}
+
+.be-container {
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.table {
+  border-radius: 4px;
+}
+
+.setting-group {
+  margin-bottom: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  padding: 10px;
+
+  &.no-border {
+    border-bottom: none;
+  }
+
+  &.indent {
+    padding-left: 20px;
+  }
+}
+
+.name-column {
+  flex: 1 1 auto;
+}
+
+.strong {
+  font-weight: 500;
+  font-size: 1.5rem;
+  align-self: flex-end;
+}
+
+.channel-name {
+  margin-bottom: 10px;
+}
+
+.channel-column {
+  width: 75px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.submit-button {
+  margin-top: 15px;
+}

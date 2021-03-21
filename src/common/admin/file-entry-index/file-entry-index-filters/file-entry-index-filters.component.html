@@ -1,0 +1,41 @@
+<div [formGroup]="form" class="many-inputs">
+    <div class="input-container">
+        <label for="file-type-filter" trans>Type</label>
+        <select id="file-type-filter" formControlName="type">
+            <option [ngValue]="null" trans>All</option>
+            <option value="text" trans>Text</option>
+            <option value="audio" trans>Audio</option>
+            <option value="video" trans>Video</option>
+            <option value="image" trans>Image</option>
+            <option value="Folder" trans>Folder</option>
+            <option value="pdf" trans>PDF</option>
+            <option value="archive" trans>Archive</option>
+        </select>
+    </div>
+
+    <div class="input-container">
+        <label for="file-status-filter" trans>Status</label>
+        <select id="file-status-filter" formControlName="public">
+            <option [ngValue]="null" trans>All</option>
+            <option [ngValue]="true" trans>Public</option>
+            <option [ngValue]="false" trans>Private</option>
+        </select>
+    </div>
+
+    <div class="input-container">
+        <label for="file-password-filter" trans>Protection</label>
+        <select id="file-password-filter" formControlName="password">
+            <option [ngValue]="null" trans>All</option>
+            <option [ngValue]="true" trans>Has Password</option>
+            <option [ngValue]="false" trans>Does Not Have Password</option>
+        </select>
+    </div>
+
+    <div class="input-container">
+        <between-input formControlName="created_at" [setDefaultDate]="false" [showLabels]="false">Uploaded Between</between-input>
+    </div>
+
+    <div class="input-container">
+        <select-user-input formControlName="owner"></select-user-input>
+    </div>
+</div>

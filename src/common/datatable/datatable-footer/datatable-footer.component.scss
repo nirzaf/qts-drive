@@ -1,0 +1,55 @@
+@import "variables";
+
+:host {
+  display: flex;
+  padding: 0 8px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap-reverse;
+  width: 100%;
+  height: 56px;
+}
+
+.page-size {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.page-size-label {
+  font-size: 1.2rem;
+  color: mat-color($app-foreground, secondary-text);
+  margin: 0 4px;
+}
+
+.input-container {
+  width: auto;
+}
+
+.page-size-input {
+  width: 60px;
+  height: 33px;
+  padding: 4px;
+  margin: 0 4px;
+}
+
+.range-actions {
+  display: flex;
+  align-items: center;
+}
+
+.range-label {
+  color: mat-color($app-foreground, secondary-text);
+  margin: 0 32px 0 24px;
+  font-size: 1.2rem;
+}
+
+.range-button {
+  color: mat-color($app-foreground, icon);
+
+  .mat-icon {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+  }
+}

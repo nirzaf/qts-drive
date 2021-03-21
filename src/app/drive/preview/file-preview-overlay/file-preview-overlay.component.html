@@ -1,0 +1,6 @@
+<file-preview-toolbar [showCloseButton]="true" (closed)="closeOverlay()" [disableDownload]="!canDownload()">
+    <button mat-icon-button (click)="openContextMenu()" #moreOptionsButton *ngIf="!data.hideMoreOptionsBtn">
+        <mat-icon svgIcon="more-vert"></mat-icon>
+    </button>
+</file-preview-toolbar>
+<preview-container [files]="data.entries" [activeFile]="data.activeEntry" [disableDownload]="!canDownload()" #previewContainer></preview-container>

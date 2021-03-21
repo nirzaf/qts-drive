@@ -1,0 +1,38 @@
+<ng-template #navItems>
+    <a class="nav-item" mat-menu-item routerLink="general" routerLinkActive="selected"><div class="name" trans>General</div></a>
+    <a class="nav-item" mat-menu-item *ngFor="let route of appRoutes()" [routerLink]="route.path" routerLinkActive="selected"><div class="name" trans>{{route.path.replace('-', ' ')}}</div></a>
+    <a class="nav-item" mat-menu-item routerLink="billing" *ngIf="settings.get('billing.integrated')" routerLinkActive="selected"><div class="name" trans>Billing</div></a>
+    <a class="nav-item" mat-menu-item routerLink="localization" routerLinkActive="selected"><div class="name" trans>Localization</div></a>
+    <a class="nav-item" mat-menu-item routerLink="authentication" routerLinkActive="selected"><div class="name" trans>Authentication</div></a>
+    <a class="nav-item" mat-menu-item routerLink="uploading" routerLinkActive="selected"><div class="name" trans>Uploading</div></a>
+    <a class="nav-item" mat-menu-item routerLink="mail" routerLinkActive="selected"><div class="name" trans>Mail</div></a>
+    <a class="nav-item" mat-menu-item routerLink="cache" routerLinkActive="selected"><div class="name" trans>Cache</div></a>
+    <a class="nav-item" mat-menu-item routerLink="analytics" routerLinkActive="selected"><div class="name" trans>Analytics</div></a>
+    <a class="nav-item" mat-menu-item routerLink="logging" routerLinkActive="selected"><div class="name" trans>Logging</div></a>
+    <a class="nav-item" mat-menu-item routerLink="queue" routerLinkActive="selected"><div class="name" trans>Queue</div></a>
+    <a class="nav-item" mat-menu-item routerLink="recaptcha" routerLinkActive="selected"><div class="name" trans>Recaptcha</div></a>
+    <a class="nav-item" mat-menu-item routerLink="gdpr" routerLinkActive="selected"><div class="name" trans>GDPR</div></a>
+    <a class="nav-item" mat-menu-item routerLink="/admin/appearance" [queryParams]="{panel: 'menus'}" routerLinkActive="selected"><div class="name" trans>Menus</div></a>
+    <a class="nav-item" mat-menu-item routerLink="/admin/appearance" [queryParams]="{panel: 'seo-settings'}" routerLinkActive="selected"><div class="name" trans>Seo</div></a>
+    <a class="nav-item" mat-menu-item routerLink="/admin/appearance" [queryParams]="{panel: 'themes'}" routerLinkActive="selected"><div class="name" trans>Themes</div></a>
+</ng-template>
+
+<ng-container *ngIf="breakpoints.isMobile$ | async; else desktopNav">
+    <button [matMenuTriggerFor]="navMenu" class="no-style admin-pill-nav-mobile-selector">
+        <span class="name" trans>{{activePanel$ | async}}</span>
+        <mat-icon svgIcon="keyboard-arrow-down"></mat-icon>
+    </button>
+    <mat-menu #navMenu="matMenu" class="admin-pill-nav-menu">
+        <ng-container *ngTemplateOutlet="navItems"></ng-container>
+    </mat-menu>
+</ng-container>
+
+<ng-template #desktopNav>
+    <aside class="admin-pill-nav rounded">
+        <ng-container *ngTemplateOutlet="navItems"></ng-container>
+    </aside>
+</ng-template>
+
+<div class="settings-panels-container">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,21 @@
+<ng-container *ngIf="(currentUser.isLoggedIn$ | async) || (breakpoints.isMobile$ | async); else authButtons">
+    <div class="menu-trigger" [matMenuTriggerFor]="menu">
+        <img class="avatar" [src]="currentUser.get('avatar')">
+
+        <div class="email">{{currentUser.get('email')}}</div>
+        <mat-icon svgIcon="arrow-drop-down" class="dropdown-icon"></mat-icon>
+
+        <button class="no-style mobile-toggle" aria-label="Show logged in user options">
+            <mat-icon svgIcon="person"></mat-icon>
+        </button>
+    </div>
+
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" class="logged-in-user-widget-menu">
+        <logged-in-user-menu></logged-in-user-menu>
+    </mat-menu>
+</ng-container>
+
+<ng-template #authButtons>
+    <a *ngIf="!config.get('registration.disable') && !hideRegisterButton" class="register-btn" routerLink="/register"  mat-button trans>Register</a>
+    <a routerLink="/login" mat-raised-button color="accent" class="login-btn" trans>Login</a>
+</ng-template>

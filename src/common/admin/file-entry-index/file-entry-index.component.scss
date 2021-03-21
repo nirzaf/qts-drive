@@ -1,0 +1,7 @@
+@import "variables";
+
+.title {
+  font-size: 1.8rem;
+  color: mat-color($app-foreground, secondary-text);
+  margin-left: 15px;
+}

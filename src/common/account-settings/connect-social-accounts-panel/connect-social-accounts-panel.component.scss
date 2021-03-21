@@ -1,0 +1,76 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+.social-login-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+
+  &.last {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .name {
+    display: inline-block;
+    margin-left: 15px;
+    flex: 1 1 auto;
+  }
+
+  .button {
+    margin-left: auto;
+
+    &.disable-button {
+      background-color: mat-color($app-warn);
+      border-color: mat-color($app-warn);
+    }
+  }
+}
+
+.social-account-username {
+  margin-left: auto;
+  margin-right: 10px;
+  color: mat-color($app-foreground, link);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 3px;
+
+  &.facebook {
+    color: $facebook-color;
+    background-color: $facebook-color;
+
+    .mat-icon {
+      background-color: #fff;
+    }
+  }
+
+  &.twitter {
+    background-color: $twitter-color;
+    color: #fff;
+  }
+
+  &.google {
+    background-color: $google-color;
+    color: #fff;
+  }
+
+  &.envato {
+    background-color: #82B541;
+    color: #fff;
+  }
+}

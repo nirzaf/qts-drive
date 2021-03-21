@@ -1,0 +1,8 @@
+<div class="trigger" #trigger
+     [colorPicker]="color"
+     [cpAlphaChannel]="'always'"
+     [cpOutputFormat]="'rgba'"
+     (colorPickerChange)="emitSelectedEvent($event)"
+     [cpDialogDisplay]="'inline'"
+     [cpToggle]="false"
+></div>

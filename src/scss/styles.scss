@@ -1,0 +1,14 @@
+@import "common-imports.scss";
+@import "context-menu";
+@import "files-select-box";
+@import "file-colors";
+@import "toggle-expansion-icon";
+
+body, html {
+  height: 100%;
+}
+
+.file-preview-overlay-container {
+  width: 100%;
+  height: 100%;
+}

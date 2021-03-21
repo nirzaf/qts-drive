@@ -1,0 +1,7 @@
+<img [src]="getPreviewUrl()"
+     *ngIf="file.type === 'image'"
+     [ngClass]="file.type+'-file'"
+     class="file-color"
+     draggable="false">
+
+<file-icon *ngIf="file.type !== 'image'" [type]="file.type === 'folder' ? getFolderIcon() : file.type"></file-icon>

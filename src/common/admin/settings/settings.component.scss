@@ -1,0 +1,19 @@
+@import "variables";
+
+$spacing: 30px;
+
+:host {
+  display: flex;
+
+  @media only screen and (max-width: $medium) {
+    display: block;
+  }
+}
+
+.settings-panels-container {
+  flex: 1 1 auto;
+}
+
+.admin-pill-nav-mobile-selector {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,45 @@
+<div class="header">
+    <div class="title" trans>Cache</div>
+    <div class="subtitle" trans>Configure cache time, method and related 3rd party integrations.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate *ngIf="errors$ | async as errors">
+    <div class="error-group many-inputs no-border-top" id="cache_group" [class.has-error]="errors.cache_group">
+        <div class="input-container">
+            <label for="cache.driver" trans>Cache Method</label>
+            <select name="cache.driver" id="cache.driver" [(ngModel)]="state.server['cache_driver']" (ngModelChange)="clearErrors()">
+                <option value="file">File (Default)</option>
+                <option value="array">None</option>
+                <option value="apc">APC</option>
+                <option value="memcached">Memcached</option>
+                <option value="redis">Redis</option>
+            </select>
+            <p trans>Which method should be used for storing and retrieving cached items.</p>
+        </div>
+
+        <!-- MEMCACHED -->
+        <ng-container *ngIf="state.server['cache_driver'] === 'memcached'">
+            <div class="input-container">
+                <label for="cache.memcached_host" trans>Memcached Host</label>
+                <input name="cache.memcached_host" id="cache.memcached_host" [(ngModel)]="state.server['memcached_host']" required>
+            </div>
+
+            <div class="input-container">
+                <label for="cache.memcached_port" trans>Memcached Port</label>
+                <input type="number" name="cache.memcached_port" id="cache.memcached_port" [(ngModel)]="state.server['memcached_port']" required>
+            </div>
+        </ng-container>
+
+        <p class="error" *ngIf="errors.cache_group" [innerHTML]="errors.cache_group"></p>
+    </div>
+
+    <button mat-stroked-button color="accent" class="button flat" (click)="clearCache()" type="button" trans>Clear Cache</button>
+
+    <div class="widget widget-info widget-important">
+        <div class="title" trans>Important!</div>
+        <p trans>"File" is the best option for most cases and should not be changed, unless you are familiar with another cache method and have it set up on the server already.</p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" [disabled]="loading$ | async" type="submit" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>

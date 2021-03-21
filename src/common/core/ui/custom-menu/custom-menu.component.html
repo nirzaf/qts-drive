@@ -1,0 +1,27 @@
+<div class="menu-title" *ngIf="showTitle">{{menu.name}}</div>
+
+<ng-container *ngFor="let item of menu.items">
+    <ng-container *ngIf="shouldShow(item?.condition)">
+        <ng-container [ngSwitch]="getItemType(item)">
+
+            <a *ngSwitchCase="'link'" class="nav-item custom-menu-item link-nav-item {{itemClass}}" [href]="item.action" [ngClass]="toSnakeCase(item.label)" [target]="item.target">
+                <mat-icon [svgIcon]="item.icon" *ngIf="item.icon"></mat-icon>
+                <span class="text" trans>{{item.label}}</span>
+            </a>
+
+            <ng-container *ngIf="parseRoute(item.action) as route">
+                <a *ngSwitchCase="'route'" class="nav-item custom-menu-item route-nav-item {{itemClass}}" [routerLink]="'/' + route.link" [queryParams]="route.queryParams" [ngClass]="toSnakeCase(item.label)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: item.action === '/' || item.activeExact !== false}" [target]="item.target">
+                    <mat-icon [svgIcon]="item.icon" *ngIf="item.icon"></mat-icon>
+                    <span class="text" trans>{{item.label}}</span>
+                </a>
+            </ng-container>
+
+            <a *ngSwitchCase="'page'" class="nav-item custom-menu-item page-nave-item {{itemClass}}" [routerLink]="'/pages/' + item.action" [ngClass]="toSnakeCase(item.label)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: item.activeExact !== false}" [target]="item.target">
+                <mat-icon [svgIcon]="item.icon" *ngIf="item.icon"></mat-icon>
+                <span class="text" trans>{{item.label}}</span>
+            </a>
+        </ng-container>
+    </ng-container>
+</ng-container>
+
+<ng-content></ng-content>

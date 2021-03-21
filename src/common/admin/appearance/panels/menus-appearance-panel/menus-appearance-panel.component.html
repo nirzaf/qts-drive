@@ -1,0 +1,39 @@
+<appearance-panel-meta [path]="['Menus', menus.activeMenu$.value && menus.activeMenu$.value.name]" (back)="openPreviousPanel()"></appearance-panel-meta>
+
+<div class="appearance-panel-content">
+    <div class="menu-panel" *ngIf="menus.activeMenu$ | async as activeMenu; else allMenuList">
+        <div class="many-inputs menu-settings">
+            <div class="input-container">
+                <label for="menu-name" trans>Menu Name</label>
+                <input type="text" id="menu-name" [(ngModel)]="activeMenu.name" (ngModelChange)="menus.commitChanges()">
+            </div>
+
+            <div class="input-container">
+                <label for="menu-position" trans>Menu Position</label>
+                <select id="menu-position" [(ngModel)]="activeMenu.position" (ngModelChange)="menus.commitChanges()">
+                    <option [ngValue]="position" *ngFor="let position of appearance.config.menus.positions">{{getDisplayName(position)}}</option>
+                </select>
+            </div>
+        </div>
+
+        <menu-items></menu-items>
+
+        <div class="action-buttons">
+            <button mat-button color="warn" (click)="confirmMenuDeletion()" trans>Delete Menu</button>
+            <button class="button flat add-item-button" mat-button color="accent" (click)="openAddItemPanel()" trans>Add Item</button>
+        </div>
+    </div>
+
+    <ng-template #allMenuList>
+        <div class="menus">
+            <div class="menu nav-item" *ngFor="let menu of menus.allMenus$ | async" (click)="setActiveMenu(menu)">
+                <span class="name">{{menu.name}}</span>
+                <mat-icon svgIcon="keyboard-arrow-right" class="actions"></mat-icon>
+            </div>
+
+            <div class="action-buttons">
+                <button mat-button color="accent" class="button primary" (click)="menus.create()" trans>Add a Menu</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

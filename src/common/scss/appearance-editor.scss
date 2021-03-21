@@ -1,0 +1,77 @@
+@import "variables";
+
+$spacing: 10px;
+
+appearance {
+  .nav-item {
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: 1px solid mat-color($app-foreground, divider);
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    text-decoration: none;
+    text-align: left;
+    align-items: center;
+    padding: 0 10px 0 15px;
+    margin-bottom: $spacing;
+    border-radius: 4px;
+    background-color: mat-color($app-background, card);
+    height: 57px;
+    width: 100%;
+    font-size: 1.5rem;
+    color: inherit;
+    text-transform: capitalize;
+
+    &:hover {
+      background-color: mat-color($app-accent, emphasis);
+    }
+
+    .mat-icon {
+      color: mat-color($app-foreground, icon);
+    }
+    
+    .text {
+      display: block;
+    }
+
+    .actions {
+      display: block;
+      margin-left: auto;
+    }
+  }
+
+  .input-container {
+    input, select, textarea {
+      background-color: mat-color($app-background, card);
+    }
+  }
+
+  .appearance-panel-content {
+    padding: $spacing;
+  }
+
+  .back-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 100%;
+    color: mat-color($app-foreground, icon);
+    padding: 10px;
+    border-right: 1px solid mat-color($app-foreground, divider);
+    cursor: pointer;
+
+    &:hover {
+      background-color: mat-color($app-accent, emphasis);
+    }
+
+    .mat-icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

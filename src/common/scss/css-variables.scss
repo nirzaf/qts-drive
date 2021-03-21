@@ -1,0 +1,59 @@
+@import "variables";
+
+// DARK
+:root {
+  --be-accent-default: #a3b1fd;
+  --be-accent-lighter: #e9ecfe;
+  --be-primary-lighter: #333333;
+  --be-primary-default: #242424;
+  --be-primary-darker: #1e1e1e;
+  --be-accent-emphasis: rgba(233,236,254,0.1);
+  --be-accent-contrast: rgba(255, 255, 255, 1);
+  --be-foreground-base: #fff;
+  --be-text: #fff;
+  --be-hint-text: rgba(255, 255, 255, 0.5);
+  --be-secondary-text: rgba(255, 255, 255, 0.7);
+  --be-label: rgba(255, 255, 255, 0.7);
+  --be-disabled-button-text: rgba(255, 255, 255, 0.3);
+  --be-background: #1D1D1D;
+  --be-background-alternative: #121212;
+  --be-disabled-toggle: #000;
+  --be-chip: #616161;
+  --be-hover: rgba(255, 255, 255, 0.04);
+  --be-selected-button: #212121;
+  --be-disabled-button: rgba(255, 255, 255, 0.12);
+  --be-raised-button: #424242;
+  --be-backdrop: #BDBDBD;
+  --be-divider-lighter: rgba(255, 255, 255, 0.06);
+  --be-divider-default: rgba(255, 255, 255, 0.12);
+  --be-link: #a3b1fd;
+}
+
+// LIGHT
+:root {
+  --be-accent-default: #4662fa;
+  --be-accent-lighter: #c8d0fe;
+  --be-accent-emphasis: rgba(200,208,254,0.1);
+  --be-primary-lighter: #3e4a66;
+  --be-primary-default: #2B3346;
+  --be-primary-darker: #181c26;
+  --be-foreground-base: black;
+  --be-accent-contrast: rgba(255, 255, 255, 1);
+  --be-disabled-button-text: rgba(0, 0, 0, 0.26);
+  --be-hint-text: rgba(0, 0, 0, 0.38);
+  --be-secondary-text: rgba(0, 0, 0, 0.54);
+  --be-label: rgba(0, 0, 0, 0.87);
+  --be-text: rgba(0, 0, 0, 0.87);
+  --be-background: #fff;
+  --be-background-alternative: #fafafa;
+  --be-disabled-toggle: #eeeeee;
+  --be-chip: #e0e0e0;
+  --be-hover: rgba(0, 0, 0, 0.04);
+  --be-selected-button: #e0e0e0;
+  --be-disabled-button: rgba(0, 0, 0, 0.12);
+  --be-raised-button: #fff;
+  --be-backdrop: black;
+  --be-divider-lighter: rgba(0, 0, 0, 0.06);
+  --be-divider-default: rgba(0, 0, 0, 0.12);
+  --be-link: #4662fa;
+}

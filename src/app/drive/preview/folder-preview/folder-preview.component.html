@@ -1,0 +1,48 @@
+<material-navbar></material-navbar>
+
+<div class="toolbar">
+    <div class="breadcrumb">
+        <button mat-icon-button *ngIf="isSubFolder()" (click)="openFolder()" class="home-button">
+            <mat-icon svgIcon="home" class="action-icon"></mat-icon>
+        </button>
+        <ng-container *ngFor="let folder of breadcrumb$ | async; last as last;">
+            <div class="breadcrumb-item" (click)="openFolder(folder)">{{folder.name}}</div>
+            <mat-icon class="separator" svgIcon="keyboard-arrow-right" *ngIf="!last"></mat-icon>
+        </ng-container>
+    </div>
+
+    <div class="actions">
+        <entries-sort-button [formControl]="sortFormControl"></entries-sort-button>
+
+        <span class="action-separator"></span>
+
+        <ng-container *ngIf="viewMode$ | async as viewMode">
+            <button mat-icon-button (click)="toggleViewMode()" class="view-toggle-button" [matTooltip]="(viewMode === 'list' ? 'Grid view' : 'List view') | trans">
+                <mat-icon [svgIcon]="viewMode === 'list' ? 'view-list' : 'view-module'" class="action-icon"></mat-icon>
+            </button>
+        </ng-container>
+
+        <button mat-icon-button (click)="download()" *ngIf="data.link.allow_download" [matTooltip]="'Download all' | trans">
+            <mat-icon svgIcon="file-download" class="action-icon"></mat-icon>
+        </button>
+
+        <ng-content></ng-content>
+    </div>
+</div>
+
+<ad-host slot="ads.file-preview" class="folder-preview-vert-host"></ad-host>
+
+<div class="files-container" #filesContainer (click)="onClick($event)">
+   <ng-container *ngIf="pagination$ | async as pagination">
+       <files-grid [entries]="pagination.data" [disableInteractions]="true" *ngIf="(viewMode$ | async) === 'grid'; else filesList"></files-grid>
+       <ng-template #filesList>
+           <files-list [entries]="pagination.data" [disableInteractions]="true"></files-list>
+       </ng-template>
+       <no-results-message *ngIf="!pagination.data.length">
+           <span primary-text trans>Folder Is Empty</span>
+           <span secondary-text trans>No files have been uploaded to this folder yet.</span>
+       </no-results-message>
+   </ng-container>
+</div>
+
+<loading-indicator [isVisible]="loading$ | async" class="overlay"></loading-indicator>

@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <h2 class="modal-title" mat-dialog-title *ngIf="data.subscription" trans>Update Subscription Details</h2>
+    <h2 class="modal-title" mat-dialog-title *ngIf="!data.subscription" trans>Create a New Subscription</h2>
+    <button type="button" (click)="close()" class="close-button no-style" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form autocomplete="off" (ngSubmit)="confirm()" *ngIf="errors$ | async as errors" ngNativeValidate>
+    <div class="many-inputs mat-dialog-content" mat-dialog-content>
+
+        <div class="input-container">
+            <label for="user" trans>User</label>
+            <input type="text" id="user" placeholder="Search for user..." [formControl]="userAutocomplete" [matAutocomplete]="auto" required>
+            <div class="error" *ngIf="errors.user_id">{{errors.user_id}}</div>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let user of filteredUsers | async" [value]="user">{{ user.email }}</mat-option>
+            </mat-autocomplete>
+        </div>
+
+        <ng-container [formGroup]="form">
+            <div class="input-container">
+                <label for="plan" trans>Plan</label>
+                <select id="plan" formControlName="plan_id" required>
+                    <option [ngValue]="plan.id" *ngFor="let plan of plans">
+                        <full-plan-name [plan]="plan"></full-plan-name>
+                        ({{plan.amount | currency:plan.currency}})
+                    </option>
+                </select>
+            </div>
+
+            <div class="input-container">
+                <label for="description" trans>Description</label>
+                <textarea id="description" formControlName="description"></textarea>
+                <div class="error" *ngIf="errors.description">{{errors.description}}</div>
+            </div>
+
+            <div class="input-container date-picker-input-container">
+                <label for="renews_at" trans>Renews At</label>
+                <input id="renews_at" formControlName="renews_at" [matDatepicker]="renewsAtDatePicker" (click)="toggleDatePicker(renewsAtDatePicker)">
+                <mat-datepicker-toggle [for]="renewsAtDatePicker"></mat-datepicker-toggle>
+                <p trans>This will only change local records. User will continue to be billed on their original cycle on the payment gateway.</p>
+                <div class="error" *ngIf="errors.renews_at">{{errors.renews_at}}</div>
+                <mat-datepicker #renewsAtDatePicker></mat-datepicker>
+            </div>
+
+            <div class="input-container date-picker-input-container">
+                <label for="ends_at" trans>Ends At</label>
+                <input id="ends_at" formControlName="ends_at" [matDatepicker]="endsAtDatePicker" (click)="toggleDatePicker(endsAtDatePicker)">
+                <p trans>This will only change local records. User will continue to be billed on their original cycle on the payment gateway.</p>
+                <div class="error" *ngIf="errors.ends_at">{{errors.ends_at}}</div>
+                <mat-datepicker-toggle [for]="endsAtDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endsAtDatePicker></mat-datepicker>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="buttons right mat-dialog-actions" mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button class="button cancel" trans>Cancel</button>
+        <button type="submit" class="button primary" mat-raised-button color="accent" [disabled]="loading$ | async">
+            <span *ngIf="data.subscription" trans>Update</span>
+            <span *ngIf="!data.subscription" trans>Create</span>
+        </button>
+    </div>
+</form>
+
+<loading-indicator class="overlay" [isVisible]="loading$ | async"></loading-indicator>

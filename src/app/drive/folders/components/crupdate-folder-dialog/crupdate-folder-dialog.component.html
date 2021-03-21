@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h2 mat-dialog-title trans>New Folder</h2>
+    <button type="button" mat-icon-button (click)="close()" class="close-button" tabindex="-1">
+        <mat-icon svgIcon="close"></mat-icon>
+    </button>
+</div>
+
+<form ngNativeValidate (ngSubmit)="confirm()">
+    <mat-dialog-content class="many-inputs">
+        <div class="input-container">
+            <input type="text" [formControl]="folderName" placeholder="Folder name..." trans-placeholder required min="3">
+            <div class="error" *ngIf="errors.name">{{errors.name}}</div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="close()" type="button" mat-button class="cancel-button" trans>Cancel</button>
+        <button type="submit" mat-raised-button color="accent" class="submit-button" [disabled]="loading | async" trans>Create</button>
+    </mat-dialog-actions>
+</form>

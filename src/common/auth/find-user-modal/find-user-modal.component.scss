@@ -1,0 +1,65 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: $modal-wide-width;
+  max-width: 100%;
+}
+
+.modal-header {
+  margin-bottom: 15px;
+}
+
+.search-input-container {
+  width: 100%;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+loading-indicator {
+  top: 12px;
+  right: 12px;
+}
+
+.users {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.user {
+  display: flex;
+  width: calc(50% - 10px);
+  flex-shrink: 0;
+  min-width: 0;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  &:hover {
+    color: mat-color($app-accent, default);
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .name {
+    color: mat-color($app-foreground, text);
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+
+  .email {
+    color: mat-color($app-foreground, secondary-text);
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

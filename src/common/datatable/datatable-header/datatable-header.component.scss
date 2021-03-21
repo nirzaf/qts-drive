@@ -1,0 +1,52 @@
+@import "variables";
+
+:host-context(.rows-selected) {
+  background-color: mat-color($app-accent, emphasis);
+  color: mat-color($app-foreground, secondary-text);
+  font-size: 1.5rem;
+  border-color: mat-color($app-foreground, divider);
+}
+
+:host {
+  display: flex;
+  align-items: center;
+  height: 85px;
+  padding: 15px;
+  border-bottom: 1px solid transparent;
+  position: relative;
+}
+
+.mat-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.left-column {
+  margin-right: auto;
+}
+
+.right-column {
+  margin-left: 25px;
+}
+
+.default-right-content {
+  display: flex;
+  align-items: center;
+}
+
+.filter-button {
+  margin-right: 10px;
+}
+
+.active {
+  color: mat-color($app-accent, default);
+}
+
+.mat-chip {
+  text-transform: capitalize;
+}
+
+::ng-deep datatable-header info-popover {
+  margin-left: 10px;
+}

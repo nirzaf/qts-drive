@@ -1,0 +1,14 @@
+@import "variables";
+
+loading-toast {
+  display: flex;
+  align-items: center;
+
+  .mat-spinner {
+    margin-right: 20px;
+  }
+
+  .mat-spinner circle {
+    stroke: mat-color($app-accent, default-contrast);
+  }
+}

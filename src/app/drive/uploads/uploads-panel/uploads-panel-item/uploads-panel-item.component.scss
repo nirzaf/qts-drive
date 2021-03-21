@@ -1,0 +1,85 @@
+@import "variables";
+
+uploads-panel-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+
+  file-icon {
+    width: 35px;
+    height: 35px;
+    flex: 0 0 35px;
+    margin-right: 10px;
+  }
+
+  .content {
+    flex: 1 1 auto;
+    margin-bottom: 5px;
+    min-width: 0;
+
+    .meta {
+      display: flex;
+      align-items: center;
+      padding-bottom: 4px;
+    }
+  }
+
+  .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .time-left {
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 1.3rem;
+    padding-left: 15px;
+    white-space: nowrap;
+  }
+
+  .actions {
+    margin-left: auto;
+    padding-left: 20px;
+
+    .mat-icon {
+      vertical-align: middle;
+      width: 22px;
+      height: 22px;
+      margin-bottom: 4px;
+    }
+  }
+
+  .completed-icon {
+    color: mat-color($app-accent, default);
+  }
+
+  .error-icon {
+    color: mat-color($app-warn, default);
+  }
+
+  .cancel-button {
+    color: mat-color($app-foreground, link);
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    line-height: 22px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .mat-progress-bar {
+    height: 3px;
+    border-radius: 3px;
+
+    .mat-progress-bar-buffer {
+      background-color: mat-color($app-background, hover);
+    }
+
+    .mat-progress-bar-fill:after {
+      background-color: mat-color($app-accent, default);
+    }
+  }
+}

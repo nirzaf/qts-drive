@@ -1,0 +1,36 @@
+@import "variables";
+
+.chart-wrapper {
+  flex: 1 1 auto;
+  margin-bottom: 25px;
+  border: $admin-card-border;
+  border-radius: 4px;
+  background-color: mat-color($app-background, card);
+
+  &:nth-child(1) {
+    margin-right: 25px;
+  }
+}
+
+.pie-wrapper {
+  max-width: 500px;
+}
+
+.chart-row {
+  display: flex;
+}
+
+@media only screen and (max-width: $large) {
+  .chart-row {
+    display: block;
+    margin-bottom: 0;
+  }
+
+  .chart-wrapper {
+    margin-bottom: 10px;
+
+    &:nth-child(1) {
+      margin-right: 0;
+    }
+  }
+}

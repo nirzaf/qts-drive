@@ -1,0 +1,66 @@
+@import "variables";
+
+.panel {
+  border: $admin-card-border;
+  box-shadow: $admin-card-box-shadow;
+  border-radius: 4px;
+  background-color: mat-color($app-background, card);
+}
+
+.header {
+  background-color: mat-color($app-background, background);
+  border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+  padding: 15px;
+  margin-bottom: 25px;
+  font-weight: 500;
+  color: #555;
+}
+
+.vert-row {
+  display: flex;
+  align-items: flex-end;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-bottom: 25px;
+}
+
+image-zoom {
+  margin-left: 25px;
+  border: 1px solid mat-color($app-foreground, divider);
+  height: 150px;
+}
+
+.input-container {
+  max-width: 750px;
+}
+
+textarea {
+  display: block;
+  height: 150px;
+}
+
+label:empty {
+  display: none;
+}
+
+.setting-toggle-container {
+  margin-left: 15px;
+}
+
+.save-button {
+  margin: 0 0 30px 15px;
+}
+
+@media only screen and (max-width: $medium) {
+  .vert-row {
+    display: block;
+    border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+  }
+
+  image-zoom {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+}

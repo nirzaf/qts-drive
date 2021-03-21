@@ -1,0 +1,62 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: $modal-default-width;
+  max-width: 100%;
+}
+
+.section-title {
+  font-weight: 500;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.feature-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 1.6rem;
+
+  .text {
+    padding: 0 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .delete-button {
+    color: mat-color($app-warn);
+    margin-left: auto;
+  }
+
+  .drag-handle {
+    cursor: move;
+  }
+}
+
+.plan-features {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+}
+
+.interval-select {
+  text-transform: capitalize;
+}
+
+.available-space .section-title {
+  border-bottom: none;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

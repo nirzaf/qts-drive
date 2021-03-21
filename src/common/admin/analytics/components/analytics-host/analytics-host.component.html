@@ -1,0 +1,10 @@
+<header *ngIf="channels && channels.length">
+    <h1 trans>Analytics</h1>
+    <ul class="unstyled-list analytics-nav">
+        <li class="analytics-nav-item" *ngFor="let navItem of channels">
+            <a mat-button routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="[navItem.route]" trans>{{navItem.name}}</a>
+        </li>
+    </ul>
+</header>
+
+<router-outlet></router-outlet>

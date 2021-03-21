@@ -1,0 +1,27 @@
+@import "variables";
+
+:host {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  margin-bottom: 40px;
+
+  @media only screen and (max-width: $medium) {
+    width: 90%;
+  }
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  margin: auto;
+  @include mat-elevation(3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: mat-color($app-background, card);
+}

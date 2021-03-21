@@ -1,0 +1,36 @@
+@import "../../../../scss/variables";
+
+$input-height: 45px;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - #{$material-navbar-height + ($admin-page-padding * 2)});
+  overflow: hidden;
+}
+
+.input-container input {
+  background-color: mat-color($app-background, dialog);
+}
+
+.actions {
+  margin-bottom: 25px;
+  flex-shrink: 0;
+}
+
+.errors {
+  color: mat-color($app-warn);
+  flex-shrink: 0;
+
+  .error {
+    padding: 5px 0;
+  }
+}
+
+.editor-container {
+  flex: 1 1 auto;
+}
+
+text-editor {
+  max-height: none;
+}

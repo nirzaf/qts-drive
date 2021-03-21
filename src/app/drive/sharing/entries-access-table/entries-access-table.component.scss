@@ -1,0 +1,43 @@
+@import "variables";
+@import "variables";
+
+entries-access-table {
+  display: block;
+  margin-top: 25px;
+
+  .users-list {
+    overflow-x: hidden;
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid mat-color($app-foreground, divider);
+    }
+
+    .display_name {
+      text-transform: capitalize;
+    }
+
+    .email {
+      color: mat-color($app-foreground, secondary-text);
+    }
+
+    .actions {
+      margin-left: auto;
+      padding-right: 5px;
+
+      button {
+        color: mat-color($app-foreground, icon);
+      }
+    }
+  }
+
+  .list-item-img {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    margin-right: 15px;
+    color: mat-color($app-foreground, icon);
+  }
+}

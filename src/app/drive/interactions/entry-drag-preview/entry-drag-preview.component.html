@@ -1,0 +1,7 @@
+<ng-container *ngIf="entries | async as selectedEntries">
+    <ng-container *ngIf="selectedEntries[0]">
+        <file-icon [type]="selectedEntries[0].type"></file-icon>
+        <div class="text">{{selectedEntries[0].name}}</div>
+        <div class="selected-entry-count" *ngIf="selectedEntries.length > 1">{{selectedEntries.length}}</div>
+    </ng-container>
+</ng-container>

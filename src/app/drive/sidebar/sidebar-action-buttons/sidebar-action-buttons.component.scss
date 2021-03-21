@@ -1,0 +1,18 @@
+sidebar-action-buttons {
+  display: block;
+  text-align: center;
+
+  .upload-button {
+    margin-right: 5px;
+    margin-bottom: 2px;
+
+    .mat-icon {
+      margin-right: 5px;
+    }
+  }
+
+  .new-folder-button {
+    max-width: 60px;
+    min-width: auto;
+  }
+}

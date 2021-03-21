@@ -1,0 +1,76 @@
+@import "variables";
+
+folders-tree {
+  display: none;
+  color: mat-color($app-foreground, text);
+  
+  &.expanded {
+    display: block;
+  }
+
+  &.has-root-node .mat-tree-node:not(.root-tree-node) {
+    padding-left: 16px;
+  }
+
+  .folder-icon {
+    margin-right: 5px;
+    color: mat-color($app-foreground, icon);
+    flex: 0 0 24px;
+  }
+
+  .mat-tree {
+    .folder-button {
+      display: flex;
+      align-items: center;
+      color: inherit;
+      width: 100%;
+      min-height: inherit;
+      line-height: inherit;
+    }
+
+    .folder-name {
+      padding-top: 2.5px;
+    }
+  }
+
+  .mat-tree-node {
+    padding-right: 24px;
+    white-space: nowrap;
+    color: inherit;
+    background-color: mat-color($app-background, background);
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    //set hover color only when not active and not dragging over it
+    &:not(.active):not(.drag-over) {
+      &:hover {
+        background-color: mat-color($app-background, hover);
+      }
+    }
+
+    &.active {
+      color: mat-color($app-accent, default);
+      background-color: mat-color($app-accent, emphasis);
+
+      .folder-icon {
+        color: inherit;
+      }
+
+      .text {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .root-tree-node {
+    padding-left: 12px;
+    cursor: pointer;
+
+    .mat-icon {
+      margin-right: 6px;
+    }
+  }
+}

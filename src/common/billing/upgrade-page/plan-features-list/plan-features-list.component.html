@@ -1,0 +1,14 @@
+<ul class="unstyled-list" *ngIf="getPlan()" [class.dense]="dense">
+    <ng-container *ngIf="getPlan().show_permissions">
+        <li *ngFor="let permission of getPlan().permissions">
+            <mat-icon class="check-icon" svgIcon="check" *ngIf="showCheckIcons"></mat-icon>
+            <span trans>{{permission.display_name || permission.name}}</span>
+        </li>
+    </ng-container>
+    <ng-container *ngIf="getPlan().features.length">
+        <li *ngFor="let feature of getPlan().features">
+            <mat-icon class="check-icon" svgIcon="check" *ngIf="showCheckIcons"></mat-icon>
+            <span>{{feature}}</span>
+        </li>
+    </ng-container>
+</ul>

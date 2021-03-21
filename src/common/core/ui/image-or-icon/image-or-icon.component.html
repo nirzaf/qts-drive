@@ -1,0 +1,5 @@
+<ng-container [ngSwitch]="type$ | async">
+    <img [src]="src" [alt]="alt" [ngClass]="className" *ngSwitchCase="'absolute'">
+    <img [src]="src" [alt]="alt" [ngClass]="className" *ngSwitchCase="'relative'">
+    <mat-icon [svgIcon]="src" *ngSwitchCase="'icon'" [ngClass]="className"></mat-icon>
+</ng-container>

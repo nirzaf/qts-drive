@@ -1,0 +1,15 @@
+@import "variables";
+
+entries-container {
+  display: block;
+  height: 100%;
+  outline: none;
+
+  .no-results-message {
+    margin-top: 40px;
+
+    .mat-icon {
+      margin-top: 15px;
+    }
+  }
+}

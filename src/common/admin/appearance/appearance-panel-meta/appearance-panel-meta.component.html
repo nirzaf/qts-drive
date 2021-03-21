@@ -1,0 +1,14 @@
+<div class="back-button" (click)="back.emit()">
+    <mat-icon svgIcon="keyboard-arrow-left"></mat-icon>
+</div>
+<div class="title">
+    <div class="static" trans>Customizing</div>
+    <div class="path">
+        <ng-container *ngFor="let item of path; last as isLast; first as isFirst;">
+            <span *ngIf="item">
+                <mat-icon svgIcon="keyboard-arrow-right" class="separator" *ngIf="!isFirst"></mat-icon>
+                <span class="name" [class.last]="isLast" trans>{{viewName(item)}}</span>
+            </span>
+        </ng-container>
+    </div>
+</div>

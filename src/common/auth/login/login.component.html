@@ -1,0 +1,54 @@
+<auth-page>
+    <form (ngSubmit)="login()" [formGroup]="form" *ngIf="errResponse$ | async as errors" ngNativeValidate>
+        <div class="header" [transValues]="{siteName: settings.get('branding.site_name')}" trans>
+            {{ route.snapshot.data.message || 'Sign in to your account' }}
+        </div>
+
+        <div class="many-inputs">
+            <div class="input-container">
+                <label for="login-email" trans>Email</label>
+                <input type="email" formControlName="email" id="login-email" required>
+                <p class="error big-error" *ngIf="errors.email">
+                    <mat-icon svgIcon="warning"></mat-icon>
+                    <span>{{errors.email}}</span>
+                </p>
+            </div>
+
+            <div class="input-container">
+                <div class="label-with-action">
+                    <label for="login-password" trans>Password</label>
+                    <a class="forgot-password" [routerLink]="['/forgot-password']" tabindex="-1" trans>Forgot your password?</a>
+                </div>
+                <input type="password" formControlName="password" id="login-password" required>
+                <p class="error big-error" *ngIf="errors.password">
+                    <mat-icon svgIcon="warning"></mat-icon>
+                    <span>{{errors.password}}</span>
+                </p>
+            </div>
+        </div>
+
+        <mat-checkbox name="remember-me" class="remember-me" color="accent" formControlName="remember" trans>Stay signed in for a month</mat-checkbox>
+
+        <button mat-raised-button class="primary-button" color="accent" type="submit" [disabled]="loading$ | async" trans>Continue</button>
+
+        <ng-container *ngIf="!settings.get('registration.disable')">
+            <button type="button" class="no-style alternative-signin-method" (click)="socialAuth.loginWith('envato')" *ngIf="settings.get('social.envato.enable'); else defaultSocialAuth">
+                <mat-icon svgIcon="envato-custom"></mat-icon>
+                <span trans>Sign in with Envato instead</span>
+            </button>
+            <ng-template #defaultSocialAuth>
+                <div class="social-icons center">
+                    <button type="button" mat-icon-button (click)="socialAuth.loginWith('facebook')" *ngIf="settings.get('social.facebook.enable')" class="social-icon no-style facebook" [matTooltip]="'Login with facebook' | trans">
+                        <mat-icon svgIcon="facebook"></mat-icon>
+                    </button>
+                    <button type="button" mat-icon-button (click)="socialAuth.loginWith('google')" *ngIf="settings.get('social.google.enable')" class="social-icon no-style google" [matTooltip]="'Login with google' | trans">
+                        <mat-icon svgIcon="google"></mat-icon>
+                    </button>
+                    <button type="button" mat-icon-button (click)="socialAuth.loginWith('twitter')" *ngIf="settings.get('social.twitter.enable')" class="social-icon no-style twitter" [matTooltip]="'Login with twitter' | trans">
+                        <mat-icon svgIcon="twitter"></mat-icon>
+                    </button>
+                </div>
+            </ng-template>
+        </ng-container>
+    </form>
+</auth-page>

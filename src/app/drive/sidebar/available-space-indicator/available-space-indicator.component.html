@@ -1,0 +1,13 @@
+<mat-progress-bar mode="determinate" color="accent" [value]="spaceUsedPercent$ | async"></mat-progress-bar>
+
+<div class="usage-info" *ngIf="(spaceUsed$ | async) !== null; else skeleton" @fadeIn>
+    {{spaceUsed$ | async | formattedFileSize}} {{'of' | trans}} {{spaceAvailable$ | async | formattedFileSize }} {{'used' | trans}}
+</div>
+<ng-template #skeleton>
+    <skeleton class="usage-info" @fadeOut></skeleton>
+</ng-template>
+
+
+<div *ngIf="settings.get('billing.enable') && (!(workspaces.activeId$ | async) || (workspaces.activeWorkspace$ | async)?.currentUser?.is_owner)">
+    <a class="upgrade-link" mat-button routerLink="/billing/upgrade" target="_blank" trans>Upgrade Storage</a>
+</div>

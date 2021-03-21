@@ -1,0 +1,35 @@
+<div class="subscription-period-step step-container" *ngIf="state.initialPlan$ | async as initialPlan">
+    <div class="left-col">
+        <div class="title" trans>Select the duration of your plan. Longer plans offer better discounts!</div>
+        <mat-radio-group class="periods" [(ngModel)]="state.radioGroupModel" (change)="state.selectPlanById(state.radioGroupModel)">
+            <div class="radio-button-wrapper no-label">
+                <mat-radio-button [value]="initialPlan.id" class="period" color="accent">
+                    <div class="radio-button-content">
+                        <div class="name">1 {{initialPlan.interval | trans}} {{ 'subscription' | trans }}:</div>
+                        <div class="price">{{initialPlan.amount | currency:initialPlan.currency}}/{{initialPlan.interval | trans}}</div>
+                    </div>
+                </mat-radio-button>
+            </div>
+            <div class="radio-button-wrapper" *ngFor="let plan of state.getChildPlans(initialPlan)">
+                <ng-container *ngIf="state.selectedPlan$ | async as selectedPlan">
+                    <div class="savings-label">{{'Save' | trans}} {{getPlanSavings(selectedPlan.parent || selectedPlan, plan)}}%</div>
+                </ng-container>
+                <mat-radio-button [value]="plan.id" class="period" color="accent">
+                    <div class="radio-button-content">
+                        <div class="name">{{plan.name | trans}}:</div>
+                        <div class="price">{{getAmountForSingleInterval(plan) | currency:plan.currency}}/{{(plan.interval || initialPlan.interval) | trans}}</div>
+                    </div>
+                </mat-radio-button>
+            </div>
+        </mat-radio-group>
+
+        <div class="actions">
+            <button mat-button matStepperPrevious trans>Back</button>
+            <button mat-raised-button color="accent" (click)="selected.emit()">
+                {{ (state.mode === 'changePlan' ? 'Change Plan' : 'Select') | trans }}
+            </button>
+        </div>
+    </div>
+
+    <upgrade-page-aside *ngIf="showSidebar" [plan]="state.selectedPlan$ | async" class="right-col"></upgrade-page-aside>
+</div>

@@ -1,0 +1,20 @@
+@import "variables";
+
+.setting-toggle-container {
+  margin-bottom: 30px;
+
+  &.margin-top {
+    margin-top: 30px;
+  }
+
+  &.margin-bottom {
+    margin-bottom: 30px;
+  }
+
+  p {
+    color: mat-color($app-foreground, secondary-text);
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin-top: 5px;
+  }
+}

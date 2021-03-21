@@ -1,0 +1,27 @@
+@import "variables";
+
+:host {
+  display: block;
+  margin: 25px 0 35px;
+}
+
+.header {
+  display: flex;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid mat-color($app-foreground, divider);
+  align-items: flex-end;
+}
+
+.title {
+  font-weight: 500;
+}
+
+button {
+  margin-left: auto;
+}
+
+.error {
+  margin-top: 10px;
+  color: mat-color($app-warn);
+}

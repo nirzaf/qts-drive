@@ -1,0 +1,77 @@
+@import "variables";
+
+:host {
+  display: block;
+  background-color: mat-color($app-background, background);
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  padding: 0;
+  margin-top: 30px;
+  position: relative;
+  background-color: mat-color($app-background, dialog);
+}
+
+.main-section {
+  padding: 15px;
+  max-width: 650px;
+  border: 1px solid mat-color($app-foreground, divider);
+  border-radius: 3px;
+
+  &:not(:last-of-type) {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+  }
+
+  .main-section-title {
+    font-size: 3rem;
+    font-weight: 300;
+  }
+
+  .main-title-description {
+    margin-bottom: 30px;
+  }
+
+  .main-section-content {
+
+  }
+}
+
+.main {
+  padding: 30px;
+}
+
+upgrade-page-aside {
+  padding: 30px;
+}
+
+.check-icon {
+  color: mat-color($app-accent);
+}
+
+.card-preview {
+  display: flex;
+  max-width: 220px;
+  align-items: center;
+  background-color: mat-color($app-background, background);
+  border: 1px solid mat-color($app-foreground, divider);
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 25px;
+
+  .icon {
+    margin-right: 15px;
+  }
+}
+
+@media only screen and (max-width: $medium) {
+  .content {
+    margin-top: 0;
+  }
+
+  upgrade-page-aside {
+    display: none;
+  }
+}

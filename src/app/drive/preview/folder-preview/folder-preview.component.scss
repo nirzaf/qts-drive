@@ -1,0 +1,119 @@
+@import "variables";
+
+folder-preview {
+  display: block;
+  max-height: 100vh;
+  overflow: auto;
+
+  .files-container {
+    max-width: $xlarge;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 20px;
+  }
+
+  .folder-preview-vert-host {
+    margin: 30px 0;
+  }
+
+  material-navbar:not(.transparent) {
+    background-color: mat-color($app-accent, default);
+
+    .mat-raised-button.mat-accent {
+      background-color: #fff;
+      color: mat-color($app-foreground, text);
+    }
+  }
+
+  .toolbar {
+    display: flex;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid mat-color($app-foreground, divider);
+    color: mat-color($app-foreground, text);
+
+    @media only screen and (max-width: $medium) {
+      display: block;
+
+      .breadcrumb {
+        margin-bottom: 10px;
+      }
+    }
+
+    .action-icon {
+      color: mat-color($app-foreground, icon);
+    }
+
+    .breadcrumb {
+      flex: 1 1 auto;
+    }
+
+    .actions {
+      margin-left: auto;
+    }
+
+    .action-separator {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: mat-color($app-foreground, divider);
+      width: 1px;
+      height: 40px;
+      margin: 0 12px;
+    }
+  }
+
+  .drive-entry {
+    cursor: pointer;
+    transition-property: all;
+
+    &:hover {
+      @include mat-elevation(3);
+    }
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+
+    .breadcrumb-item {
+      font-size: 1.8rem;
+      color: mat-color($app-foreground, text);
+      border-radius: 4px;
+      padding: 4px 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+
+      &:hover {
+        background-color: mat-color($app-background, hover);
+      }
+
+      &:first-of-type {
+        text-transform: capitalize;
+      }
+
+      .mat-icon {
+        vertical-align: middle;
+        color: mat-color($app-foreground, secondary-text);
+        margin-left: -5px;
+      }
+    }
+
+    .separator {
+      color: mat-color($app-foreground, secondary-text);
+    }
+  }
+
+  no-results-message {
+    margin-top: 40px;
+  }
+
+  @media only screen and (max-width: 450px) {
+    entries-sort-button .label {
+      display: none;
+    }
+  }
+}

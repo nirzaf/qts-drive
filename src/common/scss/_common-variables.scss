@@ -1,0 +1,47 @@
+@import "material-colors";
+
+//media queries
+$xsmall: 319.99px !default;
+$small: 599.99px !default;
+$medium: 768px !default;
+$large: 1024px !default;
+$xlarge: 1280px !default;
+$navbar-breakpoint: 1000px !default;
+
+// fonts
+$font-family: Roboto,'Helvetica Neue',sans-serif !default;
+
+// loading indicator
+$loading-indicator-color: mat-color($app-accent, default) !default;
+$loading-indicator-width: 64px !default;
+$loading-indicator-height: 64px !default;
+
+// modals
+$modal-default-width: 400px !default;
+$modal-wide-width: 500px !default;
+
+// inputs
+$input-height: 46px !default;
+$input-padding: 12px !default;
+
+// Social services colors
+$envato-color: #82B541 !default;
+$facebook-color: #3b5998 !default;
+$twitter-color: #1da1f2 !default;
+$google-color: #d34836 !default;
+$social-icon-link-color: #1e88e5 !default;
+$social-icon-mail-color: #D54B3D !default;
+
+// Admin
+$admin-page-padding: 25px;
+$admin-card-border: 1px solid mat-color($app-foreground, divider);
+$admin-card-box-shadow: none;
+
+// Navbar
+$material-navbar-height: 70px;
+
+// Pagination
+$pagination-controls-height: 40px;
+
+// Text Editor
+$text-editor-header-height: 37px;

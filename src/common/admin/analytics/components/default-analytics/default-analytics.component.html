@@ -1,0 +1,52 @@
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+<analytics-header [data]="headerData"></analytics-header>
+
+<div class="content">
+    <div class="chart-row">
+        <div class="chart-wrapper">
+            <chart [chartConfig]="charts?.weeklyPageViews" [height]="chartHeight">
+                <div class="chart-header">
+                    <div class="title" trans>This Week vs Last Week</div>
+                    <div class="subtitle" trans>By page views</div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item" trans>This week</div>
+                    <div class="legend-item" trans>Last week</div>
+                </div>
+            </chart>
+        </div>
+
+        <div class="chart-wrapper pie-wrapper">
+            <chart [chartConfig]="charts?.browsers" [height]="380">
+                <div class="chart-header">
+                    <div class="title" trans>Top Browsers</div>
+                    <div class="subtitle" trans>By sessions</div>
+                </div>
+            </chart>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-wrapper">
+            <chart [chartConfig]="charts?.monthlyPageViews" [height]="chartHeight">
+                <div class="chart-header">
+                    <div class="title" trans>This Month vs Last Month</div>
+                    <div class="subtitle" trans>By page views</div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item" trans>This month</div>
+                    <div class="legend-item" trans>Last month</div>
+                </div>
+            </chart>
+        </div>
+
+        <div class="chart-wrapper pie-wrapper">
+            <chart [chartConfig]="charts?.countries" [height]="380">
+                <div class="chart-header">
+                    <div class="title" trans>Top Countries</div>
+                    <div class="subtitle" trans>By sessions</div>
+                </div>
+            </chart>
+        </div>
+    </div>
+</div>

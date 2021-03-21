@@ -1,0 +1,56 @@
+@import "variables";
+
+:host {
+  display: flex;
+  margin-bottom: $admin-page-padding;
+  min-height: 110px;
+
+  @media only screen and (max-width: $medium) {
+    display: none;
+  }
+}
+
+.stat {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-right: 25px;
+  border-radius: 4px;
+  height: 110px;
+  align-items: center;
+  color: mat-color($app-foreground, text);
+  background-color: mat-color($app-background, dialog);
+  box-shadow: $admin-card-box-shadow;
+  border: $admin-card-border;
+  padding: 0 15px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.details {
+  margin-left: 10px;
+
+  .count {
+    font-size: 2.3rem;
+    font-family: "Montserrat", sans-serif;
+    color: mat-color($app-foreground, text);
+  }
+
+  .name {
+    font-size: 1.4rem;
+    color: mat-color($app-foreground, secondary-text);
+
+    .capitalize {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.mat-icon {
+  color: mat-color($app-accent);
+  opacity: 0.8;
+  width: 60px;
+  height: 60px;
+}

@@ -1,0 +1,22 @@
+@import "variables";
+
+:host {
+  display: block;
+  width: 800px;
+  max-width: 100%;
+}
+
+.modal-header {
+  margin: 0 0 15px;
+}
+
+.editor {
+  min-height: 550px;
+  border: 1px solid mat-color($app-foreground, divider);
+  font-size: 1.4rem;
+}
+
+.info {
+  color: mat-color($app-foreground, secondary-text);
+}
+

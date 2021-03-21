@@ -1,0 +1,69 @@
+<div class="hero header-overlay" [style.background]="overlayBackground">
+    <div class="background-image" [style.background-image]="'url('+ content.headerImage +')'" [style.opacity]="content.headerImageOpacity"></div>
+    <div class="hero-content">
+        <material-navbar [transparent]="true" class="login-button-white" menuPosition="homepage-navbar"></material-navbar>
+        <div class="content">
+            <div class="title">{{content.headerTitle}}</div>
+            <div class="subtitle">{{content.headerSubtitle}}</div>
+            <div class="action-buttons">
+                <a mat-raised-button color="accent" class="cta-button" routerLink="/register" *ngIf="content.actions?.cta1">{{content.actions.cta1}}</a>
+                <a mat-button class="pricing-button" routerLink="/billing/pricing" *ngIf="content.actions?.cta2">{{content.actions.cta2}}</a>
+            </div>
+        </div>
+    </div>
+    <button mat-icon-button class="down-button" (click)="scrollToFeatures()">
+        <mat-icon svgIcon="keyboard-arrow-down"></mat-icon>
+    </button>
+</div>
+
+<ng-container *ngIf="content.primaryFeatures.length">
+    <div class="be-container">
+        <ad-host slot="ads.landing.top"></ad-host>
+        <ul class="inline-features">
+            <li class="inline-feature" *ngFor="let primaryFeature of content.primaryFeatures">
+                <img [src]="primaryFeature.image">
+                <h3>{{primaryFeature.title}}</h3>
+                <p>{{primaryFeature.subtitle}}</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="spacer"></div>
+</ng-container>
+
+<ul class="big-features">
+    <ng-container *ngFor="let secondaryFeature of content.secondaryFeatures; first as first; last as last; even as even">
+        <li class="big-feature be-container"  [class.first-secondary-feature]="first" [class.reverse]="even">
+            <img [src]="secondaryFeature.image + '?v2'">
+            <section class="info">
+                <small>{{secondaryFeature.subtitle}}</small>
+                <h2>{{secondaryFeature.title}}</h2>
+                <div class="feature-border"></div>
+                <p>{{secondaryFeature.description}}</p>
+            </section>
+        </li>
+
+        <div class="spacer" *ngIf="!last"></div>
+    </ng-container>
+</ul>
+
+<div class="spacer"></div>
+
+<div class="bottom-cta" [style.background-image]="'url('+ content.footerImage +')'">
+    <div class="be-container">
+        <h2 class="footer-title">{{content.footerTitle}}</h2>
+        <p class="footer-description">{{content.footerSubtitle}}</p>
+        <a mat-stroked-button routerLink="/login" *ngIf="content.actions?.cta3">{{content.actions.cta3}}</a>
+    </div>
+</div>
+
+<footer>
+    <div class="be-container">
+        <div class="meta">
+            <span>{{copyrightText()}}, </span>
+            <a [routerLink]="'/'">{{settings.get('branding.site_name')}}</a>
+        </div>
+        <custom-menu position="footer" [horizontal]="true"></custom-menu>
+    </div>
+</footer>
+

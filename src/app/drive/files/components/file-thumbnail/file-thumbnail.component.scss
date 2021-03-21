@@ -1,0 +1,15 @@
+@import "variables";
+
+.be-light-mode file-thumbnail {
+  background-color: mat-color($app-background, background);
+}
+
+file-thumbnail {
+  display: block;
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}

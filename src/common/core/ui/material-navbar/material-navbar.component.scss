@@ -1,0 +1,212 @@
+@import "variables";
+
+material-navbar {
+  display: block;
+  color: mat-color($app-primary, default-contrast);
+  position: relative;
+  z-index: 2;
+  height: $material-navbar-height;
+  width: 100%; // in case position:fixed is set
+
+  &:not(.transparent) {
+    &.primary {
+      background-color: mat-color($app-primary, default);
+
+      .nav-searchbar input {
+        background-color: mat-color($app-primary, lighter);
+      }
+    }
+
+    &.accent {
+      background-color: mat-color($app-accent, default);
+
+      .nav-searchbar input {
+        background-color: mat-color($app-accent, emphasis);
+      }
+    }
+  }
+
+  &.box-shadow {
+    @include mat-elevation(2);
+  }
+
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55%;
+    width: auto;
+    overflow: hidden;
+  }
+
+  .img-logo-container {
+    flex-shrink: 0;
+  }
+
+  .logo {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    min-width: 120px;
+  }
+
+  .text-logo {
+    font-size: 2.2rem;
+    color: mat-color($app-primary, default-contrast);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .toggle-sidebar-button {
+    display: block;
+    margin: 0 10px;
+  }
+
+  custom-menu {
+    display: block;
+    margin-left: 15px;
+    flex-shrink: 0;
+  }
+
+  .mobile-search-toggle {
+    position: relative;
+    z-index: 3;
+    margin-right: 10px;
+  }
+
+  &.primary .nav-searchbar, &.accent .nav-searchbar {
+    height: 65%;
+    max-height: 48px;
+    max-width: 650px;
+
+    // separate logo and search bar
+    margin-left: 30px;
+
+    // needed to separate search bar and user avatar
+    // on small screens, if there's no menu items
+    margin-right: 30px;
+
+    input, form {
+      height: 100%;
+    }
+
+    input {
+      transition: background-color, color 0.1s ease-in-out;
+      outline: none;
+      border: none;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      &[aria-expanded=true] {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom: 1px solid mat-color($app-foreground, divider-lighter);
+      }
+
+      &.always-white {
+        background-color: mat-color($app-background, dialog);
+        color: mat-color($app-foreground, secondary-text);
+
+        &::placeholder {
+          color: mat-color($app-foreground, secondary-text);
+        }
+      }
+
+      &:active, &:focus {
+        background-color: mat-color($app-background, dialog);
+        color: mat-color($app-foreground, text);
+
+        &::placeholder {
+          color: mat-color($app-foreground, text);
+        }
+
+        & + .mat-icon-button {
+          color: mat-color($app-foreground, text);
+        }
+      }
+    }
+  }
+
+  &.mobile-search-active {
+    .nav-searchbar {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      max-height: 100%;
+      max-width: 100%;
+      z-index: 2;
+
+      .mat-icon {
+        display: none;
+      }
+
+      input {
+        border-radius: 0;
+        background-color: mat-color($app-background, dialog);
+        color: mat-color($app-foreground, text);
+      }
+    }
+
+    .mobile-search-toggle {
+      color: mat-color($app-foreground, text);
+      left: 35px;
+    }
+
+    .search-button {
+      display: none;
+    }
+  }
+
+  .push-right {
+    margin-left: auto;
+  }
+
+  .notification-button {
+    margin: 0 18px;
+  }
+
+  .right-side-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+  }
+
+  &:not(.login-button-accent) .login-btn {
+    background: #fff;
+    color: rgba(0,0,0,0.87);
+  }
+
+  @media only screen and (max-width: $navbar-breakpoint) {
+    .nav-searchbar {
+      display: none;
+    }
+
+    .custom-menu {
+      display: none;
+    }
+  }
+}
+
+.be-dark-mode material-navbar.primary:not(.mobile-search-active) .nav-searchbar input {
+  border: 1px solid mat-color($app-foreground, divider);
+  background-color: transparent;
+}
+

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" version="1.1">
+    <g id="surface1">
+        <path style=" fill:#98CCFD;" d="M 20 32.003906 L 8.300781 38.113281 L 10.492188 25.097656 L 1.066406 15.855469 L 14.125 13.921875 L 20 2.101563 L 25.875 13.921875 L 38.933594 15.855469 L 29.507813 25.097656 L 31.699219 38.113281 Z "></path>
+        <path style=" fill:#4788C7;" d="M 20 3.226563 L 25.3125 13.910156 L 25.542969 14.378906 L 26.058594 14.453125 L 37.863281 16.203125 L 29.339844 24.558594 L 28.96875 24.921875 L 29.054688 25.4375 L 31.039063 37.203125 L 20.460938 31.679688 L 20 31.441406 L 19.535156 31.683594 L 8.960938 37.203125 L 10.945313 25.4375 L 11.03125 24.921875 L 10.65625 24.558594 L 2.136719 16.203125 L 13.941406 14.457031 L 14.457031 14.378906 L 14.6875 13.910156 L 20 3.226563 M 20 0.980469 L 13.792969 13.464844 L 0 15.511719 L 9.957031 25.269531 L 7.640625 39.019531 L 20 32.566406 L 32.359375 39.019531 L 30.042969 25.269531 L 40 15.511719 L 26.207031 13.464844 Z "></path>
+        <path style="fill:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke:#FFFFFF;stroke-opacity:1;stroke-miterlimit:10;" d="M 14 22 L 26 22 "></path>
+        <path style="fill:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke:#FFFFFF;stroke-opacity:1;stroke-miterlimit:10;" d="M 20 16 L 20 28 "></path>
+    </g>
+</svg>

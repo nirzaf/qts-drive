@@ -1,0 +1,21 @@
+@import "variables";
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+h1 {
+  margin: 0 0 25px;
+  color: mat-color($app-foreground, secondary-text);
+  font-weight: 300;
+  font-size: 3rem;
+}
+
+.container {
+  margin-top: 30px;
+}
+
+no-results-message {
+  padding: 25px 0;
+}

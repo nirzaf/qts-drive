@@ -1,0 +1,174 @@
+@import '~@angular/material/theming';
+
+$app-mat-light-theme-foreground: () !default;
+$app-mat-light-theme-background: () !default;
+
+$app-primary: (
+        primary: true,
+        100: var(--be-primary-lighter),
+        500: var(--be-primary-default),
+        700: var(--be-primary-darker),
+        contrast: (
+                100: rgba(black, 0.87),
+                500: var(--be-accent-contrast),
+                700: var(--be-accent-contrast),
+        )
+);
+
+$app-accent: (
+        accent: true,
+        100: var(--be-accent-lighter),
+        500: var(--be-accent-default),
+        emphasis: var(--be-accent-emphasis),
+        contrast: (
+                100: rgba(black, 0.87),
+                500: var(--be-accent-contrast),
+                700: var(--be-accent-contrast),
+        )
+);
+
+$mat-light-theme-foreground: map-merge(
+  $app-mat-light-theme-foreground,
+  (
+    foreground: foreground,
+    base: var(--be-foreground-base),
+    divider-lighter: var(--be-divider-lighter),
+    divider: var(--be-divider-default),
+    dividers: var(--be-divider-default),
+    disabled: var(--be-hint-text),
+    disabled-button: var(--be-disabled-button-text),
+    disabled-text: var(--be-hint-text),
+    elevation: black,
+    hint-text: var(--be-hint-text),
+    secondary-text: var(--be-secondary-text),
+    label: var(--be-label), // custom
+    icon: var(--be-secondary-text),
+    icons: var(--be-secondary-text),
+    text: var(--be-text),
+    link: var(--be-link), // custom
+    slider-min: var(--be-text),
+    slider-off: var(--be-disabled-button-text),
+    slider-off-active: var(--be-hint-text),
+    tooltip: map_get($mat-grey, 700),
+  )
+);
+$app-foreground: $mat-light-theme-foreground;
+
+$mat-light-theme-background: map-merge(
+  $app-mat-light-theme-background,
+  (
+    background: var(--be-background-alternative),
+    hover: var(--be-hover),
+    backdrop: var(--be-backdrop),
+    card: var(--be-background),
+    dialog: var(--be-background),
+    disabled-button: var(--be-disabled-button),
+    raised-button: var(--be-raised-button),
+    focused-button: var(--be-disabled-button),
+    selected-button: var(--be-selected-button),
+    selected-disabled-button: map_get($mat-grey, 400), // fixed via dark-mode-adjustments
+    disabled-button-toggle: var(--be-disabled-toggle),
+    unselected-chip: var(--be-chip),
+    disabled-list-option: var(--be-disabled-toggle),
+    tooltip: map_get($mat-grey, 700),
+  )
+);
+$app-background: $mat-light-theme-background;
+
+$app-warn: mat-palette($mat-red);
+$app-success: mat-palette($mat-green, 600);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$app-primary: mat-palette($app-primary, 500, 100, 700);
+$app-accent: mat-palette($app-accent, 500, 100, 700);
+
+@function mat-color($palette, $hue: default, $opacity: null) {
+  @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
+    @return mat-color($palette, default, $hue);
+  }
+
+  $color: map-get($palette, $hue);
+
+  // fix mat sidenav backdrop color
+  @if ($hue == card and $opacity == 0.6) {
+    @return mat-color($mat-light-theme-background, backdrop);
+  }
+
+  // fix slide toggle bar background
+  @if ($hue == default and $opacity == 0.54) {
+    @if (map_has_key($palette, accent)) {
+      @return mat-color($app-accent, lighter);
+    } @else {
+      @return mat-color($app-primary, lighter);
+    }
+  }
+
+  // fix tab label keyboard focus background
+  @if(($hue == lighter and $opacity == 0.3)) {
+    @if (map_has_key($palette, accent)) {
+      @return mat-color($app-accent, emphasis);
+    } @else {
+      @return mat-color($app-primary, emphasis);
+    }
+  }
+
+  // fix mat slider focus ring
+  @if($hue == default and $opacity == 0.2) {
+    @if (map_has_key($palette, accent)) {
+      @return mat-color($app-accent, emphasis);
+    } @else {
+      @return mat-color($app-primary, emphasis);
+    }
+  }
+
+  // fix slider focus ring when thumb is at 0 (min value)
+  @if(map_has_key($palette, foreground) and $hue == base and $opacity) {
+    // slider tick
+    @if($opacity == 0.7) {
+      @return mat-color($app-foreground, secondary-text);
+      // slider focus ring at 0
+    } @else {
+      @return mat-color($app-foreground, divider);
+    }
+  }
+
+  // ignore opacity changes to mat form controls as they
+  // they are mostly not used and look good enough anyway
+  @if(map_has_key($palette, foreground) and ($hue == secondary-text or $hue == base or $hue == divider) and $opacity) {
+    @return $color;
+  }
+
+  // fix colored tab ripple color
+  @if ($hue == default-contrast and $opacity == 0.12) {
+    @return mat-color($app-foreground, divider);
+  }
+
+  // fix material select, selected option background
+  @if ($hue == hover and $opacity == 0.12) {
+    @return mat-color($app-foreground, divider);
+  }
+
+  // fix toggle button focus overlay
+  @if ($hue == focused-button and $opacity == 1) {
+    @return mat-color($app-foreground, base);
+  }
+
+  // ignore disabled label and pagination for tabs, looks good enough
+  @if($hue == default-contrast and $opacity) {
+    @return $color;
+  }
+
+  // error on unhandled material opacity case,
+  // if material changes with future updates
+  @if ($opacity and type_of($color) != color) {
+    @error($color, $hue, $opacity);
+  }
+
+  @if (type-of($color) != color) {
+    @return $color;
+  }
+
+  @return rgba($color, if($opacity == null, opacity($color), $opacity));
+}

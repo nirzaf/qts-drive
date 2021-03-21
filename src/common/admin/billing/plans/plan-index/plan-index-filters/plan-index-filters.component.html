@@ -1,0 +1,41 @@
+<div [formGroup]="form" class="many-inputs">
+    <div class="input-container">
+        <label for="plan-currency-filter" trans>Currency</label>
+        <select id="plan-currency-filter" formControlName="currency">
+            <option [ngValue]="null" trans>Any</option>
+            <option value="USD" trans>USD</option>
+            <option value="EUR" trans>Eur</option>
+            <option value="GBP" trans>Pound Sterling</option>
+            <option value="CAD" trans>Canadian Dollar</option>
+        </select>
+    </div>
+
+    <div class="input-container">
+        <label for="link-interval-filter" trans>Interval</label>
+        <select id="link-interval-filter" formControlName="interval">
+            <option [ngValue]="null" trans>Any</option>
+            <option value="day" trans>Day</option>
+            <option value="week" trans>Week</option>
+            <option value="month" trans>Month</option>
+            <option value="year" trans>Year</option>
+        </select>
+    </div>
+
+    <div class="input-container">
+        <label for="plan-type-filter" trans>Type</label>
+        <select id="plan-type-filter" formControlName="parent_id">
+            <option [ngValue]="null" trans>Any</option>
+            <option [ngValue]="true" trans>Child</option>
+            <option [ngValue]="false" trans>Parent</option>
+        </select>
+    </div>
+
+    <div class="input-container">
+        <label for="plan-recommended-filter" trans>Recommended</label>
+        <select id="plan-recommended-filter" formControlName="recommended">
+            <option [ngValue]="null" trans>Any</option>
+            <option [ngValue]="true" trans>Yes</option>
+            <option [ngValue]="false" trans>No</option>
+        </select>
+    </div>
+</div>

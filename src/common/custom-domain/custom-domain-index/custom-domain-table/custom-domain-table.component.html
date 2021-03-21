@@ -1,0 +1,29 @@
+<table class="material-table">
+    <thead>
+    <tr>
+        <th table-header-checkbox></th>
+        <th table-sort-header trans>Host</th>
+        <th *ngIf="showOwnerColumn" table-sort-header="user_id" trans>Owner</th>
+        <th *ngIf="showGlobalColumn" table-sort-header trans>Global</th>
+        <th table-sort-header="updated_at" trans>Last Updated</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let domain of domains">
+        <td [table-body-checkbox]="domain.id"></td>
+        <td data-label="Host">
+            <img class="favicon-img" [src]="domain.host | favicon" alt="">
+            <span>{{domain.host}}</span>
+        </td>
+        <td data-label="Owner" *ngIf="showOwnerColumn">
+            <user-column [user]="domain.user"></user-column>
+        </td>
+        <td data-label="Global" *ngIf="showGlobalColumn">{{domain.global ? 'Yes' : 'No'}}</td>
+        <td data-label="Updated At">{{domain.updated_at | formattedDate}}</td>
+        <td class="edit-column">
+            <ng-container *ngTemplateOutlet="editButtonTemplate; context: {domain: domain}"></ng-container>
+        </td>
+    </tr>
+    </tbody>
+</table>

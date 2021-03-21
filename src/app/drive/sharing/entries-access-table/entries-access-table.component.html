@@ -1,0 +1,29 @@
+<div class="header" trans>Who has access</div>
+<div class="users-list">
+    <div class="list-item" *ngIf="activeWorkspace$ | async as workspace">
+        <mat-icon svgIcon="groups" class="list-item-img"></mat-icon>
+        <div class="text">
+            <div class="display_name" [transValues]="{workspace: workspace.name}" trans>Everyone at ":workspace" workspace</div>
+            <div class="email">{{workspace.members_count}} {{ 'members' | trans }}</div>
+        </div>
+    </div>
+    <div class="list-item" *ngFor="let user of users | async; trackBy: trackByUser" [class.removed]="user.removed" [@flyInOut]="'in'">
+        <img [src]="user.avatar" class="list-item-img" alt="">
+        <div class="text">
+            <div class="display_name">{{user.display_name}}</div>
+            <div class="email">{{user.email}}</div>
+        </div>
+        <div class="actions">
+            <span class="owner-label" *ngIf="user.owns_entry || (currentUser.getModel().id === user.id); else permissionSelector" trans>
+                {{ user.owns_entry ? 'Owner' : 'You' }}
+            </span>
+
+            <ng-template #permissionSelector>
+                <sharing-permissions-button [permissions]="user.entry_permissions" [user]="user"></sharing-permissions-button>
+                <button mat-icon-button [disabled]="(loadingUsers$ | async).includes(user.id)" (click)="removeUser(user)">
+                    <mat-icon svgIcon="close"></mat-icon>
+                </button>
+            </ng-template>
+        </div>
+    </div>
+</div>

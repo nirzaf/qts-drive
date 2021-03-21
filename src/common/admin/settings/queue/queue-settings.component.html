@@ -1,0 +1,62 @@
+<div class="header">
+    <div class="title" trans>Queue</div>
+    <div class="subtitle" trans>Select active queue method and enter related 3rd party API keys.</div>
+</div>
+
+<form class="body many-inputs" (submit)="saveSettings()" ngNativeValidate *ngIf="errors$ | async as errors">
+    <div class="widget widget-info">
+        <div class="title" trans>Information</div>
+        <p trans>Queues allow to defer time consuming tasks, such as sending an email, until a later time. Deferring these tasks can speed up web requests to the application.</p>
+    </div>
+
+    <div class="widget widget-info widget-important">
+        <div class="title" trans>Important</div>
+        <p trans>All methods except sync require additional setup, which should be performed before changing the queue method. Consult documentation for more information.</p>
+    </div>
+
+    <div class="error-group many-inputs no-spacing" id="queue-group" [class.has-error]="errors.queue_group">
+        <div class="input-container">
+            <label for="queue.driver" trans>Queue Method</label>
+            <select name="queue.driver" id="queue.driver" [(ngModel)]="state.server['queue_driver']" (ngModelChange)="clearErrors()">
+                <option value="sync" trans>Sync (Default)</option>
+                <option value="beanstalkd">Beanstalkd</option>
+                <option value="database">Database</option>
+                <option value="sqs" trans>SQS (Amazon simple queue service)</option>
+                <option value="redis">Redis</option>
+            </select>
+        </div>
+
+        <!-- SQS -->
+        <ng-container *ngIf="state.server['queue_driver'] === 'sqs'">
+            <div class="input-container">
+                <label for="sqs_queue_key" trans>SQS Queue Key</label>
+                <input name="sqs_queue_key" id="sqs_queue_key" [(ngModel)]="state.server['sqs_queue_key']" required>
+            </div>
+
+            <div class="input-container">
+                <label for="sqs_queue_secret" trans>SQS Queue Secret</label>
+                <input name="sqs_queue_secret" id="sqs_queue_secret" [(ngModel)]="state.server['sqs_queue_secret']" required>
+            </div>
+
+            <div class="input-container">
+                <label for="sqs_queue_prefix" trans>SQS Queue Prefix</label>
+                <input name="sqs_queue_prefix" id="sqs_queue_prefix" [(ngModel)]="state.server['sqs_queue_prefix']">
+            </div>
+
+            <div class="input-container">
+                <label for="sqs_queue_name" trans>SQS Queue Name</label>
+                <input name="sqs_queue_name" id="sqs_queue_name" [(ngModel)]="state.server['sqs_queue_name']" required>
+            </div>
+
+            <div class="input-container">
+                <label for="sqs_queue_region" trans>SQS Queue Region</label>
+                <input name="sqs_queue_region" id="sqs_queue_region" [(ngModel)]="state.server['sqs_queue_region']" required>
+            </div>
+        </ng-container>
+
+        <p class="error" *ngIf="errors.queue_group" [innerHTML]="errors.queue_group"></p>
+    </div>
+
+    <button mat-raised-button color="accent" class="button primary update-button" [disabled]="loading$ | async" type="submit" trans>Update</button>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+</form>
